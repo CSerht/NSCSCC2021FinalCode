@@ -1,11 +1,11 @@
 `timescale 1ns / 1ps
 module cpld_model(
-    input  wire clk_uart,         //å†…éƒ¨ä¸²å£æ—¶é’Ÿ
-    input  wire uart_rdn,         //è¯»ä¸²å£ä¿¡å·ï¼Œä½æœ‰æ•ˆ
-    input  wire uart_wrn,         //å†™ä¸²å£ä¿¡å·ï¼Œä½æœ‰æ•ˆ
-    output reg uart_dataready,    //ä¸²å£æ•°æ®å‡†å¤‡å¥½
-    output reg uart_tbre,         //å‘é€æ•°æ®æ ‡å¿—
-    output reg uart_tsre,         //æ•°æ®å‘é€å®Œæ¯•æ ‡å¿—
+    input  wire clk_uart,         //ÄÚ²¿´®¿ÚÊ±ÖÓ
+    input  wire uart_rdn,         //¶Á´®¿ÚĞÅºÅ£¬µÍÓĞĞ§
+    input  wire uart_wrn,         //Ğ´´®¿ÚĞÅºÅ£¬µÍÓĞĞ§
+    output reg uart_dataready,    //´®¿ÚÊı¾İ×¼±¸ºÃ
+    output reg uart_tbre,         //·¢ËÍÊı¾İ±êÖ¾
+    output reg uart_tsre,         //Êı¾İ·¢ËÍÍê±Ï±êÖ¾
     inout  wire [7:0]data
 );
     reg bus_analyze_clk = 0;
@@ -90,7 +90,7 @@ module cpld_model(
         repeat(2)
             @(posedge clk_out2);
         uart_tsre = 0;
-        #10000 // å®é™…ä¸²å£å‘é€æ—¶é—´æ›´é•¿ï¼Œä¸ºäº†åŠ å¿«ä»¿çœŸï¼Œç­‰å¾…æ—¶é—´è¾ƒçŸ­
+        #10000 // Êµ¼Ê´®¿Ú·¢ËÍÊ±¼ä¸ü³¤£¬ÎªÁË¼Ó¿ì·ÂÕæ£¬µÈ´ıÊ±¼ä½Ï¶Ì
         $display("send: 0x%02x", TxD_data_sync);
         uart_tsre = 1;
     end
