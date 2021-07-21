@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1090000fs"></ZoomStartTime>
+      <ZoomEndTime time="1199801fs"></ZoomEndTime>
+      <Cursor1Time time="172600fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="198"></NameColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="61" />
+   <wvobject fp_name="/tb/clk_50M" type="logic">
+      <obj_property name="ElementShortName">clk_50M</obj_property>
+      <obj_property name="ObjectShortName">clk_50M</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/reset_btn" type="logic">
+      <obj_property name="ElementShortName">reset_btn</obj_property>
+      <obj_property name="ObjectShortName">reset_btn</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider74">
+      <obj_property name="label">stall pipeline</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#DCDCDC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/if_id_rs_i" type="array">
+      <obj_property name="ElementShortName">if_id_rs_i[4:0]</obj_property>
+      <obj_property name="ObjectShortName">if_id_rs_i[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/if_id_rt_i" type="array">
+      <obj_property name="ElementShortName">if_id_rt_i[4:0]</obj_property>
+      <obj_property name="ObjectShortName">if_id_rt_i[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/id_ex_data_r_i" type="logic">
+      <obj_property name="ElementShortName">id_ex_data_r_i</obj_property>
+      <obj_property name="ObjectShortName">id_ex_data_r_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/id_ex_rd_i" type="array">
+      <obj_property name="ElementShortName">id_ex_rd_i[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_ex_rd_i[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/pc_w_o_1" type="logic">
+      <obj_property name="ElementShortName">pc_w_o_1</obj_property>
+      <obj_property name="ObjectShortName">pc_w_o_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/if_id_w_o_1" type="logic">
+      <obj_property name="ElementShortName">if_id_w_o_1</obj_property>
+      <obj_property name="ObjectShortName">if_id_w_o_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/clear_o_1" type="logic">
+      <obj_property name="ElementShortName">clear_o_1</obj_property>
+      <obj_property name="ObjectShortName">clear_o_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/ex_mem_data_r_i" type="logic">
+      <obj_property name="ElementShortName">ex_mem_data_r_i</obj_property>
+      <obj_property name="ObjectShortName">ex_mem_data_r_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/ex_mem_rd_i" type="array">
+      <obj_property name="ElementShortName">ex_mem_rd_i[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_mem_rd_i[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/pc_w_o_2" type="logic">
+      <obj_property name="ElementShortName">pc_w_o_2</obj_property>
+      <obj_property name="ObjectShortName">pc_w_o_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/if_id_w_o_2" type="logic">
+      <obj_property name="ElementShortName">if_id_w_o_2</obj_property>
+      <obj_property name="ObjectShortName">if_id_w_o_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/clear_o_2" type="logic">
+      <obj_property name="ElementShortName">clear_o_2</obj_property>
+      <obj_property name="ObjectShortName">clear_o_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/is_jump_inst_i" type="logic">
+      <obj_property name="ElementShortName">is_jump_inst_i</obj_property>
+      <obj_property name="ObjectShortName">is_jump_inst_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/pc_w_o" type="logic">
+      <obj_property name="ElementShortName">pc_w_o</obj_property>
+      <obj_property name="ObjectShortName">pc_w_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/if_id_w_o" type="logic">
+      <obj_property name="ElementShortName">if_id_w_o</obj_property>
+      <obj_property name="ObjectShortName">if_id_w_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_stall_pipeline/clear_o" type="logic">
+      <obj_property name="ElementShortName">clear_o</obj_property>
+      <obj_property name="ObjectShortName">clear_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_pc/pc_o" type="array">
+      <obj_property name="ElementShortName">pc_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#00FF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_IF_ID/inst_i" type="array">
+      <obj_property name="ElementShortName">inst_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider74">
+      <obj_property name="label">IF/ID</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#DCDCDC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_IF_ID/inst_o" type="array">
+      <obj_property name="ElementShortName">inst_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_data_hazard_jump/id_ex_w_i" type="logic">
+      <obj_property name="ElementShortName">id_ex_w_i</obj_property>
+      <obj_property name="ObjectShortName">id_ex_w_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_data_hazard_jump/id_ex_rd_i" type="array">
+      <obj_property name="ElementShortName">id_ex_rd_i[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_ex_rd_i[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_data_hazard_jump/bypass_dataA_o" type="array">
+      <obj_property name="ElementShortName">bypass_dataA_o[1:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_dataA_o[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_data_hazard_jump/bypass_dataB_o" type="array">
+      <obj_property name="ElementShortName">bypass_dataB_o[1:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_dataB_o[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_jump_ident/dataA" type="array">
+      <obj_property name="ElementShortName">dataA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataA[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_jump_ident/dataB" type="array">
+      <obj_property name="ElementShortName">dataB[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataB[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider74">
+      <obj_property name="label">ID/EX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#DCDCDC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ID_EX/A_o" type="array">
+      <obj_property name="ElementShortName">A_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">A_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ID_EX/B_o" type="array">
+      <obj_property name="ElementShortName">B_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">B_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ID_EX/imm_ext_o" type="array">
+      <obj_property name="ElementShortName">imm_ext_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">imm_ext_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU_ctl/alu_op_i" type="array">
+      <obj_property name="ElementShortName">alu_op_i[3:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_op_i[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU_ctl/func" type="array">
+      <obj_property name="ElementShortName">func[5:0]</obj_property>
+      <obj_property name="ObjectShortName">func[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU_ctl/op_o" type="array">
+      <obj_property name="ElementShortName">op_o[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_o[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_data_hazard_ex/bypass_a_o" type="array">
+      <obj_property name="ElementShortName">bypass_a_o[1:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_a_o[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_data_hazard_ex/bypass_b_o" type="array">
+      <obj_property name="ElementShortName">bypass_b_o[1:0]</obj_property>
+      <obj_property name="ObjectShortName">bypass_b_o[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU/A_i" type="array">
+      <obj_property name="ElementShortName">A_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">A_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU/B_i" type="array">
+      <obj_property name="ElementShortName">B_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">B_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU/op_i" type="array">
+      <obj_property name="ElementShortName">op_i[3:0]</obj_property>
+      <obj_property name="ObjectShortName">op_i[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU/alu_src_i" type="logic">
+      <obj_property name="ElementShortName">alu_src_i</obj_property>
+      <obj_property name="ObjectShortName">alu_src_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_ALU/alu_result_o" type="array">
+      <obj_property name="ElementShortName">alu_result_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_result_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider67">
+      <obj_property name="label">EX/MEM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#DCDCDC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/data_i" type="array">
+      <obj_property name="ElementShortName">data_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_MEM_WB/data_result_i" type="array">
+      <obj_property name="ElementShortName">data_result_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_result_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/ext_ram_we_n" type="logic">
+      <obj_property name="ElementShortName">ext_ram_we_n</obj_property>
+      <obj_property name="ObjectShortName">ext_ram_we_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/data_addr_o" type="array">
+      <obj_property name="ElementShortName">data_addr_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_addr_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/data_o" type="array">
+      <obj_property name="ElementShortName">data_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider67">
+      <obj_property name="label">MEM/WB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#DCDCDC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_MEM_WB/data_result_o" type="array">
+      <obj_property name="ElementShortName">data_result_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_result_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[9]" type="array">
+      <obj_property name="ElementShortName">[9][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[9][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[8]" type="array">
+      <obj_property name="ElementShortName">[8][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[8][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[7]" type="array">
+      <obj_property name="ElementShortName">[7][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[7][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[6]" type="array">
+      <obj_property name="ElementShortName">[6][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[6][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[5]" type="array">
+      <obj_property name="ElementShortName">[5][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[5][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[4]" type="array">
+      <obj_property name="ElementShortName">[4][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[4][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[3]" type="array">
+      <obj_property name="ElementShortName">[3][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[3][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[2]" type="array">
+      <obj_property name="ElementShortName">[2][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[2][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[1]" type="array">
+      <obj_property name="ElementShortName">[1][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[1][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/u_my_cpu/u_reg_files/register[0]" type="array">
+      <obj_property name="ElementShortName">[0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">[0][31:0]</obj_property>
+   </wvobject>
+</wave_config>
