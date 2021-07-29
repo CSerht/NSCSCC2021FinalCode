@@ -1,77 +1,77 @@
 `default_nettype none
 
 module thinpad_top(
-           input wire clk_50M,           //50MHz Ê±ÖÓÊäÈë
-           input wire clk_11M0592,       //11.0592MHz Ê±ÖÓÊäÈë£¨±¸ÓÃ£¬¿É²»ÓÃ£©
+           input wire clk_50M,           //50MHz æ—¶é’Ÿè¾“å…¥
+           input wire clk_11M0592,       //11.0592MHz æ—¶é’Ÿè¾“å…¥ï¼ˆå¤‡ç”¨ï¼Œå¯ä¸ç”¨ï¼‰
 
-           input wire clock_btn,         //BTN5ÊÖ¶¯Ê±ÖÓ°´Å¥¿ª¹Ø£¬´øÏû¶¶µçÂ·£¬°´ÏÂÊ±Îª1
-           input wire reset_btn,         //BTN6ÊÖ¶¯¸´Î»°´Å¥¿ª¹Ø£¬´øÏû¶¶µçÂ·£¬°´ÏÂÊ±Îª1
+           input wire clock_btn,         //BTN5æ‰‹åŠ¨æ—¶é’ŸæŒ‰é’®å¼€å…³ï¼Œå¸¦æ¶ˆæŠ–ç”µè·¯ï¼ŒæŒ‰ä¸‹æ—¶ä¸º1
+           input wire reset_btn,         //BTN6æ‰‹åŠ¨å¤ä½æŒ‰é’®å¼€å…³ï¼Œå¸¦æ¶ˆæŠ–ç”µè·¯ï¼ŒæŒ‰ä¸‹æ—¶ä¸º1
 
-           input  wire[3:0]  touch_btn,  //BTN1~BTN4£¬°´Å¥¿ª¹Ø£¬°´ÏÂÊ±Îª1
-           input  wire[31:0] dip_sw,     //32Î»²¦Âë¿ª¹Ø£¬²¦µ½¡°ON¡±Ê±Îª1
-           output wire[15:0] leds,       //16Î»LED£¬Êä³öÊ±1µãÁÁ
-           output wire[7:0]  dpy0,       //ÊıÂë¹ÜµÍÎ»ĞÅºÅ£¬°üÀ¨Ğ¡Êıµã£¬Êä³ö1µãÁÁ
-           output wire[7:0]  dpy1,       //ÊıÂë¹Ü¸ßÎ»ĞÅºÅ£¬°üÀ¨Ğ¡Êıµã£¬Êä³ö1µãÁÁ
+           input  wire[3:0]  touch_btn,  //BTN1~BTN4ï¼ŒæŒ‰é’®å¼€å…³ï¼ŒæŒ‰ä¸‹æ—¶ä¸º1
+           input  wire[31:0] dip_sw,     //32ä½æ‹¨ç å¼€å…³ï¼Œæ‹¨åˆ°â€œONâ€æ—¶ä¸º1
+           output wire[15:0] leds,       //16ä½LEDï¼Œè¾“å‡ºæ—¶1ç‚¹äº®
+           output wire[7:0]  dpy0,       //æ•°ç ç®¡ä½ä½ä¿¡å·ï¼ŒåŒ…æ‹¬å°æ•°ç‚¹ï¼Œè¾“å‡º1ç‚¹äº®
+           output wire[7:0]  dpy1,       //æ•°ç ç®¡é«˜ä½ä¿¡å·ï¼ŒåŒ…æ‹¬å°æ•°ç‚¹ï¼Œè¾“å‡º1ç‚¹äº®
 
-           //BaseRAMĞÅºÅ
-           inout wire[31:0] base_ram_data,  //BaseRAMÊı¾İ£¬µÍ8Î»ÓëCPLD´®¿Ú¿ØÖÆÆ÷¹²Ïí
-           (*mark_debug = "true"*)output wire[19:0] base_ram_addr, //BaseRAMµØÖ·
-           (*mark_debug = "true"*)output wire[3:0] base_ram_be_n,  //BaseRAM×Ö½ÚÊ¹ÄÜ£¬µÍÓĞĞ§¡£Èç¹û²»Ê¹ÓÃ×Ö½ÚÊ¹ÄÜ£¬Çë±£³ÖÎª0
-           output wire base_ram_ce_n,       //BaseRAMÆ¬Ñ¡£¬µÍÓĞĞ§
-           (*mark_debug = "true"*)output wire base_ram_oe_n,       //BaseRAM¶ÁÊ¹ÄÜ£¬µÍÓĞĞ§
-           (*mark_debug = "true"*)output wire base_ram_we_n,       //BaseRAMĞ´Ê¹ÄÜ£¬µÍÓĞĞ§
+           //BaseRAMä¿¡å·
+           inout wire[31:0] base_ram_data,  //BaseRAMæ•°æ®ï¼Œä½8ä½ä¸CPLDä¸²å£æ§åˆ¶å™¨å…±äº«
+           (*mark_debug = "true"*)output wire[19:0] base_ram_addr, //BaseRAMåœ°å€
+           (*mark_debug = "true"*)output wire[3:0] base_ram_be_n,  //BaseRAMå­—èŠ‚ä½¿èƒ½ï¼Œä½æœ‰æ•ˆã€‚å¦‚æœä¸ä½¿ç”¨å­—èŠ‚ä½¿èƒ½ï¼Œè¯·ä¿æŒä¸º0
+           output wire base_ram_ce_n,       //BaseRAMç‰‡é€‰ï¼Œä½æœ‰æ•ˆ
+           (*mark_debug = "true"*)output wire base_ram_oe_n,       //BaseRAMè¯»ä½¿èƒ½ï¼Œä½æœ‰æ•ˆ
+           (*mark_debug = "true"*)output wire base_ram_we_n,       //BaseRAMå†™ä½¿èƒ½ï¼Œä½æœ‰æ•ˆ
 
-           //ExtRAMĞÅºÅ
-           inout wire[31:0] ext_ram_data,  //ExtRAMÊı¾İ
-           (*mark_debug = "true"*)output wire[19:0] ext_ram_addr, //ExtRAMµØÖ·
-           (*mark_debug = "true"*)output wire[3:0] ext_ram_be_n,  //ExtRAM×Ö½ÚÊ¹ÄÜ£¬µÍÓĞĞ§¡£Èç¹û²»Ê¹ÓÃ×Ö½ÚÊ¹ÄÜ£¬Çë±£³ÖÎª0
-           output wire ext_ram_ce_n,       //ExtRAMÆ¬Ñ¡£¬µÍÓĞĞ§
-           (*mark_debug = "true"*)output wire ext_ram_oe_n,       //ExtRAM¶ÁÊ¹ÄÜ£¬µÍÓĞĞ§
-           (*mark_debug = "true"*)output wire ext_ram_we_n,       //ExtRAMĞ´Ê¹ÄÜ£¬µÍÓĞĞ§
+           //ExtRAMä¿¡å·
+           inout wire[31:0] ext_ram_data,  //ExtRAMæ•°æ®
+           (*mark_debug = "true"*)output wire[19:0] ext_ram_addr, //ExtRAMåœ°å€
+           (*mark_debug = "true"*)output wire[3:0] ext_ram_be_n,  //ExtRAMå­—èŠ‚ä½¿èƒ½ï¼Œä½æœ‰æ•ˆã€‚å¦‚æœä¸ä½¿ç”¨å­—èŠ‚ä½¿èƒ½ï¼Œè¯·ä¿æŒä¸º0
+           output wire ext_ram_ce_n,       //ExtRAMç‰‡é€‰ï¼Œä½æœ‰æ•ˆ
+           (*mark_debug = "true"*)output wire ext_ram_oe_n,       //ExtRAMè¯»ä½¿èƒ½ï¼Œä½æœ‰æ•ˆ
+           (*mark_debug = "true"*)output wire ext_ram_we_n,       //ExtRAMå†™ä½¿èƒ½ï¼Œä½æœ‰æ•ˆ
 
-           //Ö±Á¬´®¿ÚĞÅºÅ
-           output wire txd,  //Ö±Á¬´®¿Ú·¢ËÍ¶Ë
-           input  wire rxd,  //Ö±Á¬´®¿Ú½ÓÊÕ¶Ë
+           //ç›´è¿ä¸²å£ä¿¡å·
+           output wire txd,  //ç›´è¿ä¸²å£å‘é€ç«¯
+           input  wire rxd,  //ç›´è¿ä¸²å£æ¥æ”¶ç«¯
 
-           //Flash´æ´¢Æ÷ĞÅºÅ£¬²Î¿¼ JS28F640 Ğ¾Æ¬ÊÖ²á
-           output wire [22:0]flash_a,      //FlashµØÖ·£¬a0½öÔÚ8bitÄ£Ê½ÓĞĞ§£¬16bitÄ£Ê½ÎŞÒâÒå
-           inout  wire [15:0]flash_d,      //FlashÊı¾İ
-           output wire flash_rp_n,         //Flash¸´Î»ĞÅºÅ£¬µÍÓĞĞ§
-           output wire flash_vpen,         //FlashĞ´±£»¤ĞÅºÅ£¬µÍµçÆ½Ê±²»ÄÜ²Á³ı¡¢ÉÕĞ´
-           output wire flash_ce_n,         //FlashÆ¬Ñ¡ĞÅºÅ£¬µÍÓĞĞ§
-           output wire flash_oe_n,         //Flash¶ÁÊ¹ÄÜĞÅºÅ£¬µÍÓĞĞ§
-           output wire flash_we_n,         //FlashĞ´Ê¹ÄÜĞÅºÅ£¬µÍÓĞĞ§
-           output wire flash_byte_n,       //Flash 8bitÄ£Ê½Ñ¡Ôñ£¬µÍÓĞĞ§¡£ÔÚÊ¹ÓÃflashµÄ16Î»Ä£Ê½Ê±ÇëÉèÎª1
+           //Flashå­˜å‚¨å™¨ä¿¡å·ï¼Œå‚è€ƒ JS28F640 èŠ¯ç‰‡æ‰‹å†Œ
+           output wire [22:0]flash_a,      //Flashåœ°å€ï¼Œa0ä»…åœ¨8bitæ¨¡å¼æœ‰æ•ˆï¼Œ16bitæ¨¡å¼æ— æ„ä¹‰
+           inout  wire [15:0]flash_d,      //Flashæ•°æ®
+           output wire flash_rp_n,         //Flashå¤ä½ä¿¡å·ï¼Œä½æœ‰æ•ˆ
+           output wire flash_vpen,         //Flashå†™ä¿æŠ¤ä¿¡å·ï¼Œä½ç”µå¹³æ—¶ä¸èƒ½æ“¦é™¤ã€çƒ§å†™
+           output wire flash_ce_n,         //Flashç‰‡é€‰ä¿¡å·ï¼Œä½æœ‰æ•ˆ
+           output wire flash_oe_n,         //Flashè¯»ä½¿èƒ½ä¿¡å·ï¼Œä½æœ‰æ•ˆ
+           output wire flash_we_n,         //Flashå†™ä½¿èƒ½ä¿¡å·ï¼Œä½æœ‰æ•ˆ
+           output wire flash_byte_n,       //Flash 8bitæ¨¡å¼é€‰æ‹©ï¼Œä½æœ‰æ•ˆã€‚åœ¨ä½¿ç”¨flashçš„16ä½æ¨¡å¼æ—¶è¯·è®¾ä¸º1
 
-           //Í¼ÏñÊä³öĞÅºÅ
-           output wire[2:0] video_red,    //ºìÉ«ÏñËØ£¬3Î»
-           output wire[2:0] video_green,  //ÂÌÉ«ÏñËØ£¬3Î»
-           output wire[1:0] video_blue,   //À¶É«ÏñËØ£¬2Î»
-           output wire video_hsync,       //ĞĞÍ¬²½£¨Ë®Æ½Í¬²½£©ĞÅºÅ
-           output wire video_vsync,       //³¡Í¬²½£¨´¹Ö±Í¬²½£©ĞÅºÅ
-           output wire video_clk,         //ÏñËØÊ±ÖÓÊä³ö
-           output wire video_de           //ĞĞÊı¾İÓĞĞ§ĞÅºÅ£¬ÓÃÓÚÇø·ÖÏûÒşÇø
+           //å›¾åƒè¾“å‡ºä¿¡å·
+           output wire[2:0] video_red,    //çº¢è‰²åƒç´ ï¼Œ3ä½
+           output wire[2:0] video_green,  //ç»¿è‰²åƒç´ ï¼Œ3ä½
+           output wire[1:0] video_blue,   //è“è‰²åƒç´ ï¼Œ2ä½
+           output wire video_hsync,       //è¡ŒåŒæ­¥ï¼ˆæ°´å¹³åŒæ­¥ï¼‰ä¿¡å·
+           output wire video_vsync,       //åœºåŒæ­¥ï¼ˆå‚ç›´åŒæ­¥ï¼‰ä¿¡å·
+           output wire video_clk,         //åƒç´ æ—¶é’Ÿè¾“å‡º
+           output wire video_de           //è¡Œæ•°æ®æœ‰æ•ˆä¿¡å·ï¼Œç”¨äºåŒºåˆ†æ¶ˆéšåŒº
        );
 
 /* =========== Demo code begin =========== */
 
-// PLL·ÖÆµÊ¾Àı
+// PLLåˆ†é¢‘ç¤ºä¾‹
 // wire locked, clk_10M, clk_20M;
 // pll_example clock_gen
 //             (
 //                 // Clock in ports
-//                 .clk_in1(clk_50M),  // Íâ²¿Ê±ÖÓÊäÈë
+//                 .clk_in1(clk_50M),  // å¤–éƒ¨æ—¶é’Ÿè¾“å…¥
 //                 // Clock out ports
-//                 .clk_out1(clk_10M), // Ê±ÖÓÊä³ö1£¬ÆµÂÊÔÚIPÅäÖÃ½çÃæÖĞÉèÖÃ
-//                 .clk_out2(clk_20M), // Ê±ÖÓÊä³ö2£¬ÆµÂÊÔÚIPÅäÖÃ½çÃæÖĞÉèÖÃ
+//                 .clk_out1(clk_10M), // æ—¶é’Ÿè¾“å‡º1ï¼Œé¢‘ç‡åœ¨IPé…ç½®ç•Œé¢ä¸­è®¾ç½®
+//                 .clk_out2(clk_20M), // æ—¶é’Ÿè¾“å‡º2ï¼Œé¢‘ç‡åœ¨IPé…ç½®ç•Œé¢ä¸­è®¾ç½®
 //                 // Status and control signals
-//                 .reset(reset_btn), // PLL¸´Î»ÊäÈë
-//                 .locked(locked)    // PLLËø¶¨Ö¸Ê¾Êä³ö£¬"1"±íÊ¾Ê±ÖÓÎÈ¶¨£¬
-//                 // ºó¼¶µçÂ·¸´Î»ĞÅºÅÓ¦µ±ÓÉËüÉú³É£¨¼ûÏÂ£©
+//                 .reset(reset_btn), // PLLå¤ä½è¾“å…¥
+//                 .locked(locked)    // PLLé”å®šæŒ‡ç¤ºè¾“å‡ºï¼Œ"1"è¡¨ç¤ºæ—¶é’Ÿç¨³å®šï¼Œ
+//                 // åçº§ç”µè·¯å¤ä½ä¿¡å·åº”å½“ç”±å®ƒç”Ÿæˆï¼ˆè§ä¸‹ï¼‰
 //             );
 
 // reg reset_of_clk10M;
-// Òì²½¸´Î»£¬Í¬²½ÊÍ·Å£¬½«lockedĞÅºÅ×ªÎªºó¼¶µçÂ·µÄ¸´Î»reset_of_clk10M
+// å¼‚æ­¥å¤ä½ï¼ŒåŒæ­¥é‡Šæ”¾ï¼Œå°†lockedä¿¡å·è½¬ä¸ºåçº§ç”µè·¯çš„å¤ä½reset_of_clk10M
 // always@(posedge clk_10M or negedge locked)
 // begin
 //     if(~locked)
@@ -92,7 +92,7 @@ module thinpad_top(
 //     end
 // end
 
-// // ²»Ê¹ÓÃÄÚ´æ¡¢´®¿ÚÊ±£¬½ûÓÃÆäÊ¹ÄÜĞÅºÅ
+// // ä¸ä½¿ç”¨å†…å­˜ã€ä¸²å£æ—¶ï¼Œç¦ç”¨å…¶ä½¿èƒ½ä¿¡å·
 // assign base_ram_ce_n = 1'b1;
 // assign base_ram_oe_n = 1'b1;
 // assign base_ram_we_n = 1'b1;
@@ -102,7 +102,7 @@ module thinpad_top(
 // assign ext_ram_we_n = 1'b1;
 
 /****************************************************/
-// ÒÔÏÂÄÚÈİÎª×Ô¶¨ÒåÄÚÈİ
+// ä»¥ä¸‹å†…å®¹ä¸ºè‡ªå®šä¹‰å†…å®¹
 /****************************************************/
 
 
@@ -301,7 +301,7 @@ arbitration  u_arbitration (
                  .baseram_busy_o          ( baseram_busy_o_arb   ),
                  .inst_r_finish_o         ( inst_r_finish_o_arb  ),
 
-                 // extRAM and serialMemory ¹²ÓÃ
+                 // extRAM and serialMemory å…±ç”¨
                  .data_addr_o             ( data_addr_o     ),
 
                  // ext RAM
@@ -560,31 +560,31 @@ wire RxD_clear;
 wire RxD_data_ready;
 wire [7:0] RxD_data;
 
-// Ê¹µÃready±£Áô2¸öÊ±ÖÓÖÜÆÚ
+// ä½¿å¾—readyä¿ç•™2ä¸ªæ—¶é’Ÿå‘¨æœŸ
 // always @(posedge clk)
 // begin
 //     RxD_clear <= RxD_data_ready;
 // end
 
-assign RxD_clear = RxD_data_ready; // ½ÓÊÕ³É¹¦±£ÁôÒ»¸öÊ±ÖÓÖÜÆÚ¾Íclear
+assign RxD_clear = RxD_data_ready; // æ¥æ”¶æˆåŠŸä¿ç•™ä¸€ä¸ªæ—¶é’Ÿå‘¨æœŸå°±clear
 
 // for uart buffer
 assign r_data_i = RxD_data;
 assign r_data_w_i = RxD_data_ready;
 
-//½ÓÊÕÄ£¿é£¬9600ÎŞ¼ìÑéÎ»
+//æ¥æ”¶æ¨¡å—ï¼Œ9600æ— æ£€éªŒä½
 async_receiver #(
                    .ClkFrequency(50000000),
                    .Baud(9600)
                )
                ext_uart_r(
-                   .clk             ( clk            ),  //Íâ²¿Ê±ÖÓĞÅºÅ
-                   .RxD             ( rxd            ),  //Íâ²¿´®ĞĞĞÅºÅ
+                   .clk             ( clk            ),  //å¤–éƒ¨æ—¶é’Ÿä¿¡å·
+                   .RxD             ( rxd            ),  //å¤–éƒ¨ä¸²è¡Œä¿¡å·
 
-                   .RxD_clear       ( RxD_clear      ),  //Çå³ı½ÓÊÕ±êÖ¾
+                   .RxD_clear       ( RxD_clear      ),  //æ¸…é™¤æ¥æ”¶æ ‡å¿—
 
-                   .RxD_data_ready  ( RxD_data_ready ),  //Êı¾İ½ÓÊÕµ½±êÖ¾
-                   .RxD_data        ( RxD_data    )   //½ÓÊÕµ½µÄÒ»×Ö½ÚÊı¾İ
+                   .RxD_data_ready  ( RxD_data_ready ),  //æ•°æ®æ¥æ”¶åˆ°æ ‡å¿—
+                   .RxD_data        ( RxD_data    )   //æ¥æ”¶åˆ°çš„ä¸€å­—èŠ‚æ•°æ®
                );
 
 
@@ -609,7 +609,7 @@ async_transmitter #(
                       .Baud         ( 9600   ))
                   u_async_transmitter (
                       .clk                     ( clk         ),
-                      .TxD                     ( txd         ), // ·¢¸øPC
+                      .TxD                     ( txd         ), // å‘ç»™PC
 
                       .TxD_start               ( TxD_start   ),
                       .TxD_data                ( TxD_data    ),
@@ -619,10 +619,10 @@ async_transmitter #(
 
 
 /****************************************************/
-// ÒÔÉÏÄÚÈİÎª×Ô¶¨ÒåÄÚÈİ
+// ä»¥ä¸Šå†…å®¹ä¸ºè‡ªå®šä¹‰å†…å®¹
 /****************************************************/
 
-// ÊıÂë¹ÜÁ¬½Ó¹ØÏµÊ¾ÒâÍ¼£¬dpy1Í¬Àí
+// æ•°ç ç®¡è¿æ¥å…³ç³»ç¤ºæ„å›¾ï¼Œdpy1åŒç†
 // p=dpy0[0] // ---a---
 // c=dpy0[1] // |     |
 // d=dpy0[2] // f     b
@@ -633,18 +633,18 @@ async_transmitter #(
 // g=dpy0[7] // |     |
 //           // ---d---  p
 
-// 7¶ÎÊıÂë¹ÜÒëÂëÆ÷ÑİÊ¾£¬½«numberÓÃ16½øÖÆÏÔÊ¾ÔÚÊıÂë¹ÜÉÏÃæ
-// Á½¸öÆß¶ÎÊıÂë¹Ü£¬ÄÜ¹»ÏÔÊ¾È«²¿ASCII×Ö·û¶ÔÓ¦µÄ16½øÖÆÊı
-// Ã¿¸öASCII×Ö·ûÕ¼2¸ö16½øÖÆ£¬2¸ö16½øÖÆÊı·Ö±ğÍ¨¹ı2¸öÊıÂë¹ÜÏÔÊ¾³öÀ´
-// wire[7:0] number; // ÓÉ´®¿Ú·¢ËÍ£¬ÄÜ¹»½ÓÊÕÈ«²¿À©Õ¹µÄµÄASCIIÂë
+// 7æ®µæ•°ç ç®¡è¯‘ç å™¨æ¼”ç¤ºï¼Œå°†numberç”¨16è¿›åˆ¶æ˜¾ç¤ºåœ¨æ•°ç ç®¡ä¸Šé¢
+// ä¸¤ä¸ªä¸ƒæ®µæ•°ç ç®¡ï¼Œèƒ½å¤Ÿæ˜¾ç¤ºå…¨éƒ¨ASCIIå­—ç¬¦å¯¹åº”çš„16è¿›åˆ¶æ•°
+// æ¯ä¸ªASCIIå­—ç¬¦å 2ä¸ª16è¿›åˆ¶ï¼Œ2ä¸ª16è¿›åˆ¶æ•°åˆ†åˆ«é€šè¿‡2ä¸ªæ•°ç ç®¡æ˜¾ç¤ºå‡ºæ¥
+// wire[7:0] number; // ç”±ä¸²å£å‘é€ï¼Œèƒ½å¤Ÿæ¥æ”¶å…¨éƒ¨æ‰©å±•çš„çš„ASCIIç 
 
 // SEG7_LUT segL(
-//              .iDIG      ( number[3:0]   ),  // 4Î»¶ş½øÖÆ£¬ÄÜ¹»ÏÔÊ¾Êı×Ö 0 ~ F
+//              .iDIG      ( number[3:0]   ),  // 4ä½äºŒè¿›åˆ¶ï¼Œèƒ½å¤Ÿæ˜¾ç¤ºæ•°å­— 0 ~ F
 
-//              .oSEG1     ( dpy0          )   // dpy0ÊÇµÍÎ»ÊıÂë¹Ü£¬´ú±íÁË7¸ù¹Ü¶ùºÍ1¸öĞ¡Êıµã£¨Ğ¡Êıµãºã²»ÁÁ£©
+//              .oSEG1     ( dpy0          )   // dpy0æ˜¯ä½ä½æ•°ç ç®¡ï¼Œä»£è¡¨äº†7æ ¹ç®¡å„¿å’Œ1ä¸ªå°æ•°ç‚¹ï¼ˆå°æ•°ç‚¹æ’ä¸äº®ï¼‰
 //          );
 
-// SEG7_LUT segH(.oSEG1(dpy1), .iDIG(number[7:4])); //dpy1ÊÇ¸ßÎ»ÊıÂë¹Ü
+// SEG7_LUT segH(.oSEG1(dpy1), .iDIG(number[7:4])); //dpy1æ˜¯é«˜ä½æ•°ç ç®¡
 
 // reg[15:0] led_bits;
 // assign leds = led_bits;
@@ -652,23 +652,23 @@ async_transmitter #(
 // always@(posedge clock_btn or posedge reset_btn)
 // begin
 //     if(reset_btn)
-//     begin //¸´Î»°´ÏÂ£¬ÉèÖÃLEDÎª³õÊ¼Öµ
+//     begin //å¤ä½æŒ‰ä¸‹ï¼Œè®¾ç½®LEDä¸ºåˆå§‹å€¼
 //         led_bits <= 16'h1;
 //     end
 //     else
-//     begin //Ã¿´Î°´ÏÂÊ±ÖÓ°´Å¥£¬LEDÑ­»·×óÒÆ
+//     begin //æ¯æ¬¡æŒ‰ä¸‹æ—¶é’ŸæŒ‰é’®ï¼ŒLEDå¾ªç¯å·¦ç§»
 //         led_bits <= {led_bits[14:0],led_bits[15]};
 //     end
 // end
 
-// //Ö±Á¬´®¿Ú½ÓÊÕ·¢ËÍÑİÊ¾£¬´ÓÖ±Á¬´®¿ÚÊÕµ½µÄÊı¾İÔÙ·¢ËÍ³öÈ¥
-// // ×¢ÊÍÖĞ¸ø³öÁË¡¾Âß¼­¹¦ÄÜ¡¿£¬»¹ĞèÒª¹Ø×¢¡¾Ê±ĞòÎÊÌâ¡¿
-// // ÒÔ¼°£¬½ÓÊÕÆ÷ºÍ·¢ËÍÆ÷£¬¸úCPUºÍPCµÄÁ¬½Ó£¬ÈçºÎÁ¬£¿
+// //ç›´è¿ä¸²å£æ¥æ”¶å‘é€æ¼”ç¤ºï¼Œä»ç›´è¿ä¸²å£æ”¶åˆ°çš„æ•°æ®å†å‘é€å‡ºå»
+// // æ³¨é‡Šä¸­ç»™å‡ºäº†ã€é€»è¾‘åŠŸèƒ½ã€‘ï¼Œè¿˜éœ€è¦å…³æ³¨ã€æ—¶åºé—®é¢˜ã€‘
+// // ä»¥åŠï¼Œæ¥æ”¶å™¨å’Œå‘é€å™¨ï¼Œè·ŸCPUå’ŒPCçš„è¿æ¥ï¼Œå¦‚ä½•è¿ï¼Ÿ
 
-// // ½ÓÊÕÆ÷ºÍ·¢ËÍÆ÷
-// // ½ö½öÍê³É ´®/²¢ ×ª»»Âß¼­
-// // ²¢¸ø³öÎÕÊÖĞÅºÅ£¬ÒÔÊ¾Òâ ×ª»»Íê³ÉÓë·ñ
-// // NOTE£º¡¾²»Òª¡¿½«Æä×÷Îª»º´æÊı¾İµÄÆ÷¼ş
+// // æ¥æ”¶å™¨å’Œå‘é€å™¨
+// // ä»…ä»…å®Œæˆ ä¸²/å¹¶ è½¬æ¢é€»è¾‘
+// // å¹¶ç»™å‡ºæ¡æ‰‹ä¿¡å·ï¼Œä»¥ç¤ºæ„ è½¬æ¢å®Œæˆä¸å¦
+// // NOTEï¼šã€ä¸è¦ã€‘å°†å…¶ä½œä¸ºç¼“å­˜æ•°æ®çš„å™¨ä»¶
 
 
 
@@ -676,9 +676,9 @@ async_transmitter #(
 // //////////     receiver     //////////
 // //////////////////////////////////////
 
-// // 1. ·¢ËÍÒ»´®1Î»1Î»µÄ´®ĞĞÊı¾İ¸ø½ÓÊÕÆ÷£¬¹²8Î»
-// // 2. ½ÓÊÕÆ÷½«Æä×ª»»Î»8Î»²¢ĞĞÊı¾İ£¬²¢ÉèÖÃÎª¡°×ª»»Íê³É¡±×´Ì¬
-// // 3. ×ª»»Íê³ÉÖ®ºó£¬8Î»²¢ĞĞÊı¾İ»á±»Ğ´Èëµ½Êı¾İ»º´æÇø£¬²¢ÉèÖÃÎª¡°Êı¾İÓĞĞ§¡±
+// // 1. å‘é€ä¸€ä¸²1ä½1ä½çš„ä¸²è¡Œæ•°æ®ç»™æ¥æ”¶å™¨ï¼Œå…±8ä½
+// // 2. æ¥æ”¶å™¨å°†å…¶è½¬æ¢ä½8ä½å¹¶è¡Œæ•°æ®ï¼Œå¹¶è®¾ç½®ä¸ºâ€œè½¬æ¢å®Œæˆâ€çŠ¶æ€
+// // 3. è½¬æ¢å®Œæˆä¹‹åï¼Œ8ä½å¹¶è¡Œæ•°æ®ä¼šè¢«å†™å…¥åˆ°æ•°æ®ç¼“å­˜åŒºï¼Œå¹¶è®¾ç½®ä¸ºâ€œæ•°æ®æœ‰æ•ˆâ€
 
 // // input
 // wire ext_uart_clear;
@@ -687,31 +687,31 @@ async_transmitter #(
 // wire ext_uart_ready;
 // wire [7:0] ext_uart_rx;
 
-// // ½ÓÊÕÄ£¿é£º·¢ËÍ¶ËÊÇPC£¬½ÓÊÕ¶ËÊÇFPGA£¬¡°½ÓÊÕ¡±µÄÖ÷ÓïÊÇFPGA
-// // ¶ÔÓÚ·¢¹ıÀ´µÄ¶à¸ö×Ö·û£¬Ã¿¸ö×Ö·û¶¼»áÔÚ´®¿ÚÍ£ÁôÒ»¸öÊ±ÖÓÖÜÆÚ£¨Ë­µÄÊ±ÖÓ£¿£©£¬
-// // È»ºó¾Í»á±ä³ÉÏÂÒ»¸ö×Ö·ûÁË£¬¾ÍÊÇÒ»¸ö¸öµÄ½ÓÊÕ£¬ËùÒÔ½ÓÊÕµ½µÄ×Ö·û±ØĞë±»
-// // 1. Ôİ´æµ½buffer_data
-// // 2. ¼°Ê±Ê¹ÓÃ£¬±ÜÃâ±»¸²¸Ç»òÕß¶ªÊ§
-// async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //½ÓÊÕÄ£¿é£¬9600ÎŞ¼ìÑéÎ»
+// // æ¥æ”¶æ¨¡å—ï¼šå‘é€ç«¯æ˜¯PCï¼Œæ¥æ”¶ç«¯æ˜¯FPGAï¼Œâ€œæ¥æ”¶â€çš„ä¸»è¯­æ˜¯FPGA
+// // å¯¹äºå‘è¿‡æ¥çš„å¤šä¸ªå­—ç¬¦ï¼Œæ¯ä¸ªå­—ç¬¦éƒ½ä¼šåœ¨ä¸²å£åœç•™ä¸€ä¸ªæ—¶é’Ÿå‘¨æœŸï¼ˆè°çš„æ—¶é’Ÿï¼Ÿï¼‰ï¼Œ
+// // ç„¶åå°±ä¼šå˜æˆä¸‹ä¸€ä¸ªå­—ç¬¦äº†ï¼Œå°±æ˜¯ä¸€ä¸ªä¸ªçš„æ¥æ”¶ï¼Œæ‰€ä»¥æ¥æ”¶åˆ°çš„å­—ç¬¦å¿…é¡»è¢«
+// // 1. æš‚å­˜åˆ°buffer_data
+// // 2. åŠæ—¶ä½¿ç”¨ï¼Œé¿å…è¢«è¦†ç›–æˆ–è€…ä¸¢å¤±
+// async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //æ¥æ”¶æ¨¡å—ï¼Œ9600æ— æ£€éªŒä½
 //                ext_uart_r(
-//                    .clk             ( clk_50M        ),  //Íâ²¿Ê±ÖÓĞÅºÅ£¬´®¿Ú¹¤×÷ÆµÂÊ»¹ºÍ±ÈÌØÂÊÓĞ¹Ø£¬ÔÚÄÚ²¿´¦Àí£¬¿ÉÒÔ²»¹Ü
-//                    .RxD             ( rxd            ),  //Íâ²¿´®ĞĞĞÅºÅÊäÈë£¬PC --> FPGA
-//                    // µÃµ½µÄ²¢ĞĞÊı¾İ±»ÄÃ×ßÁË»òÕßÆúÓÃ£¬Çå³ıµôÖ®Ç°¡°½ÓÊÕ³É¹¦¡±µÄĞÅºÅ£¬±ä³É¡°Î´½ÓÊÕÍê³É¡±×´Ì¬
-//                    .RxD_clear       ( ext_uart_clear ),  //Çå³ı½ÓÊÕ±êÖ¾
+//                    .clk             ( clk_50M        ),  //å¤–éƒ¨æ—¶é’Ÿä¿¡å·ï¼Œä¸²å£å·¥ä½œé¢‘ç‡è¿˜å’Œæ¯”ç‰¹ç‡æœ‰å…³ï¼Œåœ¨å†…éƒ¨å¤„ç†ï¼Œå¯ä»¥ä¸ç®¡
+//                    .RxD             ( rxd            ),  //å¤–éƒ¨ä¸²è¡Œä¿¡å·è¾“å…¥ï¼ŒPC --> FPGA
+//                    // å¾—åˆ°çš„å¹¶è¡Œæ•°æ®è¢«æ‹¿èµ°äº†æˆ–è€…å¼ƒç”¨ï¼Œæ¸…é™¤æ‰ä¹‹å‰â€œæ¥æ”¶æˆåŠŸâ€çš„ä¿¡å·ï¼Œå˜æˆâ€œæœªæ¥æ”¶å®Œæˆâ€çŠ¶æ€
+//                    .RxD_clear       ( ext_uart_clear ),  //æ¸…é™¤æ¥æ”¶æ ‡å¿—
 
-//                    .RxD_data_ready  ( ext_uart_ready ),  //Êı¾İ½ÓÊÕµ½±êÖ¾
-//                    .RxD_data        ( ext_uart_rx    )   //½ÓÊÕµ½µÄÒ»×Ö½ÚÊı¾İ
+//                    .RxD_data_ready  ( ext_uart_ready ),  //æ•°æ®æ¥æ”¶åˆ°æ ‡å¿—
+//                    .RxD_data        ( ext_uart_rx    )   //æ¥æ”¶åˆ°çš„ä¸€å­—èŠ‚æ•°æ®
 //                );
 
-// // Ö»ÒªÊı¾İ±»È¡×ß£¬¾Í±ØĞëclear£¬·ñÔò´®¿ÚÊı¾İµÄÊ¶±ğ»á³öÏÖÎÊÌâ
-// assign ext_uart_clear = ext_uart_ready; //ÊÕµ½Êı¾İµÄÍ¬Ê±£¬Çå³ı±êÖ¾£¬ÒòÎªÊı¾İÒÑÈ¡µ½ext_uart_bufferÖĞ
+// // åªè¦æ•°æ®è¢«å–èµ°ï¼Œå°±å¿…é¡»clearï¼Œå¦åˆ™ä¸²å£æ•°æ®çš„è¯†åˆ«ä¼šå‡ºç°é—®é¢˜
+// assign ext_uart_clear = ext_uart_ready; //æ”¶åˆ°æ•°æ®çš„åŒæ—¶ï¼Œæ¸…é™¤æ ‡å¿—ï¼Œå› ä¸ºæ•°æ®å·²å–åˆ°ext_uart_bufferä¸­
 
 // reg [7:0] ext_uart_buffer;
 // reg ext_uart_avai;
 // wire ext_uart_busy;
 
 // always @(posedge clk_50M)
-// begin //½ÓÊÕµ½»º³åÇøext_uart_buffer
+// begin //æ¥æ”¶åˆ°ç¼“å†²åŒºext_uart_buffer
 //     if(ext_uart_ready)
 //     begin
 //         ext_uart_buffer <= ext_uart_rx;
@@ -723,21 +723,21 @@ async_transmitter #(
 //     end
 // end
 
-// // Í¨¹ıÆß¶ÎÊıÂë¹ÜÏÔÊ¾µ±Ç°´®¿ÚÊı¾İµÄÖµ
+// // é€šè¿‡ä¸ƒæ®µæ•°ç ç®¡æ˜¾ç¤ºå½“å‰ä¸²å£æ•°æ®çš„å€¼
 // assign number = ext_uart_buffer;
 
 // ////////////////////////////////////////////////////
-// // ÒÔÏÂÂß¼­´ú±í
-// // 1. Ò»×Ö½Ú´óĞ¡µÄÊı¾İ»º³åÇø£¬²¢ÇÒÊ¾ÒâÊÇ·ñÓĞĞ§
-// // 2. Èç¹û»º³åÇøÓĞÊı¾İ£¬ÇÒÊı¾İÓĞĞ§£¬Ôò½«ÆäÁ¬½Óµ½·¢ËÍÆ÷
-// // 3. Êı¾İÓĞĞ§    -- ·¢ËÍÆ÷¿ªÊ¼·¢ËÍ´®ĞĞÊı¾İ
-// //    8Î»²¢ĞĞÊı¾İ -- ×ª»»Îª1Î»1Î»µÄ´®ĞĞÊı¾İ
+// // ä»¥ä¸‹é€»è¾‘ä»£è¡¨
+// // 1. ä¸€å­—èŠ‚å¤§å°çš„æ•°æ®ç¼“å†²åŒºï¼Œå¹¶ä¸”ç¤ºæ„æ˜¯å¦æœ‰æ•ˆ
+// // 2. å¦‚æœç¼“å†²åŒºæœ‰æ•°æ®ï¼Œä¸”æ•°æ®æœ‰æ•ˆï¼Œåˆ™å°†å…¶è¿æ¥åˆ°å‘é€å™¨
+// // 3. æ•°æ®æœ‰æ•ˆ    -- å‘é€å™¨å¼€å§‹å‘é€ä¸²è¡Œæ•°æ®
+// //    8ä½å¹¶è¡Œæ•°æ® -- è½¬æ¢ä¸º1ä½1ä½çš„ä¸²è¡Œæ•°æ®
 
 // reg [7:0] ext_uart_tx;
 // reg ext_uart_start;
 
 // always @(posedge clk_50M)
-// begin //½«»º³åÇøext_uart_buffer·¢ËÍ³öÈ¥
+// begin //å°†ç¼“å†²åŒºext_uart_bufferå‘é€å‡ºå»
 //     if(!ext_uart_busy && ext_uart_avai)
 //     begin
 //         ext_uart_tx <= ext_uart_buffer;
@@ -749,28 +749,28 @@ async_transmitter #(
 //     end
 // end
 
-// async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //·¢ËÍÄ£¿é£¬9600ÎŞ¼ìÑéÎ»
+// async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //å‘é€æ¨¡å—ï¼Œ9600æ— æ£€éªŒä½
 //                   ext_uart_t(
-//                       .clk          ( clk_50M        ),    //Íâ²¿Ê±ÖÓĞÅºÅ
-//                       .TxD_start    ( ext_uart_start ),    //¿ªÊ¼·¢ËÍĞÅºÅ
-//                       .TxD_data     ( ext_uart_tx    ),    //´ı·¢ËÍµÄÊı¾İ
+//                       .clk          ( clk_50M        ),    //å¤–éƒ¨æ—¶é’Ÿä¿¡å·
+//                       .TxD_start    ( ext_uart_start ),    //å¼€å§‹å‘é€ä¿¡å·
+//                       .TxD_data     ( ext_uart_tx    ),    //å¾…å‘é€çš„æ•°æ®
 
-//                       .TxD          ( txd            ),    //´®ĞĞĞÅºÅÊä³ö  FPGA --> PC
-//                       .TxD_busy     ( ext_uart_busy  )     //·¢ËÍÆ÷Ã¦×´Ì¬Ö¸Ê¾
+//                       .TxD          ( txd            ),    //ä¸²è¡Œä¿¡å·è¾“å‡º  FPGA --> PC
+//                       .TxD_busy     ( ext_uart_busy  )     //å‘é€å™¨å¿™çŠ¶æ€æŒ‡ç¤º
 //                   );
 
 
 
-//Í¼ÏñÊä³öÑİÊ¾£¬·Ö±æÂÊ800x600@75Hz£¬ÏñËØÊ±ÖÓÎª50MHz
+//å›¾åƒè¾“å‡ºæ¼”ç¤ºï¼Œåˆ†è¾¨ç‡800x600@75Hzï¼Œåƒç´ æ—¶é’Ÿä¸º50MHz
 // wire [11:0] hdata;
-// assign video_red = hdata < 266 ? 3'b111 : 0; //ºìÉ«ÊúÌõ
-// assign video_green = hdata < 532 && hdata >= 266 ? 3'b111 : 0; //ÂÌÉ«ÊúÌõ
-// assign video_blue = hdata >= 532 ? 2'b11 : 0; //À¶É«ÊúÌõ
+// assign video_red = hdata < 266 ? 3'b111 : 0; //çº¢è‰²ç«–æ¡
+// assign video_green = hdata < 532 && hdata >= 266 ? 3'b111 : 0; //ç»¿è‰²ç«–æ¡
+// assign video_blue = hdata >= 532 ? 2'b11 : 0; //è“è‰²ç«–æ¡
 // assign video_clk = clk_50M;
 // vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
 //         .clk(clk_50M),
-//         .hdata(hdata), //ºá×ø±ê
-//         .vdata(),      //×İ×ø±ê
+//         .hdata(hdata), //æ¨ªåæ ‡
+//         .vdata(),      //çºµåæ ‡
 //         .hsync(video_hsync),
 //         .vsync(video_vsync),
 //         .data_enable(video_de)
