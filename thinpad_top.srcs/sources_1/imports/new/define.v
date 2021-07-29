@@ -77,6 +77,8 @@
 `define j_inst_op       6'b000010
 `define jal_inst_op     6'b000011
 
+`define b_inst_op       6'b
+
 
 `define j_inst_enable   1'b1 // It is jump instruction.
 `define j_inst_disable  1'b0
@@ -100,7 +102,7 @@
 
 
 //////////////////////////
-/// data_hazard_lwalu  ///
+///   stall pipeline   ///
 //////////////////////////
 `define pc_write_enable     1'b1
 `define pc_write_disable    1'b0
@@ -109,6 +111,16 @@
 `define clear_enable        1'b1 // 允许“插入nop”
 `define clear_disable       1'b0
 
+`define id_ex_write_enable   1'b1
+`define id_ex_write_disable  1'b0
+
+
+`define ex_mem_write_enable   1'b1
+`define ex_mem_write_disable  1'b0
+
+
+`define mem_wb_write_enable   1'b1
+`define mem_wb_write_disable  1'b0
 
 //////////////////////////
 ////    reg files    /////
@@ -162,6 +174,8 @@
 `define lui_op      4'b0111
 `define other_op    4'b1000
 
+`define sllv_op     4'b1001
+
 //////////////////////////
 ///   ALU controler    ///
 //////////////////////////
@@ -192,7 +206,7 @@
 `define byte_mode     2'b00 // or default mode
 `define word_mode     2'b10
 
-
+`define initial_data_addr  32'h8040_0000
 
 //////////////////////////
 ///   ext_ram_ctl.v    ///
@@ -216,3 +230,93 @@
 
 
 
+////////////////////////////////////////////////////////////
+//////////////////                        //////////////////
+//////////////////     external device    //////////////////
+//////////////////                        //////////////////
+////////////////////////////////////////////////////////////
+
+
+/***********************************************************/
+/*******************        UART        ********************/
+/***********************************************************/
+
+//////////////////////////
+///    uart_buffer.v   ///
+//////////////////////////
+`define uart_data_avai_enable    1'b1
+`define uart_data_avai_disable   1'b0
+
+`define r_data_write_enable      1'b1
+`define r_data_write_disable     1'b0
+
+`define uart_data_read_enable    1'b1
+`define uart_data_read_disable   1'b0
+`define uart_data_write_enable   1'b1
+`define uart_data_write_disable  1'b0
+
+
+`define uart_data_idle          1'b1
+`define uart_data_busy          1'b0
+
+`define t_start_enable      1'b1
+`define t_start_disable     1'b0
+
+
+`define r_clear_enable      1'b1
+`define r_clear_disable     1'b0
+
+// signal addr
+`define cpu_read_serial_data      1'b0
+`define cpu_read_serial_status    1'b1
+
+//////////////////////////
+///    arbitration.v   ///
+//////////////////////////
+`define d_serial_memory     2'b00    // 数据目标是串口
+`define d_ext_data_memory   2'b01    // 数据目标是Ext_dataRAM
+`define d_base_data_memory  2'b10    // 数据目标是Base_instRAM
+`define d_other_memory      2'b11    // 正常取指
+
+`define read_data_from_baseram     1'b1 
+`define read_data_not_from_baseram 1'b0 
+
+//////////////////////////
+///   base_ram_ctl.v   ///
+//////////////////////////
+// 当前模块已经弃用！但宏定义保留，其他模块有用
+`define baseram_busy            1'b1
+`define baseram_idle            1'b0
+
+`define inst_read_finish        1'b1
+`define inst_read_unfinish      1'b0
+
+`define inst_write_finish       1'b1
+`define inst_write_unfinish     1'b0
+
+`define inst_read_enable        1'b1
+`define inst_read_disable       1'b0
+
+`define inst_write_enable        1'b1
+`define inst_write_disable       1'b0
+
+
+`define invalid 1'b0  // in arbitration.v
+
+//////////////////////////
+///     sram_ctl.v     ///
+//////////////////////////
+`define sram_busy            1'b1
+`define sram_idle            1'b0
+
+`define data_read_finish        1'b1
+`define data_read_unfinish      1'b0
+
+`define data_write_finish       1'b1
+`define data_write_unfinish     1'b0
+
+`define data_read_enable        1'b1
+`define data_read_disable       1'b0
+
+`define data_write_enable        1'b1
+`define data_write_disable       1'b0

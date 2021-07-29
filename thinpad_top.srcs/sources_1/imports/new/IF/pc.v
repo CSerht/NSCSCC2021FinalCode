@@ -29,7 +29,7 @@ module pc(
            input wire [31:0] pc_i,
            input wire pc_w_i,
 
-           output reg [31:0] pc_o
+           (*mark_debug = "true"*)output reg [31:0] pc_o
        );
 
 // reg pc_ce;
@@ -52,7 +52,7 @@ module pc(
 //         pc_o <= `initial_pc;
 // end
 
-always @(posedge clk)
+always @(posedge clk or posedge rst_n)
 begin
     if(rst_n == `rst_enable)
     begin

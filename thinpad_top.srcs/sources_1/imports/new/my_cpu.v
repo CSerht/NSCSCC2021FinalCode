@@ -27,15 +27,22 @@ module my_cpu(
 
            // for inst base ram
            input wire [31:0] inst_i,
+           input wire baseram_busy_i,
+           input wire inst_r_finish_i,
+
            output wire [31:0] pc_o,
 
            output reg [31:0] inst_o = 0,
            output reg inst_w_o = 0, // only read
-           output reg inst_r_o = 1,
+           output wire inst_r_o,
            output reg inst_ce_o = 1,
 
            // for data ext ram
            input wire [31:0] data_i,
+           input wire ram_busy_i,
+           input wire data_r_finish_i,
+           input wire data_w_finish_i,
+
            output wire [31:0] data_o,
            output wire [31:0] data_addr_o,
            output wire data_w_o,
@@ -74,6 +81,12 @@ wire [31:0] pc_i_ifid;
 assign pc_i_ifid = pc_o;
 
 wire if_id_w_i;
+// // 根据ID/EX的isjump的值选择指令的输入
+// // isjump enable，输入nop；否则输入inst_i
+// // 写在ID/EX模块那里了
+// wire [31:0] inst_i_sel;
+
+wire if_id_clear_i; // connect with pc_stall.v
 
 // output
 wire [31:0] pc_o_ifid;
@@ -83,13 +96,37 @@ IF_ID  u_IF_ID (
            .clk                     ( clk         ),
            .rst_n                   ( rst_n       ),
            .if_id_w_i               ( if_id_w_i   ),
+           .if_id_clear_i           ( if_id_clear_i   ),
 
-           .inst_i                  ( inst_i        ),
+           .inst_i                  ( inst_i    ),
            .pc_i                    ( pc_i_ifid     ),
 
            .inst_o                  ( inst_o_ifid   ),
            .pc_o                    ( pc_o_ifid     )
        );
+
+
+
+/*********************/
+//     pc_stall.v    //
+/*********************/
+
+// input
+
+
+// output
+wire pc_w_o_pcstall;
+wire if_id_clear_o_pcstall;
+
+assign if_id_clear_i = if_id_clear_o_pcstall;
+
+pc_stall  u_pc_stall (
+              .inst_r_finish_i         ( inst_r_finish_i   ), // CPU外部直连
+
+              .pc_w_o                  ( pc_w_o_pcstall            ),
+              .if_id_clear_o           ( if_id_clear_o_pcstall     )
+          );
+
 
 //////////////////////////////////////////
 ///////////      ID stage      ///////////
@@ -309,8 +346,11 @@ assign rt_i = inst_o_ifid[20:16];
 
 wire alu_src_i_ex;
 wire [3:0] alu_op_i_ex;
+wire isjump_i_ex;
 assign alu_src_i_ex = alu_src_o_ex;
 assign alu_op_i_ex = alu_op_o_ex;
+assign isjump_i_ex = isjump_o;
+
 
 wire [1:0] mode_i_mem;
 wire data_w_i_mem;
@@ -329,6 +369,9 @@ assign reg_we_i_wb = reg_we_o_wb;
 wire jal_en_i_wb;
 assign jal_en_i_wb = jal_en_o;
 
+wire id_ex_reg_w_i;
+
+
 // output
 wire [31:0] A_o_idex;
 wire [31:0] B_o_idex;
@@ -339,6 +382,9 @@ wire [4:0] rs_o_idex;
 wire [4:0] rt_o_idex;
 wire alu_src_o_idex;
 wire [3:0] alu_op_o_idex;
+
+wire isjump_o_idex;
+
 wire [1:0] mode_o_idex;
 wire data_w_o_idex;
 wire data_r_o_idex;
@@ -351,6 +397,7 @@ ID_EX  u_ID_EX (
            .clk                     ( clk         ),
            .rst_n                   ( rst_n       ),
            .clear_i                 ( clear_i     ),
+           .id_ex_w_i               ( id_ex_reg_w_i        ),
            /* reg files */
            .A_i                     ( A_i         ),
            .B_i                     ( B_i         ),
@@ -366,6 +413,8 @@ ID_EX  u_ID_EX (
            // EX //
            .alu_src_i               ( alu_src_i_ex   ),
            .alu_op_i                ( alu_op_i_ex    ),
+
+           .isjump_i                ( isjump_i_ex       ),
            // MEM //
            .mode_i                  ( mode_i_mem      ),
            .data_w_i                ( data_w_i_mem    ),
@@ -385,6 +434,9 @@ ID_EX  u_ID_EX (
            .rt_o                    ( rt_o_idex        ),
            .alu_src_o               ( alu_src_o_idex   ),
            .alu_op_o                ( alu_op_o_idex    ),
+
+           .isjump_o               ( isjump_o_idex    ),
+
            .mode_o                  ( mode_o_idex      ),
            .data_w_o                ( data_w_o_idex    ),
            .data_r_o                ( data_r_o_idex    ),
@@ -393,6 +445,10 @@ ID_EX  u_ID_EX (
            .reg_we_o                ( reg_we_o_idex    ),
            .jal_en_o                ( jal_en_o_idex    )
        );
+
+// 输入指令选择nop or inst_i;
+// assign inst_i_sel = (isjump_o_idex == `jump_enable) ? 32'h0000_0000 : inst_i;
+
 
 //////////////////////////////////////////
 ///////////      EX stage      ///////////
@@ -434,6 +490,7 @@ wire [31:0] bypass_B_i; // final data B
 wire [31:0] imm_ext_i;
 assign imm_ext_i = imm_ext_o_idex;
 
+
 // output
 wire [31:0] alu_result_o_ex;
 
@@ -443,6 +500,7 @@ ALU  u_ALU (
          .A_i                     ( bypass_A_i            ),
          .B_i                     ( bypass_B_i            ),
          .imm_ext_i               ( imm_ext_i      ),
+
 
          .alu_result_o            ( alu_result_o_ex   )
      );
@@ -535,6 +593,9 @@ wire jal_en_i_ex;
 assign reg_we_i_ex = reg_we_o_idex;
 assign jal_en_i_ex = jal_en_o_idex;
 
+
+wire ex_mem_reg_w_i;
+
 // output
 wire [31:0] data_to_mem_o_exmem;
 wire [31:0] alu_result_o_exmem;
@@ -551,6 +612,7 @@ wire jal_en_o_exmem;
 EX_MEM  u_EX_MEM (
             .clk                     ( clk             ),
             .rst_n                   ( rst_n           ),
+            .ex_mem_w_i              ( ex_mem_reg_w_i       ),
 
             .data_to_mem_i           ( data_to_mem_i   ),
             .alu_result_i            ( alu_result_i    ),
@@ -644,6 +706,9 @@ wire jal_en_i_mem;
 assign reg_we_i_mem = reg_we_o_exmem;
 assign jal_en_i_mem = jal_en_o_exmem;
 
+
+wire mem_wb_reg_w_i;
+
 // output
 wire [31:0] data_result_o_memwb;
 wire [4:0] rW_o_memwb;
@@ -655,6 +720,7 @@ wire jal_en_o_memwb;
 MEM_WB  u_MEM_WB (
             .clk                     ( clk             ),
             .rst_n                   ( rst_n           ),
+            .mem_wb_w_i              ( mem_wb_reg_w_i      ),
 
             .data_result_i           ( data_result_i_mem   ),
             .rW_i                    ( rW_i_mem            ),
@@ -773,16 +839,16 @@ wire is_jump_inst_i;
 
 assign id_ex_data_r_i = data_r_o_idex;
 assign ex_mem_data_r_i = data_r_o_exmem;
-assign is_jump_inst_i = is_jump_inst_o_idex; // not EX/MEM
+// 对于'||'前面，是lw,bne的情况
+// '||'后面，是lw,XXX,bne的情况
+assign is_jump_inst_i = is_jump_inst_o_idex || is_jump_inst_o;
 
 // output
 wire  pc_w_o;
 wire  if_id_w_o;
 wire  clear_o;
 
-assign pc_w_i = pc_w_o;
-assign if_id_w_i = if_id_w_o;
-assign clear_i = clear_o;
+
 
 stall_pipeline  u_stall_pipeline (
                     .id_ex_data_r_i          ( id_ex_data_r_i    ),
@@ -797,6 +863,86 @@ stall_pipeline  u_stall_pipeline (
                     .if_id_w_o               ( if_id_w_o         ),
                     .clear_o                 ( clear_o           )
                 );
+
+
+/*
+ * type:     stall pipeline
+ * description: CPU向base_instRAM读/写数据
+ * location: MEM stage
+ */
+
+// input
+wire [31:0] data_addr_i_stall;
+assign data_addr_i_stall = alu_result_o_exmem;
+
+// output
+wire pc_w_o_mem;
+wire if_id_w_o_mem;
+wire clear_o_mem;
+
+r_w_instram_stall  u_r_w_instram_stall (
+                       .ex_mem_data_w_i         ( ex_mem_data_w_i   ),
+                       .ex_mem_data_r_i         ( ex_mem_data_r_i   ),
+                       .data_addr_i             ( data_addr_i_stall ),
+
+                       .pc_w_o                  ( pc_w_o_mem        ),
+                       .if_id_w_o               ( if_id_w_o_mem     ),
+                       .clear_o                 ( clear_o_mem       )
+                   );
+
+/*
+ * type:     stall pipeline
+ * description: load指令，全流水暂停一个周期
+ * location: MEM stage
+ */
+
+// input
+wire [31:0] data_addr_i_loadstall;
+assign data_addr_i_loadstall = alu_result_o_exmem;
+
+// output
+wire pc_w_o_load;
+wire if_id_w_o_load;
+wire id_ex_w_o_load;
+wire ex_mem_w_o_load;
+wire mem_wb_w_o_load;
+
+
+loaddata_stall  u_loaddata_stall (
+                    // .clk                     ( clk               ),
+                    // .rst_n                   ( rst_n             ),
+                    .ex_mem_data_r_i         ( ex_mem_data_r_i   ),
+                    .data_r_finish_i         ( data_r_finish_i   ), // 外部
+                    .data_addr_i             ( data_addr_i_loadstall   ),
+
+                    .pc_w_o                  ( pc_w_o_load            ),
+                    .if_id_w_o               ( if_id_w_o_load         ),
+                    .id_ex_w_o               ( id_ex_w_o_load         ),
+                    .ex_mem_w_o              ( ex_mem_w_o_load        ),
+                    .mem_wb_w_o              ( mem_wb_w_o_load        )
+                );
+
+
+// 流水暂停，列真值表
+assign pc_w_i    = pc_w_o && pc_w_o_mem && pc_w_o_load && pc_w_o_pcstall;
+assign if_id_w_i = if_id_w_o && if_id_w_o_mem && if_id_w_o_load;
+assign clear_i   = clear_o || clear_o_mem;
+
+assign id_ex_reg_w_i = id_ex_w_o_load;
+assign ex_mem_reg_w_i = ex_mem_w_o_load;
+assign mem_wb_reg_w_i = mem_wb_w_o_load;
+
+// 除了pc_stall导致PC不允许写的情况
+wire pc_w_i_exclude_pcstall = pc_w_o && pc_w_o_mem && pc_w_o_load;
+assign inst_r_o = pc_w_i_exclude_pcstall;
+// assign inst_r_o = 1;
+
+/*
+ * type:     pc stall
+ * description: CPU取指需要两个周期！
+ * location: IF stage
+ */
+
 
 /*
  * type:     jal hazard

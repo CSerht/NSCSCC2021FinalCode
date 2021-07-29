@@ -23,14 +23,15 @@
 `include "define.v"
 
 module MEM_WB(
-           input clk,
-           input rst_n,
+           input wire clk,
+           input wire rst_n,
+           input wire mem_wb_w_i,
 
-           input [31:0] data_result_i,
-           output reg [31:0] data_result_o,
+           input wire [31:0] data_result_i,
+           (*mark_debug = "true"*)output reg [31:0] data_result_o,
 
-           input [4:0] rW_i,
-           output reg [4:0] rW_o,
+           input wire [4:0] rW_i,
+           (*mark_debug = "true"*)output reg [4:0] rW_o,
 
            /* jump identifier */
            input wire [31:0] jal_i,
@@ -44,11 +45,11 @@ module MEM_WB(
            // WB //
            input reg_we_i,
            input wire jal_en_i,
-           output reg reg_we_o,
+           (*mark_debug = "true"*)output reg reg_we_o,
            output reg jal_en_o
        );
 
-always@(posedge clk)
+always@(posedge clk or posedge rst_n)
 begin
     if(rst_n == `rst_enable)
     begin
@@ -66,7 +67,7 @@ begin
         reg_we_o <= `reg_write_disable;
         jal_en_o <= `jal_disable;
     end
-    else
+    else if(mem_wb_w_i == `mem_wb_write_enable)
     begin
         data_result_o <= data_result_i;
         rW_o <= rW_i;
@@ -81,6 +82,10 @@ begin
         // WB //
         reg_we_o <= reg_we_i;
         jal_en_o <= jal_en_i;
+    end
+    else
+    begin
+        ;
     end
 end
 

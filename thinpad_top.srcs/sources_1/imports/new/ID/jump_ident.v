@@ -42,7 +42,8 @@ wire [31:0] data_sub = dataA - dataB;
 // b inst target
 wire [31:0] b_target_offset = { {15{offset[15]}}, offset[14:0], 2'b00 };
 // pc + 4
-wire [31:0] pc_add_4 = pc + 4;
+// wire [31:0] pc_add_4 = pc + 4;
+wire [31:0] pc_add_4 = pc; // 【访存需要2周期就不用+4了】
 
 // 注意部分指令的无条件跳转！
 always@(*)
@@ -83,17 +84,20 @@ begin
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
+        // ################ NOTE: condition is sign bit is 0 but value not zero.
         `bgtz_inst_op:
         begin
-            isjump_o <= (dataA > 0);
+            isjump_o <= (dataA[31] == 0 && dataA != 0);
             jal_en_o <= 0;
             pc_o <= pc_add_4 + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
+        // ################ NOTE: condition is sign bit is 0.
+        // dataA此时是带符号数！
         `bgez_inst_op:
         begin
-            isjump_o <= (dataA >= 0);
+            isjump_o <= (dataA[31] == 0);
             jal_en_o <= 0;
             pc_o <= pc_add_4 + b_target_offset;
             jal_o <= 0;

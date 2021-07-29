@@ -27,8 +27,8 @@ module ALU(
            input wire [3:0] op_i,    // ALU operation
            input wire alu_src_i,     // ALU source operand
 
-           input wire [31:0] A_i,
-           input wire [31:0] B_i,
+           input wire [31:0] A_i,  // reg[rs]
+           input wire [31:0] B_i,  // reg[rt]
            input wire [31:0] imm_ext_i,
 
            output reg [31:0] alu_result_o
@@ -38,6 +38,9 @@ module ALU(
 wire [31:0] op1 = A_i;
 wire [31:0] op2 =
      (alu_src_i == `B_calculate)? B_i: imm_ext_i;
+
+wire [4:0] sa = imm_ext_i[10:6]; // R-type sa field
+
 
 // multipling unit
 wire signed [31 : 0] mul_result;
@@ -56,16 +59,19 @@ begin
             alu_result_o <= op1 | op2;
         `xor_op:
             alu_result_o <= op1 ^ op2;
-        `sll_op:
-            alu_result_o <= op1 << op2;
-        `srl_op:
-            alu_result_o <= op1 >> op2;
+        `sll_op: // 也是nop_op  注意该运算，reg[rt] << sa
+            alu_result_o <= op2 << sa;
+        `srl_op: // 注意是逻辑移位
+            alu_result_o <= op2 >> sa;
         `add_op:
             alu_result_o <= op1 + op2;
         `mul_op: //// multipling unit: 0 cycle
             alu_result_o <= mul_result;
         `lui_op:
             alu_result_o <= {op2[15:0],16'h0000};
+
+        `sllv_op: // 还得有rs……注意移位最大32位
+            alu_result_o <= op2 << op1[4:0];
 
         default:
             alu_result_o <= 0;

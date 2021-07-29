@@ -46,7 +46,7 @@ begin
                 `srl_func:
                     op_o <= `srl_op;
                 `sllv_func:
-                    op_o <= `sll_op;
+                    op_o <= `sllv_op;
                 `addu_func:
                     op_o <= `add_op;
 

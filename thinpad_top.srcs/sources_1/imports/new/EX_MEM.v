@@ -25,6 +25,7 @@
 module EX_MEM(
            input wire clk,
            input wire rst_n,
+           input wire ex_mem_w_i,
 
            input wire [31:0] data_to_mem_i,
            input wire [31:0] alu_result_i,
@@ -59,7 +60,7 @@ module EX_MEM(
            output reg jal_en_o
        );
 
-always@(posedge clk)
+always@(posedge clk or posedge rst_n)
 begin
     if(rst_n == `rst_enable)
     begin
@@ -82,7 +83,7 @@ begin
         reg_we_o <= `reg_write_disable;
         jal_en_o <= `jal_disable;
     end
-    else
+    else if(ex_mem_w_i == `ex_mem_write_enable)
     begin
         data_to_mem_o   <= data_to_mem_i;
         alu_result_o    <= alu_result_i;
@@ -102,6 +103,10 @@ begin
         // WB //
         reg_we_o <= reg_we_i;
         jal_en_o <= jal_en_i;
+    end
+    else
+    begin
+        ;
     end
 end
 

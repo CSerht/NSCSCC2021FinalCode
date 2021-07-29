@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="44" Path="D:/mycollege/cpudesign/commit/2021031/thinpad_top.xpr">
+<Project Version="7" Minor="44" Path="D:/mycollege/cpudesign/commitlab2/2021031/thinpad_top.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="1e0777dd008c45fcbaffd6b18f2c35e9"/>
@@ -21,13 +21,13 @@
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
-    <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
+    <Option Name="IPOutputRepo" Val="D:/mycollege/cpudesign/commit/2021031/thinpad_top.cache/ip"/>
     <Option Name="IPCachePermission" Val="read"/>
     <Option Name="IPCachePermission" Val="write"/>
     <Option Name="EnableCoreContainer" Val="FALSE"/>
     <Option Name="CreateRefXciForCoreContainers" Val="FALSE"/>
-    <Option Name="IPUserFilesDir" Val="$PIPUSERFILESDIR"/>
-    <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
+    <Option Name="IPUserFilesDir" Val="$PPRDIR/../../commit/2021031/thinpad_top.ip_user_files"/>
+    <Option Name="IPStaticSourceDir" Val="$PPRDIR/../../commit/2021031/thinpad_top.ip_user_files/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
     <Option Name="WTXSimLaunchSim" Val="105"/>
@@ -59,7 +59,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/define.v">
         <FileInfo SFType="VHeader">
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/define.v"/>
-          <Attr Name="ImportTime" Val="1626832083"/>
+          <Attr Name="ImportTime" Val="1627543093"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -67,7 +67,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/EX/ALU.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/EX/ALU.v"/>
-          <Attr Name="ImportTime" Val="1624453921"/>
+          <Attr Name="ImportTime" Val="1627544442"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -76,7 +76,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/EX/ALU_ctl.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/EX/ALU_ctl.v"/>
-          <Attr Name="ImportTime" Val="1624453899"/>
+          <Attr Name="ImportTime" Val="1627543150"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -85,7 +85,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/EX_MEM.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/EX_MEM.v"/>
-          <Attr Name="ImportTime" Val="1626832308"/>
+          <Attr Name="ImportTime" Val="1627357951"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -94,7 +94,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID_EX.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID_EX.v"/>
-          <Attr Name="ImportTime" Val="1626837004"/>
+          <Attr Name="ImportTime" Val="1627458275"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -103,7 +103,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/IF_ID.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/IF_ID.v"/>
-          <Attr Name="ImportTime" Val="1626784543"/>
+          <Attr Name="ImportTime" Val="1627477987"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -112,14 +112,16 @@
       <File Path="$PSRCDIR/sources_1/imports/new/MEM_WB.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/MEM_WB.v"/>
-          <Attr Name="ImportTime" Val="1626743526"/>
+          <Attr Name="ImportTime" Val="1627358015"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/SEG7_LUT.v">
+      <File Path="$PSRCDIR/sources_1/imports/new/arbitration.v">
         <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/arbitration.v"/>
+          <Attr Name="ImportTime" Val="1627520716"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -135,7 +137,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/base_ram_ctl.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/base_ram_ctl.v"/>
-          <Attr Name="ImportTime" Val="1625448155"/>
+          <Attr Name="ImportTime" Val="1627526656"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -177,15 +179,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/new/ext_ram_ctl.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ext_ram_ctl.v"/>
-          <Attr Name="ImportTime" Val="1625450526"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/imm_extension.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/imm_extension.v"/>
@@ -198,7 +191,16 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID/jump_ident.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/jump_ident.v"/>
-          <Attr Name="ImportTime" Val="1626838607"/>
+          <Attr Name="ImportTime" Val="1627547418"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/MEM/loaddata_stall.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/MEM/loaddata_stall.v"/>
+          <Attr Name="ImportTime" Val="1627483219"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -207,7 +209,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/my_cpu.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/my_cpu.v"/>
-          <Attr Name="ImportTime" Val="1626837231"/>
+          <Attr Name="ImportTime" Val="1627544451"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -216,7 +218,16 @@
       <File Path="$PSRCDIR/sources_1/imports/new/IF/pc.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/IF/pc.v"/>
-          <Attr Name="ImportTime" Val="1626783751"/>
+          <Attr Name="ImportTime" Val="1627355343"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/IF/pc_stall.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/IF/pc_stall.v"/>
+          <Attr Name="ImportTime" Val="1627511695"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -231,10 +242,28 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/MEM/r_w_instram_stall.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/MEM/r_w_instram_stall.v"/>
+          <Attr Name="ImportTime" Val="1627138582"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/reg_files.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/reg_files.v"/>
-          <Attr Name="ImportTime" Val="1626664107"/>
+          <Attr Name="ImportTime" Val="1627433640"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/sram_ctl.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/sram_ctl.v"/>
+          <Attr Name="ImportTime" Val="1627542446"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -249,8 +278,10 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/vga.v">
+      <File Path="$PSRCDIR/sources_1/imports/new/UART/uart_buffer.v">
         <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/UART/uart_buffer.v"/>
+          <Attr Name="ImportTime" Val="1627355351"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -258,6 +289,32 @@
       </File>
       <File Path="$PSRCDIR/sources_1/new/thinpad_top.v">
         <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/SEG7_LUT.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/new/vga.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/ext_ram_ctl.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ext_ram_ctl.v"/>
+          <Attr Name="ImportTime" Val="1627462286"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -415,6 +472,7 @@
     <FileSet Name="pll_example" Type="BlockSrcs" RelSrcDir="$PSRCDIR/pll_example">
       <File Path="$PSRCDIR/sources_1/ip/pll_example/pll_example.xci">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -458,39 +516,34 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="11">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a200tfbg676-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a200tfbg676-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2016"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2017"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="pll_example_synth_1" Type="Ft3:Synth" SrcSet="pll_example" Part="xc7a200tfbg676-2" ConstrsSet="pll_example" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/pll_example_synth_1" IncludeInArchive="true">
+    <Run Id="pll_example_synth_1" Type="Ft3:Synth" SrcSet="pll_example" Part="xc7a200tfbg676-2" ConstrsSet="pll_example" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2019"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="mult_gen_0_synth_1" Type="Ft3:Synth" SrcSet="mult_gen_0" Part="xc7a200tfbg676-2" ConstrsSet="mult_gen_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/mult_gen_0_synth_1" IncludeInArchive="true">
+    <Run Id="mult_gen_0_synth_1" Type="Ft3:Synth" SrcSet="mult_gen_0" Part="xc7a200tfbg676-2" ConstrsSet="mult_gen_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2019"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a200tfbg676-2" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true" GenFullBitstream="true">
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a200tfbg676-2" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" SynthRun="synth_1" IncludeInArchive="true" GenFullBitstream="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2016"/>
         <Step Id="init_design"/>
@@ -503,7 +556,6 @@
         <Step Id="post_route_phys_opt_design"/>
         <Step Id="write_bitstream"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2017"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
@@ -527,9 +579,7 @@
     </Run>
     <Run Id="mult_gen_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a200tfbg676-2" ConstrsSet="mult_gen_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="mult_gen_0_synth_1" IncludeInArchive="false" GenFullBitstream="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2019">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2019"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
