@@ -69,6 +69,8 @@ localparam [2:0] WRITE                 = 3'b010;
 localparam [2:0] READ_DATA_FROM_BASE   = 3'b011; // 从base读数据
 localparam [2:0] READ_INST_FROM_BASE   = 3'b100; // 还原现场1
 localparam [2:0] READ_INST_FROM_BASE_2 = 3'b101; // 还原现场2
+localparam [2:0] WRITE_2               = 3'b110; // 写入操作阶段2
+
 
 // tristate. if(W_ENBALE) inout --> output,write data to SRAM
 localparam [0:0] W_ENABLE  = 1'b1;
@@ -149,13 +151,14 @@ begin
                 sram_addr <= data_addr_i[21:2];
                 current_state <= READ_DATA_FROM_BASE; // read data from base ram
             end
-            else if(data_w_i == `data_write_enable)
-            begin
-                data_to_SRAM     <= data_i;
-                sram_be_n    <= data_sel_i;
-                sram_addr  <= data_addr_i[21:2];
-                current_state    <= WRITE;
-            end
+            // 应该不会出现这种状态
+            // else if(data_w_i == `data_write_enable)
+            // begin
+            //     data_to_SRAM     <= data_i;
+            //     sram_be_n    <= data_sel_i;
+            //     sram_addr  <= data_addr_i[21:2];
+            //     current_state    <= WRITE;
+            // end
             else // not read and write
             begin
                 sram_be_n    <= 0;
@@ -191,22 +194,25 @@ begin
                     current_state     <= IDLE;
                 end
             end
-            else  // 如果准备写入数据到buffer的时候，发现CPU读不允许了
+            // 在READ状态发现，准备写入指令到baseRAM，目前来说这种可能性只可能出现在READ状态
+            else if(data_w_i == `data_write_enable)
+            begin
+                // temp_instruction <= sram_data; // 暂存读取的的指令
+                // 把已经读到的指令送出去
+                data_from_SRAM   <= sram_data;
+                data_r_finish_o   <= `data_read_finish;
+                sram_ctl_busy_o    <= `sram_busy;
+
+                // 切换到WRITE状态
+                data_to_SRAM     <= data_i;
+                sram_be_n        <= data_sel_i;
+                sram_addr        <= data_addr_i[21:2];
+                current_state    <= WRITE;
+            end
+            else  // 如果准备写入数据到data_from_SRAM的时候,读不允许,写不允许
             begin // 就等待读允许，再切换状态
                 current_state <= READ;
             end
-        end
-        /////// 写阶段，把已经准备在 write data buffer中的数据
-        /////// 准备写入到SRAM中（下拉WE，启动写入）
-        /////// 该周期等待数据进入它在SRAM的家里
-        WRITE:
-        begin
-            data_w_finish_o  <= `data_write_unfinish;
-            sram_we_n        <= 0;
-            sram_ctl_busy_o  <= `sram_busy;
-
-            current_state <= IDLE;
-            tristate      <= W_ENABLE;
         end
         // 从base读数据
         READ_DATA_FROM_BASE:
@@ -231,6 +237,29 @@ begin
             data_r_finish_o   <= `data_read_finish;
             sram_ctl_busy_o    <= `sram_busy;
             current_state <= IDLE;
+        end
+
+        /////// 写阶段，把已经准备在 write data buffer中的数据
+        /////// 准备写入到SRAM中（下拉WE，启动写入）
+        /////// 该周期等待数据进入它在SRAM的家里
+        WRITE:
+        begin
+            // 指令读取成功,修改读取状态
+            data_r_finish_o   <= `data_read_unfinish;
+            // sram_ctl_busy_o    <= `sram_idle;
+
+            data_w_finish_o  <= `data_write_unfinish;
+            sram_we_n        <= 0;
+            sram_ctl_busy_o  <= `sram_busy;
+
+            // current_state <= WRITE_2;
+            current_state <= IDLE;
+            tristate      <= W_ENABLE;
+        end
+        // 写阶段2
+        WRITE_2:
+        begin
+
         end
     endcase
 

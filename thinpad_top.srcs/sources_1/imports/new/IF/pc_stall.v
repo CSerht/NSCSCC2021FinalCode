@@ -22,6 +22,7 @@
 `include "../define.v"
 module pc_stall(
            input wire inst_r_finish_i,
+           input wire baseram_w_finish_i,
 
            output reg pc_w_o,
            output reg if_id_clear_o
@@ -29,7 +30,12 @@ module pc_stall(
 
 always@(*)
 begin
-    if(inst_r_finish_i == `inst_read_unfinish)
+    if(baseram_w_finish_i == `inst_write_unfinish)
+    begin
+        pc_w_o        <= `pc_disable;
+        if_id_clear_o <= `clear_enable;
+    end
+    else if(inst_r_finish_i == `inst_read_unfinish)
     begin
         pc_w_o        <= `pc_enable;
         if_id_clear_o <= `clear_enable; // clear IF/ID inst -- nop

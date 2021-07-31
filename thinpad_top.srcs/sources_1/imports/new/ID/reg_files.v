@@ -31,9 +31,8 @@ module reg_files(
            input wire [4:0]  rW,
            input wire [31:0] wr_data_i,
 
-
-           input wire [31:0] jal_i,
-           input wire jal_en_i,
+           //    input wire [31:0] jal_i,
+           //    input wire jal_en_i,
 
            // read port A
            input  wire [4:0]  rA,
@@ -134,10 +133,10 @@ begin
     begin
         if((reg_we_i == `reg_write_enable) && (rW != `zero_register))
         begin
-            if(jal_en_i == `jal_disable)
-                register[rW] <= wr_data_i;
-            else
-                register[31] <= jal_i; // jal instruction
+            // if(jal_en_i == `jal_disable)
+            register[rW] <= wr_data_i;
+            // else
+            // register[31] <= jal_i; // jal instruction
         end
         else
             ;

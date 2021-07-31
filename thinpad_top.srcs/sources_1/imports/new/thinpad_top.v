@@ -57,13 +57,16 @@ module thinpad_top(
 
 // PLL分频示例
 // wire locked, clk_10M, clk_20M;
+// wire locked;
+// wire clk_55M;
+// wire clk_50M_test;
 // pll_example clock_gen
 //             (
 //                 // Clock in ports
 //                 .clk_in1(clk_50M),  // 外部时钟输入
 //                 // Clock out ports
-//                 .clk_out1(clk_10M), // 时钟输出1，频率在IP配置界面中设置
-//                 .clk_out2(clk_20M), // 时钟输出2，频率在IP配置界面中设置
+//                 .clk_out1(clk_55M), // 时钟输出1，频率在IP配置界面中设置
+//                 .clk_out2(clk_50M_test), // 时钟输出2，频率在IP配置界面中设置
 //                 // Status and control signals
 //                 .reset(reset_btn), // PLL复位输入
 //                 .locked(locked)    // PLL锁定指示输出，"1"表示时钟稳定，
@@ -116,12 +119,17 @@ wire rst_n;
 assign clk = clk_50M;
 assign rst_n = reset_btn;
 
+// assign clk = clk_55M;
+// assign rst_n = !locked;
+
 wire [31:0] inst_i;
 wire [31:0] data_i;
 
 
 wire baseram_busy_i_cpu;
 wire inst_r_finish_i_cpu;
+wire baseram_w_finish_i_cpu;
+
 wire ram_busy_i_cpu;
 wire data_r_finish_i_cpu;
 wire data_w_finish_i_cpu;
@@ -149,6 +157,9 @@ my_cpu  u_my_cpu (
 
             .baseram_busy_i          ( baseram_busy_i_cpu    ),
             .inst_r_finish_i         ( inst_r_finish_i_cpu   ),
+            .baseram_w_finish_i      ( baseram_w_finish_i_cpu   ),
+
+
             .ram_busy_i              ( ram_busy_i_cpu        ),
             .data_r_finish_i         ( data_r_finish_i_cpu   ),
             .data_w_finish_i         ( data_w_finish_i_cpu   ),
@@ -221,6 +232,8 @@ wire baseram_busy_i_arb;
 wire inst_r_finish_i_arb;
 wire inst_w_finish_i_arb;
 
+// wire baseram_w_finish_i_arb;
+
 //////////////////////////////////////////////////
 // output
 wire [31:0] data_addr_o;
@@ -265,6 +278,8 @@ wire base_data_r_o;
 wire baseram_busy_o_arb;
 wire inst_r_finish_o_arb;
 
+wire baseram_w_finish_o_arb;
+
 wire is_read_data_o;
 
 // wire [1:0] base_mode_o;
@@ -300,6 +315,7 @@ arbitration  u_arbitration (
 
                  .baseram_busy_o          ( baseram_busy_o_arb   ),
                  .inst_r_finish_o         ( inst_r_finish_o_arb  ),
+                 .baseram_w_finish_o      ( baseram_w_finish_o_arb ),
 
                  // extRAM and serialMemory 共用
                  .data_addr_o             ( data_addr_o     ),
@@ -331,6 +347,7 @@ arbitration  u_arbitration (
                  .baseram_busy_i          ( baseram_busy_i_arb       ),
                  .inst_r_finish_i         ( inst_r_finish_i_arb      ),
                  .inst_w_finish_i         ( inst_w_finish_i_arb      ),
+                 //  .baseram_w_finish_i      ( baseram_w_finish_i_arb ),
 
                  .base_data_i             ( base_data_i      ),
 
@@ -351,6 +368,8 @@ arbitration  u_arbitration (
 
 assign baseram_busy_i_cpu  = baseram_busy_o_arb;
 assign inst_r_finish_i_cpu = inst_r_finish_o_arb;
+assign baseram_w_finish_i_cpu = baseram_w_finish_o_arb;
+
 assign ram_busy_i_cpu      = ram_busy_o_arb;
 assign data_r_finish_i_cpu = data_r_finish_o_arb;
 assign data_w_finish_i_cpu = data_w_finish_o_arb;

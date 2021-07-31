@@ -19,6 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////
+// 不能弃用的啊.......
+//////////////////////////////////////
 `include "../define.v"
 module r_w_instram_stall(
            input wire ex_mem_data_w_i,
@@ -31,8 +34,8 @@ module r_w_instram_stall(
        );
 
 wire is_data_to_inst_ram =
-     data_addr_i[31:22] == 10'b1000_0000_00 &&
-     (ex_mem_data_w_i || ex_mem_data_r_i); // 为1则说明数据会读/写到instRAM
+     data_addr_i[31:22] == 10'b1000_0000_00 && ex_mem_data_r_i;
+     // (ex_mem_data_w_i || ex_mem_data_r_i); // 为1则说明数据会读/写到instRAM
 
 assign pc_w_o    = !is_data_to_inst_ram;
 assign if_id_w_o = !is_data_to_inst_ram;

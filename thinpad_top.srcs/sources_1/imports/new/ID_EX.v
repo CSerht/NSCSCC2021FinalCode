@@ -130,8 +130,14 @@ begin
         B_o <= B_i;
 
         /* rW select */
-        rW_o <= rW_i;
-
+        if(jal_en_i == `jal_disable)
+        begin
+            rW_o <= rW_i;
+        end
+        else
+        begin
+            rW_o <= 31; // jal指令向$31写入PC
+        end
         /* imm extension */
         imm_ext_o <= imm_ext_i;
 
@@ -156,7 +162,14 @@ begin
         is_jump_inst_o <= is_jump_inst_i;
 
         // WB //
-        reg_we_o <= reg_we_i;
+        if(jal_en_i == `jal_disable)
+        begin
+            reg_we_o <= reg_we_i;
+        end
+        else
+        begin
+            reg_we_o <= jal_en_i;
+        end
         jal_en_o <= jal_en_i;
     end
     // id_ex_w_i的优先级比clear_i优先级高

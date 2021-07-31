@@ -86,7 +86,14 @@ begin
     else if(ex_mem_w_i == `ex_mem_write_enable)
     begin
         data_to_mem_o   <= data_to_mem_i;
-        alu_result_o    <= alu_result_i;
+        if(jal_en_i == `jal_disable)
+        begin
+            alu_result_o    <= alu_result_i;
+        end
+        else
+        begin
+            alu_result_o  <= jal_i;
+        end
         rW_o            <= rW_i;
 
         /* jump identifier */

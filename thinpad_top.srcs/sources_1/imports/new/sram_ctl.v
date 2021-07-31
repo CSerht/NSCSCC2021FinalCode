@@ -134,13 +134,13 @@ begin
             else if(data_w_i == `data_write_enable)
             begin
                 data_to_SRAM     <= data_i;
-                sram_be_n    <= data_sel_i;
-                sram_addr  <= data_addr_i[21:2];
+                sram_be_n        <= data_sel_i;
+                sram_addr        <= data_addr_i[21:2];
                 current_state    <= WRITE;
             end
             else // not read and write
             begin
-                sram_be_n    <= 0;
+                sram_be_n        <= 0;
                 current_state    <= IDLE;
             end
         end

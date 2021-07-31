@@ -30,6 +30,8 @@ module my_cpu(
            input wire baseram_busy_i,
            input wire inst_r_finish_i,
 
+           input wire baseram_w_finish_i,
+
            output wire [31:0] pc_o,
 
            output reg [31:0] inst_o = 0,
@@ -121,7 +123,8 @@ wire if_id_clear_o_pcstall;
 assign if_id_clear_i = if_id_clear_o_pcstall;
 
 pc_stall  u_pc_stall (
-              .inst_r_finish_i         ( inst_r_finish_i   ), // CPU外部直连
+              .inst_r_finish_i         ( inst_r_finish_i    ),  // CPU外部直连
+              .baseram_w_finish_i      ( baseram_w_finish_i ),  // CPU外部直连
 
               .pc_w_o                  ( pc_w_o_pcstall            ),
               .if_id_clear_o           ( if_id_clear_o_pcstall     )
@@ -179,8 +182,8 @@ wire [4:0] rW_id;
 wire [31:0] wr_data_i_id;
 
 /// from jump_ident module (WB stage)
-wire [31:0] jal_i_id;
-wire jal_en_i_id;
+// wire [31:0] jal_i_id;
+// wire jal_en_i_id;
 
 /// from IF/ID
 wire [4:0] rA;
@@ -198,8 +201,8 @@ reg_files  u_reg_files (
                .reg_we_i                ( reg_we_i_id    ),
                .rW                      ( rW_id          ),
                .wr_data_i               ( wr_data_i_id   ),
-               .jal_i                   ( jal_i_id       ),
-               .jal_en_i                ( jal_en_i_id    ),
+               //    .jal_i                   ( jal_i_id       ),
+               //    .jal_en_i                ( jal_en_i_id    ),
                .rA                      ( rA          ),
                .rB                      ( rB          ),
 
@@ -747,8 +750,8 @@ MEM_WB  u_MEM_WB (
 assign reg_we_i_id = reg_we_o_memwb;
 assign rW_id = rW_o_memwb;
 assign wr_data_i_id = data_result_o_memwb;
-assign jal_i_id = jal_o_memwb;
-assign jal_en_i_id = jal_en_o_memwb;
+// assign jal_i_id = jal_o_memwb;
+// assign jal_en_i_id = jal_en_o_memwb;
 
 //**************************************//
 ///////////// hazard handler /////////////

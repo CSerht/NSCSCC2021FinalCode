@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="44" Path="D:/mycollege/cpudesign/commitlab2/2021031/thinpad_top.xpr">
+<Project Version="7" Minor="44" Path="D:/mycollege/cpudesign/commitlab3/2021031/thinpad_top.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="1e0777dd008c45fcbaffd6b18f2c35e9"/>
@@ -58,16 +58,16 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sources_1/imports/new/define.v">
         <FileInfo SFType="VHeader">
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/define.v"/>
-          <Attr Name="ImportTime" Val="1627543093"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/define.v"/>
+          <Attr Name="ImportTime" Val="1627562037"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/EX/ALU.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/EX/ALU.v"/>
-          <Attr Name="ImportTime" Val="1627544442"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/EX/ALU.v"/>
+          <Attr Name="ImportTime" Val="1627562034"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -75,8 +75,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/EX/ALU_ctl.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/EX/ALU_ctl.v"/>
-          <Attr Name="ImportTime" Val="1627543150"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/EX/ALU_ctl.v"/>
+          <Attr Name="ImportTime" Val="1627562034"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -84,8 +84,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/EX_MEM.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/EX_MEM.v"/>
-          <Attr Name="ImportTime" Val="1627357951"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/EX_MEM.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -93,8 +93,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID_EX.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID_EX.v"/>
-          <Attr Name="ImportTime" Val="1627458275"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID_EX.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -102,8 +102,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/IF_ID.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/IF_ID.v"/>
-          <Attr Name="ImportTime" Val="1627477987"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/IF_ID.v"/>
+          <Attr Name="ImportTime" Val="1627562035"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -111,8 +111,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/MEM_WB.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/MEM_WB.v"/>
-          <Attr Name="ImportTime" Val="1627358015"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/MEM_WB.v"/>
+          <Attr Name="ImportTime" Val="1627562036"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -120,8 +120,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/arbitration.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/arbitration.v"/>
-          <Attr Name="ImportTime" Val="1627520716"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/arbitration.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -129,7 +129,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/async.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/async.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/async.v"/>
           <Attr Name="ImportTime" Val="1627547584"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -138,8 +138,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/base_ram_ctl.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/base_ram_ctl.v"/>
-          <Attr Name="ImportTime" Val="1627526656"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/base_ram_ctl.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -147,7 +147,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/central_ctl.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/central_ctl.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/central_ctl.v"/>
           <Attr Name="ImportTime" Val="1625534068"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -156,7 +156,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/EX/data_hazard_ex.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/EX/data_hazard_ex.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/EX/data_hazard_ex.v"/>
           <Attr Name="ImportTime" Val="1626704448"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -165,7 +165,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/data_hazard_jump.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/data_hazard_jump.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/data_hazard_jump.v"/>
           <Attr Name="ImportTime" Val="1626752949"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -174,7 +174,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/MEM/data_hazard_lwsw.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/MEM/data_hazard_lwsw.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/MEM/data_hazard_lwsw.v"/>
           <Attr Name="ImportTime" Val="1626744175"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -183,7 +183,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/imm_extension.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/imm_extension.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/imm_extension.v"/>
           <Attr Name="ImportTime" Val="1624453942"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -192,8 +192,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/jump_ident.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/jump_ident.v"/>
-          <Attr Name="ImportTime" Val="1627547418"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/jump_ident.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -201,8 +201,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/MEM/loaddata_stall.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/MEM/loaddata_stall.v"/>
-          <Attr Name="ImportTime" Val="1627483219"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/MEM/loaddata_stall.v"/>
+          <Attr Name="ImportTime" Val="1627562035"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -210,8 +210,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/my_cpu.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/my_cpu.v"/>
-          <Attr Name="ImportTime" Val="1627544451"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/my_cpu.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -219,8 +219,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/IF/pc.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/IF/pc.v"/>
-          <Attr Name="ImportTime" Val="1627355343"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/IF/pc.v"/>
+          <Attr Name="ImportTime" Val="1627562035"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -228,8 +228,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/IF/pc_stall.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/IF/pc_stall.v"/>
-          <Attr Name="ImportTime" Val="1627511695"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/IF/pc_stall.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -237,7 +237,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/rW_select.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/rW_select.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/rW_select.v"/>
           <Attr Name="ImportTime" Val="1624453988"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -246,8 +246,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/MEM/r_w_instram_stall.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/MEM/r_w_instram_stall.v"/>
-          <Attr Name="ImportTime" Val="1627138582"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/MEM/r_w_instram_stall.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -255,8 +255,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/reg_files.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/reg_files.v"/>
-          <Attr Name="ImportTime" Val="1627433640"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/reg_files.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -264,8 +264,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/sram_ctl.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/sram_ctl.v"/>
-          <Attr Name="ImportTime" Val="1627542446"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/sram_ctl.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -273,7 +273,7 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/ID/stall_pipeline.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/stall_pipeline.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/stall_pipeline.v"/>
           <Attr Name="ImportTime" Val="1626833486"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -282,8 +282,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/UART/uart_buffer.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/UART/uart_buffer.v"/>
-          <Attr Name="ImportTime" Val="1627355351"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/UART/uart_buffer.v"/>
+          <Attr Name="ImportTime" Val="1627562037"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -291,8 +291,8 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/new/thinpad_top.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/thinpad_top.v"/>
-          <Attr Name="ImportTime" Val="1627522585"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/thinpad_top.v"/>
+          <Attr Name="ImportTime" Val="1627694737"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -301,18 +301,8 @@
       <File Path="$PSRCDIR/sources_1/imports/new/SEG7_LUT.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/SEG7_LUT.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/SEG7_LUT.v"/>
           <Attr Name="ImportTime" Val="1626963219"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/new/vga.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/vga.v"/>
-          <Attr Name="ImportTime" Val="1622724420"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -321,8 +311,18 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID/data_hazard_lwalu.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/data_hazard_lwalu.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/data_hazard_lwalu.v"/>
           <Attr Name="ImportTime" Val="1626790517"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/new/vga.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/vga.v"/>
+          <Attr Name="ImportTime" Val="1622724420"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -331,7 +331,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID/data_j_hazard_lw.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ID/data_j_hazard_lw.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/data_j_hazard_lw.v"/>
           <Attr Name="ImportTime" Val="1626790460"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -341,8 +341,8 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ext_ram_ctl.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/git3/2021031/thinpad_top.srcs/sources_1/new/ext_ram_ctl.v"/>
-          <Attr Name="ImportTime" Val="1627462286"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ext_ram_ctl.v"/>
+          <Attr Name="ImportTime" Val="1627562037"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>

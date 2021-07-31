@@ -51,6 +51,8 @@ module arbitration(
            output wire baseram_busy_o,
            output wire inst_r_finish_o,
 
+           output wire baseram_w_finish_o,
+
            output wire [31:0] inst_o,
 
            //// ext ram和串口 共用地址线
@@ -85,6 +87,8 @@ module arbitration(
            input wire baseram_busy_i,
            input wire inst_r_finish_i,
            input wire inst_w_finish_i,
+
+        //    input wire baseram_w_finish_i,
 
            output wire is_read_data_o,
 
@@ -247,7 +251,8 @@ assign base_data_ce_o= (destination == `d_base_data_memory)?data_ce_i   : inst_c
 assign base_data_o = (destination == `d_base_data_memory) ? data_i_convert : inst_i;
 
 assign is_read_data_o = (destination == `d_base_data_memory)?
-       `read_data_from_baseram : `read_data_not_from_baseram;
+       //    `read_data_from_baseram : `read_data_not_from_baseram;
+       data_r_i : `read_data_not_from_baseram;
 
 ///////////////////////////////////////
 /////////// data to cpu /////////////// 多路选择器
@@ -308,5 +313,7 @@ assign inst_o = (destination == `d_base_data_memory) ? 32'h0000_0000 : base_data
 assign inst_r_finish_o =
        (destination == `d_base_data_memory) ?
        `inst_read_unfinish : inst_r_finish_i;
+// 直连获取baseram_ctl信号
+assign baseram_w_finish_o = inst_w_finish_i;
 
 endmodule

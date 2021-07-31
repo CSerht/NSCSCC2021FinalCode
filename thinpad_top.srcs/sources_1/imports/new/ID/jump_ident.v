@@ -43,7 +43,7 @@ wire [31:0] data_sub = dataA - dataB;
 wire [31:0] b_target_offset = { {15{offset[15]}}, offset[14:0], 2'b00 };
 // pc + 4
 // wire [31:0] pc_add_4 = pc + 4;
-wire [31:0] pc_add_4 = pc; // 【访存需要2周期就不用+4了】
+// wire [31:0] pc_add_4 = pc; // 【访存需要2周期就不用+4了】
 
 // 注意部分指令的无条件跳转！
 always@(*)
@@ -72,7 +72,7 @@ begin
         begin
             isjump_o <= (data_sub == 0);
             jal_en_o <= 0;
-            pc_o <= pc_add_4 + b_target_offset;
+            pc_o <= pc + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -80,7 +80,7 @@ begin
         begin
             isjump_o <= (data_sub != 0);
             jal_en_o <= 0;
-            pc_o <= pc_add_4 + b_target_offset;
+            pc_o <= pc + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -89,7 +89,7 @@ begin
         begin
             isjump_o <= (dataA[31] == 0 && dataA != 0);
             jal_en_o <= 0;
-            pc_o <= pc_add_4 + b_target_offset;
+            pc_o <= pc + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -99,7 +99,7 @@ begin
         begin
             isjump_o <= (dataA[31] == 0);
             jal_en_o <= 0;
-            pc_o <= pc_add_4 + b_target_offset;
+            pc_o <= pc + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -107,7 +107,7 @@ begin
         begin
             isjump_o <= 1;
             jal_en_o <= 0;
-            pc_o <= { pc_add_4[31:28], offset, 2'b00 };
+            pc_o <= { pc[31:28], offset, 2'b00 };
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -115,11 +115,11 @@ begin
         begin
             isjump_o <= 1;
             jal_en_o <= 1;
-            pc_o <= { pc_add_4[31:28], offset, 2'b00 };
-            jal_o <= pc + 8;
+            pc_o <= { pc[31:28], offset, 2'b00 };
+            jal_o <= pc + 4; // 当前pc值就是延迟槽指令的pc
             is_jump_inst_o <= `is_jump_inst;
         end
-        default :
+        default:
         begin
             isjump_o <= `jump_disable;
             jal_en_o <= `jal_disable;
