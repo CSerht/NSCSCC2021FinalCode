@@ -4,84 +4,84 @@ module thinpad_top(
            input wire clk_50M,           //50MHz 时钟输入
            input wire clk_11M0592,       //11.0592MHz 时钟输入（备用，可不用）
 
-           input wire clock_btn,         //BTN5手动时钟按钮开关，带消抖电路，按下时为1
-           input wire reset_btn,         //BTN6手动复位按钮开关，带消抖电路，按下时为1
+           input wire clock_btn,         //BTN5手动时钟按钮�?关，带消抖电路，按下时为1
+           input wire reset_btn,         //BTN6手动复位按钮�?关，带消抖电路，按下时为1
 
            input  wire[3:0]  touch_btn,  //BTN1~BTN4，按钮开关，按下时为1
-           input  wire[31:0] dip_sw,     //32位拨码开关，拨到“ON”时为1
+           input  wire[31:0] dip_sw,     //32位拨码开关，拨到“ON”时�?1
            output wire[15:0] leds,       //16位LED，输出时1点亮
            output wire[7:0]  dpy0,       //数码管低位信号，包括小数点，输出1点亮
            output wire[7:0]  dpy1,       //数码管高位信号，包括小数点，输出1点亮
 
            //BaseRAM信号
-           inout wire[31:0] base_ram_data,  //BaseRAM数据，低8位与CPLD串口控制器共享
+           inout wire[31:0] base_ram_data,  //BaseRAM数据，低8位与CPLD串口控制器共�?
            (*mark_debug = "true"*)output wire[19:0] base_ram_addr, //BaseRAM地址
-           (*mark_debug = "true"*)output wire[3:0] base_ram_be_n,  //BaseRAM字节使能，低有效。如果不使用字节使能，请保持为0
-           output wire base_ram_ce_n,       //BaseRAM片选，低有效
-           (*mark_debug = "true"*)output wire base_ram_oe_n,       //BaseRAM读使能，低有效
-           (*mark_debug = "true"*)output wire base_ram_we_n,       //BaseRAM写使能，低有效
+           (*mark_debug = "true"*)output wire[3:0] base_ram_be_n,  //BaseRAM字节使能，低有效。如果不使用字节使能，请保持�?0
+           output wire base_ram_ce_n,       //BaseRAM片�?�，低有�?
+           (*mark_debug = "true"*)output wire base_ram_oe_n,       //BaseRAM读使能，低有�?
+           (*mark_debug = "true"*)output wire base_ram_we_n,       //BaseRAM写使能，低有�?
 
            //ExtRAM信号
            inout wire[31:0] ext_ram_data,  //ExtRAM数据
            (*mark_debug = "true"*)output wire[19:0] ext_ram_addr, //ExtRAM地址
-           (*mark_debug = "true"*)output wire[3:0] ext_ram_be_n,  //ExtRAM字节使能，低有效。如果不使用字节使能，请保持为0
-           output wire ext_ram_ce_n,       //ExtRAM片选，低有效
-           (*mark_debug = "true"*)output wire ext_ram_oe_n,       //ExtRAM读使能，低有效
-           (*mark_debug = "true"*)output wire ext_ram_we_n,       //ExtRAM写使能，低有效
+           (*mark_debug = "true"*)output wire[3:0] ext_ram_be_n,  //ExtRAM字节使能，低有效。如果不使用字节使能，请保持�?0
+           output wire ext_ram_ce_n,       //ExtRAM片�?�，低有�?
+           (*mark_debug = "true"*)output wire ext_ram_oe_n,       //ExtRAM读使能，低有�?
+           (*mark_debug = "true"*)output wire ext_ram_we_n,       //ExtRAM写使能，低有�?
 
            //直连串口信号
-           output wire txd,  //直连串口发送端
-           input  wire rxd,  //直连串口接收端
+           output wire txd,  //直连串口发�?�端
+           input  wire rxd,  //直连串口接收�?
 
-           //Flash存储器信号，参考 JS28F640 芯片手册
-           output wire [22:0]flash_a,      //Flash地址，a0仅在8bit模式有效，16bit模式无意义
+           //Flash存储器信号，参�?? JS28F640 芯片手册
+           output wire [22:0]flash_a,      //Flash地址，a0仅在8bit模式有效�?16bit模式无意�?
            inout  wire [15:0]flash_d,      //Flash数据
            output wire flash_rp_n,         //Flash复位信号，低有效
-           output wire flash_vpen,         //Flash写保护信号，低电平时不能擦除、烧写
-           output wire flash_ce_n,         //Flash片选信号，低有效
-           output wire flash_oe_n,         //Flash读使能信号，低有效
-           output wire flash_we_n,         //Flash写使能信号，低有效
-           output wire flash_byte_n,       //Flash 8bit模式选择，低有效。在使用flash的16位模式时请设为1
+           output wire flash_vpen,         //Flash写保护信号，低电平时不能擦除、烧�?
+           output wire flash_ce_n,         //Flash片�?�信号，低有�?
+           output wire flash_oe_n,         //Flash读使能信号，低有�?
+           output wire flash_we_n,         //Flash写使能信号，低有�?
+           output wire flash_byte_n,       //Flash 8bit模式选择，低有效。在使用flash�?16位模式时请设�?1
 
            //图像输出信号
-           output wire[2:0] video_red,    //红色像素，3位
-           output wire[2:0] video_green,  //绿色像素，3位
-           output wire[1:0] video_blue,   //蓝色像素，2位
-           output wire video_hsync,       //行同步（水平同步）信号
-           output wire video_vsync,       //场同步（垂直同步）信号
+           output wire[2:0] video_red,    //红色像素�?3�?
+           output wire[2:0] video_green,  //绿色像素�?3�?
+           output wire[1:0] video_blue,   //蓝色像素�?2�?
+           output wire video_hsync,       //行同步（水平同步）信�?
+           output wire video_vsync,       //场同步（垂直同步）信�?
            output wire video_clk,         //像素时钟输出
-           output wire video_de           //行数据有效信号，用于区分消隐区
+           output wire video_de           //行数据有效信号，用于区分消隐�?
        );
 
 /* =========== Demo code begin =========== */
 
 // PLL分频示例
 // wire locked, clk_10M, clk_20M;
-// wire locked;
-// wire clk_55M;
-// wire clk_50M_test;
-// pll_example clock_gen
-//             (
-//                 // Clock in ports
-//                 .clk_in1(clk_50M),  // 外部时钟输入
-//                 // Clock out ports
-//                 .clk_out1(clk_55M), // 时钟输出1，频率在IP配置界面中设置
-//                 .clk_out2(clk_50M_test), // 时钟输出2，频率在IP配置界面中设置
-//                 // Status and control signals
-//                 .reset(reset_btn), // PLL复位输入
-//                 .locked(locked)    // PLL锁定指示输出，"1"表示时钟稳定，
-//                 // 后级电路复位信号应当由它生成（见下）
-//             );
+wire locked;
+wire clk_51M;
+wire clk_50M_test;
+pll_example clock_gen
+            (
+                // Clock in ports
+                .clk_in1(clk_50M),  // 外部时钟输入
+                // Clock out ports
+                .clk_out1(clk_51M), // 时钟输出1，频率在IP配置界面中设�?
+                .clk_out2(clk_50M_test), // 时钟输出2，频率在IP配置界面中设�?
+                // Status and control signals
+                .reset(reset_btn), // PLL复位输入
+                .locked(locked)    // PLL锁定指示输出�?"1"表示时钟稳定�?
+                // 后级电路复位信号应当由它生成（见下）
+            );
 
-// reg reset_of_clk10M;
+reg reset_of_clk51M;
 // 异步复位，同步释放，将locked信号转为后级电路的复位reset_of_clk10M
-// always@(posedge clk_10M or negedge locked)
-// begin
-//     if(~locked)
-//         reset_of_clk10M <= 1'b1;
-//     else
-//         reset_of_clk10M <= 1'b0;
-// end
+always@(posedge clk_51M or negedge locked)
+begin
+    if(~locked)
+        reset_of_clk51M <= 1'b1;
+    else
+        reset_of_clk51M <= 1'b0;
+end
 
 // always@(posedge clk_10M or posedge reset_of_clk10M)
 // begin
@@ -95,7 +95,7 @@ module thinpad_top(
 //     end
 // end
 
-// // 不使用内存、串口时，禁用其使能信号
+// // 不使用内存�?�串口时，禁用其使能信号
 // assign base_ram_ce_n = 1'b1;
 // assign base_ram_oe_n = 1'b1;
 // assign base_ram_we_n = 1'b1;
@@ -116,11 +116,11 @@ module thinpad_top(
 // input
 wire clk;
 wire rst_n;
-assign clk = clk_50M;
-assign rst_n = reset_btn;
+// assign clk = clk_50M;
+// assign rst_n = reset_btn;
 
-// assign clk = clk_55M;
-// assign rst_n = !locked;
+assign clk = clk_51M;
+assign rst_n = reset_of_clk51M;
 
 wire [31:0] inst_i;
 wire [31:0] data_i;
@@ -579,19 +579,19 @@ wire RxD_clear;
 wire RxD_data_ready;
 wire [7:0] RxD_data;
 
-// 使得ready保留2个时钟周期
+// 使得ready保留2个时钟周�?
 // always @(posedge clk)
 // begin
 //     RxD_clear <= RxD_data_ready;
 // end
 
-assign RxD_clear = RxD_data_ready; // 接收成功保留一个时钟周期就clear
+assign RxD_clear = RxD_data_ready; // 接收成功保留�?个时钟周期就clear
 
 // for uart buffer
 assign r_data_i = RxD_data;
 assign r_data_w_i = RxD_data_ready;
 
-//接收模块，9600无检验位
+//接收模块�?9600无检验位
 async_receiver #(
                    .ClkFrequency(50000000),
                    .Baud(9600)
@@ -602,8 +602,8 @@ async_receiver #(
 
                    .RxD_clear       ( RxD_clear      ),  //清除接收标志
 
-                   .RxD_data_ready  ( RxD_data_ready ),  //数据接收到标志
-                   .RxD_data        ( RxD_data    )   //接收到的一字节数据
+                   .RxD_data_ready  ( RxD_data_ready ),  //数据接收到标�?
+                   .RxD_data        ( RxD_data    )   //接收到的�?字节数据
                );
 
 
@@ -652,13 +652,13 @@ async_transmitter #(
 // g=dpy0[7] // |     |
 //           // ---d---  p
 
-// 7段数码管译码器演示，将number用16进制显示在数码管上面
-// 两个七段数码管，能够显示全部ASCII字符对应的16进制数
-// 每个ASCII字符占2个16进制，2个16进制数分别通过2个数码管显示出来
-// wire[7:0] number; // 由串口发送，能够接收全部扩展的的ASCII码
+// 7段数码管译码器演示，将number�?16进制显示在数码管上面
+// 两个七段数码管，能够显示全部ASCII字符对应�?16进制�?
+// 每个ASCII字符�?2�?16进制�?2�?16进制数分别�?�过2个数码管显示出来
+// wire[7:0] number; // 由串口发送，能够接收全部扩展的的ASCII�?
 
 // SEG7_LUT segL(
-//              .iDIG      ( number[3:0]   ),  // 4位二进制，能够显示数字 0 ~ F
+//              .iDIG      ( number[3:0]   ),  // 4位二进制，能够显示数�? 0 ~ F
 
 //              .oSEG1     ( dpy0          )   // dpy0是低位数码管，代表了7根管儿和1个小数点（小数点恒不亮）
 //          );
@@ -671,7 +671,7 @@ async_transmitter #(
 // always@(posedge clock_btn or posedge reset_btn)
 // begin
 //     if(reset_btn)
-//     begin //复位按下，设置LED为初始值
+//     begin //复位按下，设置LED为初始�??
 //         led_bits <= 16'h1;
 //     end
 //     else
@@ -680,14 +680,14 @@ async_transmitter #(
 //     end
 // end
 
-// //直连串口接收发送演示，从直连串口收到的数据再发送出去
-// // 注释中给出了【逻辑功能】，还需要关注【时序问题】
+// //直连串口接收发�?�演示，从直连串口收到的数据再发送出�?
+// // 注释中给出了【�?�辑功能】，还需要关注�?�时序问题�??
 // // 以及，接收器和发送器，跟CPU和PC的连接，如何连？
 
-// // 接收器和发送器
-// // 仅仅完成 串/并 转换逻辑
-// // 并给出握手信号，以示意 转换完成与否
-// // NOTE：【不要】将其作为缓存数据的器件
+// // 接收器和发�?�器
+// // 仅仅完成 �?/�? 转换逻辑
+// // 并给出握手信号，以示�? 转换完成与否
+// // NOTE：�?�不要�?�将其作为缓存数据的器件
 
 
 
@@ -695,9 +695,9 @@ async_transmitter #(
 // //////////     receiver     //////////
 // //////////////////////////////////////
 
-// // 1. 发送一串1位1位的串行数据给接收器，共8位
-// // 2. 接收器将其转换位8位并行数据，并设置为“转换完成”状态
-// // 3. 转换完成之后，8位并行数据会被写入到数据缓存区，并设置为“数据有效”
+// // 1. 发�?�一�?1�?1位的串行数据给接收器，共8�?
+// // 2. 接收器将其转换位8位并行数据，并设置为“转换完成�?�状�?
+// // 3. 转换完成之后�?8位并行数据会被写入到数据缓存区，并设置为“数据有效�??
 
 // // input
 // wire ext_uart_clear;
@@ -706,24 +706,24 @@ async_transmitter #(
 // wire ext_uart_ready;
 // wire [7:0] ext_uart_rx;
 
-// // 接收模块：发送端是PC，接收端是FPGA，“接收”的主语是FPGA
-// // 对于发过来的多个字符，每个字符都会在串口停留一个时钟周期（谁的时钟？），
-// // 然后就会变成下一个字符了，就是一个个的接收，所以接收到的字符必须被
+// // 接收模块：发送端是PC，接收端是FPGA，�?�接收�?�的主语是FPGA
+// // 对于发过来的多个字符，每个字符都会在串口停留�?个时钟周期（谁的时钟？）�?
+// // 然后就会变成下一个字符了，就是一个个的接收，�?以接收到的字符必须被
 // // 1. 暂存到buffer_data
-// // 2. 及时使用，避免被覆盖或者丢失
-// async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //接收模块，9600无检验位
+// // 2. 及时使用，避免被覆盖或�?�丢�?
+// async_receiver #(.ClkFrequency(50000000),.Baud(9600)) //接收模块�?9600无检验位
 //                ext_uart_r(
-//                    .clk             ( clk_50M        ),  //外部时钟信号，串口工作频率还和比特率有关，在内部处理，可以不管
+//                    .clk             ( clk_50M        ),  //外部时钟信号，串口工作频率还和比特率有关，在内部处理，可以不�?
 //                    .RxD             ( rxd            ),  //外部串行信号输入，PC --> FPGA
-//                    // 得到的并行数据被拿走了或者弃用，清除掉之前“接收成功”的信号，变成“未接收完成”状态
+//                    // 得到的并行数据被拿走了或者弃用，清除掉之前�?�接收成功�?�的信号，变成�?�未接收完成”状�?
 //                    .RxD_clear       ( ext_uart_clear ),  //清除接收标志
 
-//                    .RxD_data_ready  ( ext_uart_ready ),  //数据接收到标志
-//                    .RxD_data        ( ext_uart_rx    )   //接收到的一字节数据
+//                    .RxD_data_ready  ( ext_uart_ready ),  //数据接收到标�?
+//                    .RxD_data        ( ext_uart_rx    )   //接收到的�?字节数据
 //                );
 
-// // 只要数据被取走，就必须clear，否则串口数据的识别会出现问题
-// assign ext_uart_clear = ext_uart_ready; //收到数据的同时，清除标志，因为数据已取到ext_uart_buffer中
+// // 只要数据被取走，就必须clear，否则串口数据的识别会出现问�?
+// assign ext_uart_clear = ext_uart_ready; //收到数据的同时，清除标志，因为数据已取到ext_uart_buffer�?
 
 // reg [7:0] ext_uart_buffer;
 // reg ext_uart_avai;
@@ -742,21 +742,21 @@ async_transmitter #(
 //     end
 // end
 
-// // 通过七段数码管显示当前串口数据的值
+// // 通过七段数码管显示当前串口数据的�?
 // assign number = ext_uart_buffer;
 
 // ////////////////////////////////////////////////////
 // // 以下逻辑代表
-// // 1. 一字节大小的数据缓冲区，并且示意是否有效
+// // 1. �?字节大小的数据缓冲区，并且示意是否有�?
 // // 2. 如果缓冲区有数据，且数据有效，则将其连接到发送器
-// // 3. 数据有效    -- 发送器开始发送串行数据
-// //    8位并行数据 -- 转换为1位1位的串行数据
+// // 3. 数据有效    -- 发�?�器�?始发送串行数�?
+// //    8位并行数�? -- 转换�?1�?1位的串行数据
 
 // reg [7:0] ext_uart_tx;
 // reg ext_uart_start;
 
 // always @(posedge clk_50M)
-// begin //将缓冲区ext_uart_buffer发送出去
+// begin //将缓冲区ext_uart_buffer发�?�出�?
 //     if(!ext_uart_busy && ext_uart_avai)
 //     begin
 //         ext_uart_tx <= ext_uart_buffer;
@@ -768,14 +768,14 @@ async_transmitter #(
 //     end
 // end
 
-// async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600无检验位
+// async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发�?�模块，9600无检验位
 //                   ext_uart_t(
 //                       .clk          ( clk_50M        ),    //外部时钟信号
-//                       .TxD_start    ( ext_uart_start ),    //开始发送信号
+//                       .TxD_start    ( ext_uart_start ),    //�?始发送信�?
 //                       .TxD_data     ( ext_uart_tx    ),    //待发送的数据
 
 //                       .TxD          ( txd            ),    //串行信号输出  FPGA --> PC
-//                       .TxD_busy     ( ext_uart_busy  )     //发送器忙状态指示
+//                       .TxD_busy     ( ext_uart_busy  )     //发�?�器忙状态指�?
 //                   );
 
 
@@ -788,8 +788,8 @@ async_transmitter #(
 // assign video_clk = clk_50M;
 // vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
 //         .clk(clk_50M),
-//         .hdata(hdata), //横坐标
-//         .vdata(),      //纵坐标
+//         .hdata(hdata), //横坐�?
+//         .vdata(),      //纵坐�?
 //         .hsync(video_hsync),
 //         .vsync(video_vsync),
 //         .data_enable(video_de)
