@@ -257,7 +257,8 @@ assign uart_data_o   =
 // 否则（目标是extRAM），则正常取指令，正常读写extRAM数据
 /////////////////////////////////////////////////////////
 
-// 不同的端口，fast和d_base_data_mem的处理优先级还不同？
+// 对于给baseram的端口，d_base_data_memory优先级比fast_mode_start_i高
+// 对于给cpu的inst_o端口，则优先级相反
 assign base_addr_o =
 
        (destination == `d_base_data_memory) ? data_addr_i :
