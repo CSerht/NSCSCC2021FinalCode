@@ -282,3 +282,44 @@ selectCodeEditor("blk_mem_gen_0.vho", 313, 92); // C (w, cr)
 collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, IP, blk_mem_gen_0, Instantiation Template]", 2); // B (F, cr)
 selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, IP, blk_mem_gen_0, Synthesis, blk_mem_gen_0.dcp]", 4, false); // B (F, cr)
 selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, IP, blk_mem_gen_0, Synthesis, blk_mem_gen_0.mif]", 5, false); // B (F, cr)
+// [GUI Memory]: 146 MB (+1800kb) [00:32:42]
+// Elapsed time: 1138 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (O, cr)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// A (cr): Synthesis is Out-of-date: addNotify
+selectButton(RDIResource.BaseDialog_YES, "Yes"); // a (A)
+// bB (cr):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+dismissDialog("Synthesis is Out-of-date"); // A (cr)
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// f (cr): Launch Runs: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (f)
+dismissDialog("Launch Runs"); // f (cr)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// bB (cr):  Generate Bitstream : addNotify
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 12 
+// Tcl Message: INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'D:/mycollege/cpudesign/commitlab3pro/2021031/thinpad_top.srcs/sources_1/ip/pll_example/pll_example.xci' is already up-to-date 
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Thu Aug  5 12:16:31 2021] Launched synth_1... Run output will be captured here: D:/mycollege/cpudesign/commitlab3pro/2021031/thinpad_top.runs/synth_1/runme.log [Thu Aug  5 12:16:31 2021] Launched impl_1... Run output will be captured here: D:/mycollege/cpudesign/commitlab3pro/2021031/thinpad_top.runs/impl_1/runme.log 
+// TclEventType: RUN_STATUS_CHANGE
+dismissDialog("Generate Bitstream"); // bB (cr)
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// aj (cr): Bitstream Generation Completed: addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 1,005 MB. GUI used memory: 87 MB. Current time: 8/5/21, 12:23:42 PM CST
+// Elapsed time: 491 seconds
+dismissDialog("Bitstream Generation Completed"); // aj (cr)

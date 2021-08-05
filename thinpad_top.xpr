@@ -341,7 +341,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/ramfile/BRAM_Curing_inst.coe">
+      <File Path="$PPRDIR/thinpad_top.srcs/sources_1/ip/blk_mem_gen_0/BRAM_Curing_inst.coe">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
