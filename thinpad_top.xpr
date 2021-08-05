@@ -341,7 +341,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../myCollege/CPUdesign/commitlab3pro/2021031/coedata/BRAM_Curing_inst.coe">
+      <File Path="$PPRDIR/coedata/BRAM_Curing_inst.coe">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
