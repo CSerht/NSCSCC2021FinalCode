@@ -50,8 +50,21 @@ module my_cpu(
            output wire data_w_o,
            output wire data_r_o,
            output wire [1:0] mode_o,
-           output reg data_ce_o = 1
+           output reg data_ce_o = 1,
+
+           // DRAM and Fst Mode
+           output wire [31:0] prgm_start_addr_o,
+           output wire lock_addr_o,
+
+           output wire fast_mode_start_o,
+
+           input wire bram_w_finish_i,
+           output wire bram_w_start_o,
+
+           output wire trans_enable_o
        );
+
+
 
 //////////////////////////////////////////
 ///////////      IF stage      ///////////
@@ -87,6 +100,7 @@ wire if_id_w_i;
 // // isjump enable，输入nop；否则输入inst_i
 // // 写在ID/EX模块那里了
 // wire [31:0] inst_i_sel;
+wire [31:0] inst_i_ctl_result;
 
 wire if_id_clear_i; // connect with pc_stall.v
 
@@ -100,7 +114,7 @@ IF_ID  u_IF_ID (
            .if_id_w_i               ( if_id_w_i   ),
            .if_id_clear_i           ( if_id_clear_i   ),
 
-           .inst_i                  ( inst_i    ),
+           .inst_i                  ( inst_i_ctl_result ),
            .pc_i                    ( pc_i_ifid     ),
 
            .inst_o                  ( inst_o_ifid   ),
@@ -120,9 +134,11 @@ IF_ID  u_IF_ID (
 wire pc_w_o_pcstall;
 wire if_id_clear_o_pcstall;
 
-assign if_id_clear_i = if_id_clear_o_pcstall;
+
 
 pc_stall  u_pc_stall (
+              .fast_mode_start_i       ( fast_mode_start_o  ),
+
               .inst_r_finish_i         ( inst_r_finish_i    ),  // CPU外部直连
               .baseram_w_finish_i      ( baseram_w_finish_i ),  // CPU外部直连
 
@@ -450,7 +466,10 @@ ID_EX  u_ID_EX (
        );
 
 // 输入指令选择nop or inst_i;
-// assign inst_i_sel = (isjump_o_idex == `jump_enable) ? 32'h0000_0000 : inst_i;
+// 在Fast模式下，跳转指令若成立，会导致多执行延迟槽之后的一条指令，将其置nop
+// assign inst_i_sel =
+//        (isjump_o_idex == `jump_enable && fast_mode_start_o == `fast_mode) ?
+//        32'h0000_0000 : inst_i;
 
 
 //////////////////////////////////////////
@@ -846,6 +865,13 @@ assign ex_mem_data_r_i = data_r_o_exmem;
 // '||'后面，是lw,XXX,bne的情况
 assign is_jump_inst_i = is_jump_inst_o_idex || is_jump_inst_o;
 
+
+wire if_id_data_r_i;
+wire if_id_data_w_i;
+
+assign if_id_data_r_i = data_w_o_mem;
+assign if_id_data_w_i = data_r_o_mem;
+
 // output
 wire  pc_w_o;
 wire  if_id_w_o;
@@ -864,7 +890,10 @@ stall_pipeline  u_stall_pipeline (
 
                     .pc_w_o                  ( pc_w_o            ),
                     .if_id_w_o               ( if_id_w_o         ),
-                    .clear_o                 ( clear_o           )
+                    .clear_o                 ( clear_o           ),
+
+                    .if_id_data_r_i          ( if_id_data_r_i    ),
+                    .if_id_data_w_i          ( if_id_data_w_i    )
                 );
 
 
@@ -884,6 +913,8 @@ wire if_id_w_o_mem;
 wire clear_o_mem;
 
 r_w_instram_stall  u_r_w_instram_stall (
+                       .fast_mode_start_i       ( fast_mode_start_o ),
+
                        .ex_mem_data_w_i         ( ex_mem_data_w_i   ),
                        .ex_mem_data_r_i         ( ex_mem_data_r_i   ),
                        .data_addr_i             ( data_addr_i_stall ),
@@ -926,19 +957,40 @@ loaddata_stall  u_loaddata_stall (
                 );
 
 
-// 流水暂停，列真值表
-assign pc_w_i    = pc_w_o && pc_w_o_mem && pc_w_o_load && pc_w_o_pcstall;
-assign if_id_w_i = if_id_w_o && if_id_w_o_mem && if_id_w_o_load;
-assign clear_i   = clear_o || clear_o_mem;
 
-assign id_ex_reg_w_i = id_ex_w_o_load;
-assign ex_mem_reg_w_i = ex_mem_w_o_load;
-assign mem_wb_reg_w_i = mem_wb_w_o_load;
+/*
+ * type:     sw_stall.v
+ * description: FastMode下连续store非串口，需要暂停
+ * location: MEM stage
+ */
 
-// 除了pc_stall导致PC不允许写的情况
-wire pc_w_i_exclude_pcstall = pc_w_o && pc_w_o_mem && pc_w_o_load;
-assign inst_r_o = pc_w_i_exclude_pcstall;
-// assign inst_r_o = 1;
+// input
+wire        id_ex_w_i_swstall;
+wire [31:0] id_ex_data_addr_i_swstall;
+wire        if_id_w_i_swstall;
+
+assign id_ex_w_i_swstall         = data_w_o_idex;
+assign id_ex_data_addr_i_swstall = alu_result_o_ex;
+assign if_id_w_i_swstall         = data_w_o_mem;
+
+
+// output
+wire pc_w_o_swstall;
+wire if_id_w_o_swstall;
+wire clear_o_swstall;
+
+sw_stall  u_sw_stall (
+              .id_ex_w_i               ( id_ex_w_i_swstall          ),
+              .id_ex_data_addr_i       ( id_ex_data_addr_i_swstall   ),
+              .if_id_w_i               ( if_id_w_i_swstall           ),
+
+              .fast_mode_start_i       ( fast_mode_start_o   ),
+
+              .pc_w_o                  ( pc_w_o_swstall      ),
+              .if_id_w_o               ( if_id_w_o_swstall   ),
+              .clear_o                 ( clear_o_swstall     )
+          );
+
 
 /*
  * type:     pc stall
@@ -953,5 +1005,114 @@ assign inst_r_o = pc_w_i_exclude_pcstall;
  */
 
 // 待完善
+
+/////////////////////////////
+//////  mode_convert.v //////
+/////////////////////////////
+
+// input
+wire [4:0] mem_wb_rW_i          = rW_o_memwb;
+wire [31:0] mem_wb_wdata_i      = data_result_o_memwb;
+wire [0:0] mem_wb_reg_w_i_fast  = reg_we_o_memwb;
+
+wire [31:0] id_G_start_i        = inst_o_ifid;
+
+wire [0:0] id_ex_data_w_i       = data_w_o_idex;
+wire [31:0] id_ex_data_addr_i   = alu_result_i; // NOTE!不是来自于reg
+wire [0:0] ex_mem_data_w_i_fast = data_w_o_exmem;
+wire [31:0] ex_mem_data_addr_i  = alu_result_o_exmem;
+
+// output
+wire stall_entire_cpu_o;
+
+mode_convert  u_mode_convert (
+                  .clk                     ( clk                  ),
+                  .rst_n                   ( rst_n                ),
+
+                  .mem_wb_rW_i             ( mem_wb_rW_i          ),
+                  .mem_wb_wdata_i          ( mem_wb_wdata_i       ),
+                  .mem_wb_reg_w_i          ( mem_wb_reg_w_i_fast  ),
+                  .id_G_start_i            ( id_G_start_i         ),
+                  .id_ex_data_w_i          ( id_ex_data_w_i       ),
+                  .id_ex_data_addr_i       ( id_ex_data_addr_i    ),
+                  .ex_mem_data_w_i         ( ex_mem_data_w_i_fast ),
+                  .ex_mem_data_addr_i      ( ex_mem_data_addr_i   ),
+                  .bram_w_finish_i         ( bram_w_finish_i      ), //外部
+
+                  .prgm_start_addr_o       ( prgm_start_addr_o    ),//外部
+                  .lock_addr_o             ( lock_addr_o          ),//外部
+                  .bram_w_start_o          ( bram_w_start_o       ),//外部
+                  .trans_enable_o          ( trans_enable_o       ),//外部
+                  .stall_entire_cpu_o      ( stall_entire_cpu_o   ),//内部
+                  .fast_mode_start_o       ( fast_mode_start_o    ) //内外部
+              );
+
+
+/////////////////////////////
+// fast_start_transition.v //
+/////////////////////////////
+
+// input
+
+
+// output
+wire if_id_clear_o_transition;
+
+fast_start_transition u_fast_start_transition (
+                          .clk                     ( clk                      ),
+                          .rst_n                   ( rst_n                    ),
+                          .fast_mode_start_i       ( fast_mode_start_o        ),
+
+                          .if_id_clear_o           ( if_id_clear_o_transition )
+                      );
+
+
+// 流水暂停，列真值表
+assign pc_w_i    = pc_w_o && pc_w_o_mem &&
+       pc_w_o_load && pc_w_o_pcstall &&
+       pc_w_o_swstall && stall_entire_cpu_o;
+assign if_id_w_i = if_id_w_o && if_id_w_o_mem && if_id_w_o_load
+       && if_id_w_o_swstall && stall_entire_cpu_o;
+
+
+
+assign id_ex_reg_w_i = id_ex_w_o_load && stall_entire_cpu_o;
+assign ex_mem_reg_w_i = ex_mem_w_o_load && stall_entire_cpu_o;
+assign mem_wb_reg_w_i = mem_wb_w_o_load && stall_entire_cpu_o;
+
+// 除了pc_stall导致PC不允许写的情况
+wire pc_w_i_exclude_pcstall = pc_w_o && pc_w_o_mem && pc_w_o_load;
+assign inst_r_o = pc_w_i_exclude_pcstall;
+// assign inst_r_o = 1;
+
+// id_ex clear
+assign clear_i   = clear_o || clear_o_mem || clear_o_swstall;
+
+assign if_id_clear_i = if_id_clear_o_pcstall || if_id_clear_o_transition;
+
+
+/////////////////////////////
+///////  inst_i_ctl.v  //////
+/////////////////////////////
+
+// input
+wire id_ex_isjump_i;
+assign id_ex_isjump_i = isjump_o_idex;
+
+// output
+wire [31:0] inst_to_ifid_o;
+assign inst_i_ctl_result = inst_to_ifid_o;
+
+inst_i_ctl  u_inst_i_ctl (
+                .clk                     ( clk                 ),
+                .rst_n                   ( rst_n               ),
+
+                .id_ex_isjump_i          ( id_ex_isjump_i      ),
+                .inst_i                  ( inst_i              ), // 外部
+                .pc_w_i                  ( pc_w_i              ), // 与直连pc的信号一样
+                .fast_mode_start_i       ( fast_mode_start_o   ), // 与cpu输出一样
+
+                .inst_to_ifid_o          ( inst_to_ifid_o      )
+            );
 
 endmodule

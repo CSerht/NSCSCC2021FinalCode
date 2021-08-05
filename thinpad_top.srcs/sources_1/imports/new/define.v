@@ -278,8 +278,8 @@
 `define d_base_data_memory  2'b10    // 数据目标是Base_instRAM
 `define d_other_memory      2'b11    // 正常取指
 
-`define read_data_from_baseram     1'b1 
-`define read_data_not_from_baseram 1'b0 
+`define read_data_from_baseram     1'b1
+`define read_data_not_from_baseram 1'b0
 
 //////////////////////////
 ///   base_ram_ctl.v   ///
@@ -320,3 +320,41 @@
 
 `define data_write_enable        1'b1
 `define data_write_disable       1'b0
+
+////////////////////////////////////////////////////////////
+//////////////////                        //////////////////
+//////////////////     lab3pro性能优化     //////////////////
+//////////////////                        //////////////////
+////////////////////////////////////////////////////////////
+
+
+//////////////////////////
+///   mode_convert.v   ///
+//////////////////////////
+`define bram_write_enable       1'b1
+`define bram_write_disable      1'b0
+
+`define bram_write_finish       1'b1
+`define bram_write_unfinish     1'b0
+
+
+`define transmitter_enable      1'b1
+`define transmitter_disable     1'b0
+
+`define fast_mode               1'b1
+`define normal_mode             1'b0
+
+`define reg_v0                  5'd2
+
+`define lock_addr_enable        1'b1
+`define lock_addr_disable       1'b0
+
+`define all_reg_w_enable        1'b1
+`define all_reg_w_disable       1'b0
+
+//////////////////////////
+///   base_ram_ctl.v   ///
+//////////////////////////
+`define bram_w_data_disable     1'b0
+`define bram_w_data_enable      1'b1
+

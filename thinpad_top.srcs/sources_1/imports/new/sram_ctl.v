@@ -53,19 +53,19 @@ module sram_ctl(
            output reg  sram_we_n        //BaseRAM写使能，低有效
        );
 
-// FSM state
-localparam [1:0] IDLE  = 2'b00;
-localparam [1:0] READ  = 2'b01;
-localparam [1:0] WRITE = 2'b10;
+// FSM state 独热码
+localparam IDLE  = 3'b001;
+localparam READ  = 3'b010;
+localparam WRITE = 3'b100;
 
 // tristate. if(W_ENBALE) inout --> output,write data to SRAM
-localparam [0:0] W_ENABLE  = 1'b1;
-localparam [0:0] W_DISABLE = 1'b0; // rear data from SRAM
+localparam W_ENABLE  = 2'b01;
+localparam W_DISABLE = 2'b10; // rear data from SRAM
 
-reg [1:0] current_state;
+reg [2:0] current_state;
 reg [31:0] data_from_SRAM;
 reg [31:0] data_to_SRAM;
-reg tristate;
+reg [1:0] tristate;
 
 
 initial

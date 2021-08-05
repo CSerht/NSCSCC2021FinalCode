@@ -21,6 +21,7 @@
 
 `include "define.v"
 module arbitration(
+           input wire clk,
            input wire rst_n,
            // from CPU
 
@@ -88,7 +89,7 @@ module arbitration(
            input wire inst_r_finish_i,
            input wire inst_w_finish_i,
 
-        //    input wire baseram_w_finish_i,
+           //    input wire baseram_w_finish_i,
 
            output wire is_read_data_o,
 
@@ -99,7 +100,25 @@ module arbitration(
            //     output wire [1:0] base_mode_o,
            output wire [3:0] base_data_be_o,
 
-           output wire base_data_ce_o
+           output wire base_data_ce_o,
+
+           // BRAM and Fast Mode
+           /// CPU port
+           input wire [31:0] prgm_start_addr_i,
+           input wire lock_addr_i,
+
+           input wire fast_mode_start_i,
+           input wire bram_w_start_i,
+           output wire bram_w_finish_o,
+
+           /// BRAM and baseram_ctl port
+           input wire [31:0] bram_data_i,
+           output reg [9:0] bram_addr_o,
+
+           input wire bram_w_finish_i,
+           output wire fast_mode_start_o,
+           output wire bram_w_start_o,
+           output reg [31:0] prgm_start_addr_o
        );
 
 
@@ -238,16 +257,28 @@ assign uart_data_o   =
 // 否则（目标是extRAM），则正常取指令，正常读写extRAM数据
 /////////////////////////////////////////////////////////
 
-assign base_addr_o = (destination == `d_base_data_memory) ? data_addr_i : pc_i;
+// 不同的端口，fast和d_base_data_mem的处理优先级还不同？
+assign base_addr_o =
+
+       (destination == `d_base_data_memory) ? data_addr_i :
+       (
+           (fast_mode_start_i == `normal_mode)? pc_i : 0
+       );
 
 // assign base_mode_o = (destination == `d_base_data_memory) ? mode_i      : `word_mode;
 assign base_data_be_o = (destination == `d_base_data_memory) ? sel : 4'b0000;
 ///////
 
 
-assign base_data_w_o = (destination == `d_base_data_memory)?data_w_i    : inst_w_i;
-assign base_data_r_o = (destination == `d_base_data_memory)?data_r_i    : inst_r_i;
-assign base_data_ce_o= (destination == `d_base_data_memory)?data_ce_i   : inst_ce_i;
+assign base_data_w_o = (destination == `d_base_data_memory)?data_w_i    :
+       (
+           (fast_mode_start_i == `normal_mode)? inst_w_i : 0
+       );
+assign base_data_r_o = (destination == `d_base_data_memory)?data_r_i    :
+       (
+           (fast_mode_start_i == `normal_mode)? inst_r_i : 0
+       );
+assign base_data_ce_o= (destination == `d_base_data_memory)?data_ce_i   : inst_ce_i; // ce 恒0
 assign base_data_o = (destination == `d_base_data_memory) ? data_i_convert : inst_i;
 
 assign is_read_data_o = (destination == `d_base_data_memory)?
@@ -308,12 +339,97 @@ assign data_w_finish_o =
 //        base_data_i;
 
 
-// 目前来说，指令一定来自于BaseRAM
-assign inst_o = (destination == `d_base_data_memory) ? 32'h0000_0000 : base_data_i;
+// 注意优先级！
+assign inst_o =
+       (fast_mode_start_i == `fast_mode)? bram_data_i :
+       ( // normal mode
+           (destination == `d_base_data_memory) ? 32'h0000_0000 : base_data_i
+       );
+//    (destination == `d_base_data_memory) ? 32'h0000_0000 :
+//    (
+//        (fast_mode_start_i == `normal_mode)? base_data_i : bram_data_i // fast mode下使用bram指令
+//    );
 assign inst_r_finish_o =
        (destination == `d_base_data_memory) ?
        `inst_read_unfinish : inst_r_finish_i;
 // 直连获取baseram_ctl信号
 assign baseram_w_finish_o = inst_w_finish_i;
+
+
+//////////////////////////////////////////////////////////
+//////////////     BRAM和Fast Mode的处理     //////////////
+//////////////////////////////////////////////////////////
+
+///////////////////////////////
+// 锁存程序起始addr和地址映射
+///////////////////////////////
+localparam ADDR_SAVE = 2'b01; // 保存地址
+localparam ADDR_LOCK = 2'b10; // 锁住地址
+reg [1:0] addr_state;
+reg [31:0] addr_buffer; // 暂存v0程序初始地址
+
+reg [31:0] addr_map; // 通过BRAM执行程序时候的地址映射值
+
+always @(posedge clk or posedge rst_n)
+begin
+    if(rst_n == `rst_enable)
+    begin
+        addr_buffer <= 0;
+        addr_map    <= 0;
+        addr_state  <= ADDR_SAVE;
+
+        prgm_start_addr_o <= 0; // 没有复位导致出现 set and reset with the same priority
+    end
+    else
+    begin
+        case(addr_state)
+            ADDR_SAVE:
+            begin
+                addr_buffer <= prgm_start_addr_i;
+                if(lock_addr_i == `lock_addr_enable) // 锁住程序地址起始值
+                begin
+                    addr_state <= ADDR_LOCK;
+                end
+            end
+
+            ADDR_LOCK:
+            begin
+                prgm_start_addr_o <= addr_buffer;
+                addr_map          <= addr_buffer - 32'h164; // 应该是0x164吧...
+                if(lock_addr_i == `lock_addr_disable) // 解锁
+                begin
+                    addr_state <= ADDR_SAVE;
+                end
+            end
+        endcase
+    end
+end
+
+
+////////////////////////
+// FastMode转换过程变量
+////////////////////////
+// to base ram ctl
+assign bram_w_start_o = bram_w_start_i;
+assign fast_mode_start_o = fast_mode_start_i;
+
+// to cpu
+assign bram_w_finish_o = bram_w_finish_i;
+
+// to bram 地址需要映射
+wire [31:0] other_addr = pc_i - 32'h8000_2280; // 固化指令地址映射
+wire [31:0] dynamic_addr = pc_i - addr_map;    // 即将执行的程序地址映射
+
+always @(*)
+begin
+    if(pc_i >= 32'h8000_2280 && pc_i <= 32'h8000_23e0) // 测试程序执行之外的其他指令
+    begin
+        bram_addr_o <= other_addr[11:2];
+    end
+    else
+    begin
+        bram_addr_o <= dynamic_addr[11:2];
+    end
+end
 
 endmodule

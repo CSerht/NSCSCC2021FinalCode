@@ -35,9 +35,6 @@ module loaddata_stall(
            output reg mem_wb_w_o
        );
 
-//**********************************
-// load base RAM 的风险还没有处理
-//**********************************
 
 
 // 如果是load指令，且不读串口，则需要暂停，直到read_finish_enable

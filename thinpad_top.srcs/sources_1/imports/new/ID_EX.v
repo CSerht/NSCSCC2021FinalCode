@@ -57,11 +57,11 @@ module ID_EX(
            // EX //
            input wire alu_src_i,
            input wire [3:0] alu_op_i,
-           input wire isjump_i, // 实际已弃用！
+           input wire isjump_i,
 
            output reg alu_src_o,
            output reg [3:0] alu_op_o,
-           output reg isjump_o, // 实际已弃用！
+           output reg isjump_o,
 
            // MEM //
            input wire [1:0] mode_i,
@@ -191,6 +191,9 @@ begin
         // 此信号在clear时候依然正常传递，保证
         // jump冒险时候，第二拍能够正常暂停
         is_jump_inst_o <= is_jump_inst_i; // NOTE!
+
+        // clear代表向ID/EX插入了nop，说明存在load_jump冒险，只有在最后一个
+        // 周期的时候，isjump_i的值才稳定下来，之前不能写入，稳定的时候不clear了
         // isjump_o <= isjump_i; // clear有效的时候不写入，是否跳转悬而未决
 
         // WB //

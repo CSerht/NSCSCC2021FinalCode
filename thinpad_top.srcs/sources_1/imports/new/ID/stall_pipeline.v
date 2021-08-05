@@ -9,7 +9,7 @@
 // Project Name:
 // Target Devices:
 // Tool Versions:
-// Description:
+// Description: 针对跳转指令/运算指令，被load指令束缚，需要暂停流水线
 //
 // Dependencies:
 //
@@ -32,12 +32,19 @@ module stall_pipeline(
            input wire [4:0] if_id_rs_i,
            input wire [4:0] if_id_rt_i,
 
+           input wire if_id_data_r_i,
+           input wire if_id_data_w_i,
+
            output wire pc_w_o,
            output wire if_id_w_o,
            output wire clear_o
        );
 
 // [lw; bne/add;] stall 1 cycle
+// 注意可能的误识别：（lw/sw的base字段，是bne的rs字段）
+// lw    v0,0(a0)
+// lw/sw v0,-4(a1)
+// 补充逻辑：if_id_data_r/w_i disable
 reg pc_w_o_1;
 reg if_id_w_o_1;
 reg clear_o_1;
@@ -49,7 +56,9 @@ begin
         (
             (id_ex_rd_i == if_id_rs_i) ||
             (id_ex_rd_i == if_id_rt_i)
-        )
+        ) &&
+        (if_id_data_r_i == `data_r_disable) &&
+        (if_id_data_w_i == `data_w_disable)
     )
     begin
         // stall pipeline
@@ -95,6 +104,7 @@ end
 
 // result
 /// NOTE: [lw; other inst; not jump inst;] not stall
+/// 仅识别跳转指令，不会被误识别
 assign pc_w_o = (!is_jump_inst_i && pc_w_o_1) ||
        (is_jump_inst_i && pc_w_o_1 && pc_w_o_2);
 

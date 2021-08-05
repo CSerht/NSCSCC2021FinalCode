@@ -10,15 +10,15 @@
 // `define SIMULATION   // in this mode, TX outputs one bit per clock cycle
 // and RX receives one bit per clock cycle (for fast simulations)
 
-////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 
 // 8 --> 1
 module async_transmitter(
            input wire clk,
 
            // start 作为数据发送的开始，数据发送完成前必须置0，否则会一直发数据
-           input wire TxD_start,		// 高有效，开始处理并行数据
-           input wire [7:0] TxD_data,	// 8位并行数据
+           (*mark_debug = "true"*)input wire TxD_start,		// 高有效，开始处理并行数据
+           (*mark_debug = "true"*)input wire [7:0] TxD_data,	// 8位并行数据
 
            output wire TxD,				// 串行数据
            output wire TxD_busy			// 低电平代表一帧发送完成，高电平代表发送中

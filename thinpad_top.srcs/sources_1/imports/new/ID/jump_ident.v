@@ -22,6 +22,8 @@
 `include "../define.v"
 
 module jump_ident(
+        //    input wire fast_mode_start_i,
+
            input wire [5:0] op,
            input wire [31:0] pc,
            input wire [25:0] offset,
@@ -44,6 +46,10 @@ wire [31:0] b_target_offset = { {15{offset[15]}}, offset[14:0], 2'b00 };
 // pc + 4
 // wire [31:0] pc_add_4 = pc + 4;
 // wire [31:0] pc_add_4 = pc; // 【访存需要2周期就不用+4了】
+
+// normal Mode下，pc+4与指令对应
+// Fast Mode下，pc+4和指令一一对应
+wire [31:0] pc_add = pc;
 
 // 注意部分指令的无条件跳转！
 always@(*)
@@ -72,7 +78,7 @@ begin
         begin
             isjump_o <= (data_sub == 0);
             jal_en_o <= 0;
-            pc_o <= pc + b_target_offset;
+            pc_o <= pc_add + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -80,7 +86,7 @@ begin
         begin
             isjump_o <= (data_sub != 0);
             jal_en_o <= 0;
-            pc_o <= pc + b_target_offset;
+            pc_o <= pc_add + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -89,7 +95,7 @@ begin
         begin
             isjump_o <= (dataA[31] == 0 && dataA != 0);
             jal_en_o <= 0;
-            pc_o <= pc + b_target_offset;
+            pc_o <= pc_add + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -99,7 +105,7 @@ begin
         begin
             isjump_o <= (dataA[31] == 0);
             jal_en_o <= 0;
-            pc_o <= pc + b_target_offset;
+            pc_o <= pc_add + b_target_offset;
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -107,7 +113,7 @@ begin
         begin
             isjump_o <= 1;
             jal_en_o <= 0;
-            pc_o <= { pc[31:28], offset, 2'b00 };
+            pc_o <= { pc_add[31:28], offset, 2'b00 };
             jal_o <= 0;
             is_jump_inst_o <= `is_jump_inst;
         end
@@ -115,8 +121,8 @@ begin
         begin
             isjump_o <= 1;
             jal_en_o <= 1;
-            pc_o <= { pc[31:28], offset, 2'b00 };
-            jal_o <= pc + 4; // 当前pc值就是延迟槽指令的pc
+            pc_o <= { pc_add[31:28], offset, 2'b00 };
+            jal_o <= pc_add + 4; // 当前pc值就是延迟槽指令的pc
             is_jump_inst_o <= `is_jump_inst;
         end
         default:

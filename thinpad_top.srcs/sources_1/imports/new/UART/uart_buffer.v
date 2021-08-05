@@ -29,6 +29,9 @@ module uart_buffer(
            input wire clk,
            input wire rst_n,
 
+           // 为0时，锁死buffer数据，禁止任何写入，同时禁止开启发送器
+           input wire trans_enable_i,
+
            // from cpu
            (*mark_debug = "true"*)input wire [31:0] uart_addr_i,
            (*mark_debug = "true"*)input wire [31:0] uart_data_i,
@@ -65,6 +68,12 @@ assign addr = uart_addr_i[2]; // 8 -- 0 ; C -- 1
 
 
 // 不同的信号在不同的逻辑下做不同的事情，因此每个信号分开写！
+
+
+//////////////////////////////////////////////
+// 在阻止0x06发送期间，还应该锁定0x06，暂时没加
+//////////////////////////////////////////////
+
 
 // write avai and serial_data 内部数据
 always@(negedge clk)
@@ -111,6 +120,9 @@ begin
     end
 end
 
+localparam DATA_W_START = 2'b01; // uart_data_w_i导致启动发送器
+localparam TRANS_START  = 2'b10; // trans_enable_i导致启动发送器
+reg [1:0] state;
 
 // 处理start
 always@(posedge clk or posedge rst_n)
@@ -118,18 +130,31 @@ begin
     if(rst_n == `rst_enable)
     begin
         TxD_start_o <= `t_start_disable;
+        state <= DATA_W_START;
     end
-    else if(uart_data_w_i == `uart_data_write_enable)
+    else if(trans_enable_i == `transmitter_enable)
     begin
-        TxD_start_o <= `t_start_enable;
+        // 一般状态下启动发送器
+        if(uart_data_w_i == `uart_data_write_enable && state == DATA_W_START)
+        begin
+            TxD_start_o <= `t_start_enable;
+        end
+        else if(state == TRANS_START) // 被模式切换机禁止后启动start
+        begin
+            TxD_start_o <= `t_start_enable;
+            state <= DATA_W_START;
+        end
+        else
+        begin
+            TxD_start_o <= `t_start_disable;
+        end
     end
-    else
+    else if(trans_enable_i == `transmitter_disable)
     begin
-        TxD_start_o <= `t_start_disable;
+        state <= TRANS_START;
     end
 end
 
-// 这里start的保持时间有点长了……看看有没有影响吧，应该还好
 // assign TxD_start_o = !idle; // 注意是start --启动--> busy
 assign TxD_data_o = serial_data;
 

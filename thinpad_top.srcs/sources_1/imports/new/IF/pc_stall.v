@@ -21,6 +21,8 @@
 
 `include "../define.v"
 module pc_stall(
+           input wire fast_mode_start_i,
+
            input wire inst_r_finish_i,
            input wire baseram_w_finish_i,
 
@@ -30,19 +32,27 @@ module pc_stall(
 
 always@(*)
 begin
-    if(baseram_w_finish_i == `inst_write_unfinish)
+    if(fast_mode_start_i == `normal_mode)
     begin
-        pc_w_o        <= `pc_disable;
-        if_id_clear_o <= `clear_enable;
+        if(baseram_w_finish_i == `inst_write_unfinish)
+        begin
+            pc_w_o        <= `pc_disable;
+            if_id_clear_o <= `clear_enable;
+        end
+        else if(inst_r_finish_i == `inst_read_unfinish)
+        begin
+            pc_w_o        <= `pc_enable;
+            if_id_clear_o <= `clear_enable; // clear IF/ID inst -- nop
+        end
+        else
+        begin
+            pc_w_o        <= `pc_disable;
+            if_id_clear_o <= `clear_disable;
+        end
     end
-    else if(inst_r_finish_i == `inst_read_unfinish)
+    else // fast mode 情况下
     begin
         pc_w_o        <= `pc_enable;
-        if_id_clear_o <= `clear_enable; // clear IF/ID inst -- nop
-    end
-    else
-    begin
-        pc_w_o        <= `pc_disable;
         if_id_clear_o <= `clear_disable;
     end
 end
