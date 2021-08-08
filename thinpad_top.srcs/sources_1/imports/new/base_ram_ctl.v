@@ -114,42 +114,42 @@ localparam FAST_READ  = 3'b010;
 localparam FAST_WRITE = 3'b100;
 reg [2:0] fast_state;
 
-initial // 是不是应该改成reset里面的？
-begin
-    // fast mode
-    fast_state <= FAST_IDLE;
+// initial // 是不是应该改成reset里面的？
+// begin
+//     // fast mode
+//     fast_state <= FAST_IDLE;
 
-    // bram
-    bram_state <= BRAM_W_INIT;
-    bram_w_o <= `bram_w_data_disable;
-    bram_addr_o <= 0;
-    bram_data_o <= 0;
-    sram_to_bram_addr <=0;
-    bram_w_finish_o <= `bram_write_unfinish;
-    bram_addr_buffer <= 0;
+//     // bram
+//     bram_state <= BRAM_W_INIT;
+//     bram_w_o <= `bram_w_data_disable;
+//     bram_addr_o <= 0;
+//     bram_data_o <= 0;
+//     sram_to_bram_addr <=0;
+//     bram_w_finish_o <= `bram_write_unfinish;
+//     bram_addr_buffer <= 0;
 
-    // cpu
-    sram_ctl_busy_o  <= `sram_idle;
-    data_r_finish_o <= `data_read_unfinish;
-    // 写入完成，意味着当前没有数据被写入，平时就是这个状态！
-    // 还有成功写入数据之后，也会从unfinish进入finish状态
-    data_w_finish_o <= `data_write_finish; // NOTE
+//     // cpu
+//     sram_ctl_busy_o  <= `sram_idle;
+//     data_r_finish_o <= `data_read_unfinish;
+//     // 写入完成，意味着当前没有数据被写入，平时就是这个状态！
+//     // 还有成功写入数据之后，也会从unfinish进入finish状态
+//     data_w_finish_o <= `data_write_finish; // NOTE
 
-    // base ram
-    sram_addr <= 0;
-    sram_be_n   <= 0;
-    sram_ce_n   <= 1;
-    sram_oe_n   <= 1;
-    sram_we_n   <= 1;
+//     // base ram
+//     sram_addr <= 0;
+//     sram_be_n   <= 0;
+//     sram_ce_n   <= 1;
+//     sram_oe_n   <= 1;
+//     sram_we_n   <= 1;
 
-    // internal data
-    current_state  <= IDLE;
-    data_from_SRAM <= 32'h0000_0000;
-    data_to_SRAM   <= 32'h0000_0000;
-    tristate       <= W_DISABLE;
+//     // internal data
+//     current_state  <= IDLE;
+//     data_from_SRAM <= 32'h0000_0000;
+//     data_to_SRAM   <= 32'h0000_0000;
+//     tristate       <= W_DISABLE;
 
-    temp_instruction <= 32'h0000_0000;
-end
+//     temp_instruction <= 32'h0000_0000;
+// end
 
 // 时钟上升沿之后，进入某个状态，并在该状态下保持一个周期！
 // 注意所有的状态信息（读完成，写完成，忙碌）都代表的是controler的状态！
@@ -157,9 +157,49 @@ end
 // buffer的数据是从SRAM读出并存好的数据，r_finish表示当前buffer数据有效
 // busy表示当前buffer正在工作中
 // 注意此时，状态机虽然是IDLE状态，但是当前周期是数据保持有效的周期
-always @(posedge clk)
+always @(posedge clk or posedge rst_n)
 begin
-    if(fast_mode_start_i == `fast_mode)
+    if(rst_n == `rst_enable)
+    begin
+        // fast mode
+        fast_state <= FAST_IDLE;
+
+        // bram
+        bram_state <= BRAM_W_INIT;
+        bram_w_o <= `bram_w_data_disable;
+        bram_addr_o <= 0;
+        bram_data_o <= 0;
+        sram_to_bram_addr <=0;
+        bram_w_finish_o <= `bram_write_unfinish;
+        bram_addr_buffer <= 0;
+
+        // cpu
+        sram_ctl_busy_o  <= `sram_idle;
+        // data_r_finish_o <= `data_read_unfinish;
+        // 处理reset刚结束时候的取指操作，仅限于2周期读1条指令的情况
+        data_r_finish_o <= `data_read_finish;
+
+
+        // 写入完成，意味着当前没有数据被写入，平时就是这个状态！
+        // 还有成功写入数据之后，也会从unfinish进入finish状态
+        data_w_finish_o <= `data_write_finish; // NOTE
+
+        // base ram
+        sram_addr <= 0;
+        sram_be_n   <= 0;
+        sram_ce_n   <= 1;
+        sram_oe_n   <= 1;
+        sram_we_n   <= 1;
+
+        // internal data
+        current_state  <= IDLE;
+        data_from_SRAM <= 32'h0000_0000;
+        data_to_SRAM   <= 32'h0000_0000;
+        tristate       <= W_DISABLE;
+
+        temp_instruction <= 32'h0000_0000;
+    end
+    else if(fast_mode_start_i == `fast_mode)
     begin
         // 与ExtRAM的IDLE和READ、WRITE一样了就
         case(fast_state)

@@ -706,6 +706,19 @@ assign data_w_o = data_w_o_exmem;
 assign data_r_o = data_r_o_exmem;
 assign mode_o = mode_o_exmem;
 
+/////////////////////////////////////////////////////
+// 访存缩短到2周期测试，EX结果直接输出到CPU外面
+// 果然不行啊……WNS直接-4.755...直接炸掉
+/////////////////////////////////////////////////////
+// assign data_o = (bypass_mem_data_o == `mem_data_from_ex_mem)?
+//        bypass_data_B : bypass_mem_data_mem_wb;
+
+// assign data_addr_o = alu_result_o_ex;
+// assign data_w_o = data_w_o_idex;
+// assign data_r_o = data_r_o_idex;
+// assign mode_o = mode_o_idex;
+/////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////
 //*********       MEM/WB       *********//

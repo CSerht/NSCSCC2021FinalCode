@@ -37,13 +37,13 @@
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="15"/>
-    <Option Name="WTModelSimExportSim" Val="15"/>
-    <Option Name="WTQuestaExportSim" Val="15"/>
-    <Option Name="WTIesExportSim" Val="15"/>
-    <Option Name="WTVcsExportSim" Val="15"/>
-    <Option Name="WTRivieraExportSim" Val="15"/>
-    <Option Name="WTActivehdlExportSim" Val="15"/>
+    <Option Name="WTXSimExportSim" Val="18"/>
+    <Option Name="WTModelSimExportSim" Val="18"/>
+    <Option Name="WTQuestaExportSim" Val="18"/>
+    <Option Name="WTIesExportSim" Val="18"/>
+    <Option Name="WTVcsExportSim" Val="18"/>
+    <Option Name="WTRivieraExportSim" Val="18"/>
+    <Option Name="WTActivehdlExportSim" Val="18"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -66,7 +66,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/define.v">
         <FileInfo SFType="VHeader">
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/define.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -92,7 +92,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/EX_MEM.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/EX_MEM.v"/>
-          <Attr Name="ImportTime" Val="1627694737"/>
+          <Attr Name="ImportTime" Val="1628313424"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -101,7 +101,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID_EX.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID_EX.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -128,7 +128,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/arbitration.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/arbitration.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -137,7 +137,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/async.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/async.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -146,7 +146,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/base_ram_ctl.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/base_ram_ctl.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -191,7 +191,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/IF/fast_start_transition.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/IF/fast_start_transition.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -209,7 +209,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/IF/inst_i_ctl.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/IF/inst_i_ctl.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -218,7 +218,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID/jump_ident.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/jump_ident.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -227,7 +227,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/MEM/loaddata_stall.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/MEM/loaddata_stall.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -236,7 +236,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/mode_convert.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/mode_convert.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -245,7 +245,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/my_cpu.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/my_cpu.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628389801"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -263,7 +263,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/IF/pc_stall.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/IF/pc_stall.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -281,7 +281,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/MEM/r_w_instram_stall.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/MEM/r_w_instram_stall.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -290,7 +290,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID/reg_files.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/reg_files.v"/>
-          <Attr Name="ImportTime" Val="1627694737"/>
+          <Attr Name="ImportTime" Val="1628313424"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -299,7 +299,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/sram_ctl.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/sram_ctl.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -308,7 +308,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/ID/stall_pipeline.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/ID/stall_pipeline.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -317,7 +317,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/MEM/sw_stall.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/MEM/sw_stall.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -326,7 +326,7 @@
       <File Path="$PSRCDIR/sources_1/imports/new/UART/uart_buffer.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/UART/uart_buffer.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628345370"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -335,9 +335,15 @@
       <File Path="$PSRCDIR/sources_1/imports/new/thinpad_top.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/sources_1/new/thinpad_top.v"/>
-          <Attr Name="ImportTime" Val="1628133643"/>
+          <Attr Name="ImportTime" Val="1628389089"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/ip/BRAM_Curing_inst.coe">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -391,12 +397,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/ip/BRAM_Curing_inst.coe">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="thinpad_top"/>
@@ -408,13 +408,12 @@
       <File Path="$PSRCDIR/constrs_1/imports/new/thinpad_top.xdc">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../myCollege/CPUdesign/localcommit/2021031/thinpad_top.srcs/constrs_1/new/thinpad_top.xdc"/>
-          <Attr Name="ImportTime" Val="1628133642"/>
+          <Attr Name="ImportTime" Val="1628345369"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
       </File>
       <Config>
-        <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/imports/new/thinpad_top.xdc"/>
         <Option Name="ConstrsType" Val="XDC"/>
       </Config>
     </FileSet>

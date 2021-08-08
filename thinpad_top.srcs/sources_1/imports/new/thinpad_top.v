@@ -56,17 +56,21 @@ module thinpad_top(
 
 /* =========== Demo code begin =========== */
 
+// 串口频率参数
+localparam UART_T_R_FREQUENCY = 63000000;
+
+
 // PLL分频示例
 // wire locked, clk_10M, clk_20M;
 wire locked;
-wire clk_55M;
+wire clk_cpu; // clk cpu frequency
 wire clk_50M_test;
 pll_example clock_gen
             (
                 // Clock in ports
                 .clk_in1(clk_50M),  // 外部时钟输入
                 // Clock out ports
-                .clk_out1(clk_55M), // 时钟输出1，频率在IP配置界面中设置
+                .clk_out1(clk_cpu), // 时钟输出1，频率在IP配置界面中设置
                 .clk_out2(clk_50M_test), // 时钟输出2，频率在IP配置界面中设置
                 // Status and control signals
                 .reset(reset_btn), // PLL复位输入
@@ -74,14 +78,14 @@ pll_example clock_gen
                 // 后级电路复位信号应当由它生成（见下）
             );
 
-reg reset_of_clk55M;
+reg reset_of_clkcpu;
 // 异步复位，同步释放，将locked信号转为后级电路的复位reset_of_clk10M
-always@(posedge clk_55M or negedge locked)
+always@(posedge clk_cpu or negedge locked)
 begin
     if(~locked)
-        reset_of_clk55M <= 1'b1;
+        reset_of_clkcpu <= 1'b1;
     else
-        reset_of_clk55M <= 1'b0;
+        reset_of_clkcpu <= 1'b0;
 end
 
 // always@(posedge clk_10M or posedge reset_of_clk10M)
@@ -120,8 +124,8 @@ wire rst_n;
 // assign clk = clk_50M;
 // assign rst_n = reset_btn;
 
-assign clk = clk_55M;
-assign rst_n = reset_of_clk55M;
+assign clk = clk_cpu;
+assign rst_n = reset_of_clkcpu;
 
 wire [31:0] inst_i;
 wire [31:0] data_i;
@@ -726,7 +730,7 @@ assign r_data_w_i = RxD_data_ready;
 
 //接收模块，9600无检验位
 async_receiver #(
-                   .ClkFrequency(50000000),
+                   .ClkFrequency(UART_T_R_FREQUENCY),
                    .Baud(9600)
                )
                ext_uart_r(
@@ -757,7 +761,7 @@ wire TxD_busy;
 assign TxD_busy_i = TxD_busy;
 
 async_transmitter #(
-                      .ClkFrequency ( 50000000 ),
+                      .ClkFrequency ( UART_T_R_FREQUENCY ),
                       .Baud         ( 9600   ))
                   u_async_transmitter (
                       .clk                     ( clk         ),
