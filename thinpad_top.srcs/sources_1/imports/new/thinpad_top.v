@@ -57,6 +57,7 @@ module thinpad_top(
 /* =========== Demo code begin =========== */
 
 // 串口频率参数
+
 localparam UART_T_R_FREQUENCY = 63000000;
 
 
