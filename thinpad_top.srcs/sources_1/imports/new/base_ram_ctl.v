@@ -205,6 +205,10 @@ begin
         case(fast_state)
             FAST_IDLE:
             begin
+                // reset BRAM FSM
+                bram_w_finish_o <= `bram_write_unfinish;
+                bram_state <= BRAM_W_INIT;
+
                 current_state     <= IDLE; // 使其复位，方便Fast切换回Normal
 
                 tristate       <= W_DISABLE;
@@ -449,11 +453,13 @@ begin
             BRAM_W_END:
             begin
                 bram_w_o    <= `bram_w_data_disable;
-                if(fast_mode_start_i == `fast_mode)
-                begin
-                    bram_w_finish_o <= `bram_write_unfinish;
-                    bram_state <= BRAM_W_INIT;
-                end
+                // 该状态根本到达不了……如果`fast_mode状态，
+                // 根本不执行else了...放前面吧
+                // if(fast_mode_start_i == `fast_mode)
+                // begin
+                //     bram_w_finish_o <= `bram_write_unfinish;
+                //     bram_state <= BRAM_W_INIT;
+                // end
             end
         endcase
     end

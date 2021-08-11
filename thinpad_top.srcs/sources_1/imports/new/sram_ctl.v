@@ -68,113 +68,117 @@ reg [31:0] data_to_SRAM;
 reg [1:0] tristate;
 
 
-initial
+// initial
+// begin
+//     // cpu
+//     sram_ctl_busy_o  <= `sram_idle;
+//     data_r_finish_o <= `data_read_unfinish;
+//     // 写入完成，意味着当前没有数据被写入，平时就是这个状态！
+//     // 还有成功写入数据之后，也会从unfinish进入finish状态
+//     data_w_finish_o <= `data_write_finish; // NOTE
+
+//     // base ram
+//     sram_addr <= 0;
+//     sram_be_n   <= 0;
+//     sram_ce_n   <= 1;
+//     sram_oe_n   <= 1;
+//     sram_we_n   <= 1;
+
+//     // internal data
+//     current_state  <= IDLE;
+//     data_from_SRAM <= 32'h0000_0000;
+//     data_to_SRAM   <= 32'h0000_0000;
+//     tristate       <= W_DISABLE;
+// end
+
+always @(posedge clk or posedge rst_n)
 begin
-    // cpu
-    sram_ctl_busy_o  <= `sram_idle;
-    data_r_finish_o <= `data_read_unfinish;
-    // 写入完成，意味着当前没有数据被写入，平时就是这个状态！
-    // 还有成功写入数据之后，也会从unfinish进入finish状态
-    data_w_finish_o <= `data_write_finish; // NOTE
+    if(rst_n == `rst_enable)
+    begin
+        // cpu
+        sram_ctl_busy_o  <= `sram_idle;
+        data_r_finish_o <= `data_read_unfinish;
+        // 写入完成，意味着当前没有数据被写入，平时就是这个状态！
+        // 还有成功写入数据之后，也会从unfinish进入finish状态
+        data_w_finish_o <= `data_write_finish; // NOTE
 
-    // base ram
-    sram_addr <= 0;
-    sram_be_n   <= 0;
-    sram_ce_n   <= 1;
-    sram_oe_n   <= 1;
-    sram_we_n   <= 1;
+        // base ram
+        sram_addr <= 0;
+        sram_be_n   <= 0;
+        sram_ce_n   <= 1;
+        sram_oe_n   <= 1;
+        sram_we_n   <= 1;
 
-    // internal data
-    current_state  <= IDLE;
-    data_from_SRAM <= 32'h0000_0000;
-    data_to_SRAM   <= 32'h0000_0000;
-    tristate       <= W_DISABLE;
-end
-
-// 时钟上升沿之后，进入某个状态，并在该状态下保持一个周期！
-// 注意所有的状态信息（读完成，写完成，忙碌）都代表的是controler的状态！
-// 例如busy，在读状态上升沿写入后保持的一个周期：
-// buffer的数据是从SRAM读出并存好的数据，r_finish表示当前buffer数据有效
-// busy表示当前buffer正在工作中
-// 注意此时，状态机虽然是IDLE状态，但是当前周期是数据保持有效的周期
-always @(posedge clk)
-begin
-    case (current_state)
-        /////// 1. 中止 读/写 状态，保持idle
-        /////// 2. 根据CPU传来的信息，为下面的读写状态
-        ///////    提前准备好数据(要写入的数据)和地址（读/写地址），并切换状态
-        IDLE:
-        begin
-            // internal data
-            tristate       <= W_DISABLE;
-
-            // cpu
-            sram_ctl_busy_o  <= `sram_idle;
-            data_r_finish_o <= `data_read_unfinish;
-            // NOTE! 把之前的WE拉高，结束写入周期
-            data_w_finish_o <= `data_write_finish;
-
-            // base ram
-            sram_ce_n   <= 0;
-            sram_oe_n   <= 0;
-            sram_we_n   <= 1;
-            // ###########################################
-            // NOTE！与取指不同，取指一直连续读，关注不读的部分
-            // 取数据只是偶尔取，数据准备好之后，data_read
-            // 依然是高电平，需要上升沿之后才下降（进入MEM）
-            // 这会导致ext控制器再一次读取，但实际上已经读完
-            // 这会导致连续load出错！
-            // ###########################################
-            if(data_r_i == `data_read_enable && data_r_finish_o == `data_read_unfinish)
+        // internal data
+        current_state  <= IDLE;
+        data_from_SRAM <= 32'h0000_0000;
+        data_to_SRAM   <= 32'h0000_0000;
+        tristate       <= W_DISABLE;
+    end
+    else
+    begin
+        case (current_state)
+            IDLE:
             begin
-                sram_be_n   <= data_sel_i;
-                sram_addr <= data_addr_i[21:2];
-                current_state   <= READ;
+                // internal data
+                tristate       <= W_DISABLE;
+
+                // cpu
+                sram_ctl_busy_o  <= `sram_idle;
+                data_r_finish_o <= `data_read_unfinish;
+                data_w_finish_o <= `data_write_finish;
+
+                // base ram
+                sram_ce_n   <= 0;
+                sram_oe_n   <= 0;
+                sram_we_n   <= 1;
+                // ###########################################
+                // NOTE！与取指不同，取指一直连续读，关注不读的部分
+                // 取数据只是偶尔取，数据准备好之后，data_read
+                // 依然是高电平，需要上升沿之后才下降（进入MEM）
+                // 这会导致ext控制器再一次读取，但实际上已经读完
+                // 这会导致连续load出错！
+                // ###########################################
+                if(data_r_i == `data_read_enable && data_r_finish_o == `data_read_unfinish)
+                begin
+                    sram_be_n   <= data_sel_i;
+                    sram_addr <= data_addr_i[21:2];
+                    current_state   <= READ;
+                end
+                else if(data_w_i == `data_write_enable)
+                begin
+                    data_to_SRAM     <= data_i;
+                    sram_be_n        <= data_sel_i;
+                    sram_addr        <= data_addr_i[21:2];
+                    current_state    <= WRITE;
+                end
+                else // not read and write
+                begin
+                    sram_be_n        <= 0;
+                    current_state    <= IDLE;
+                end
             end
-            else if(data_w_i == `data_write_enable)
+
+            READ:
             begin
-                data_to_SRAM     <= data_i;
-                sram_be_n        <= data_sel_i;
-                sram_addr        <= data_addr_i[21:2];
-                current_state    <= WRITE;
+                data_from_SRAM    <= sram_data;
+                data_r_finish_o   <= `data_read_finish;
+                sram_ctl_busy_o    <= `sram_busy;
+
+                current_state     <= IDLE;
             end
-            else // not read and write
+
+            WRITE:
             begin
-                sram_be_n        <= 0;
-                current_state    <= IDLE;
+                data_w_finish_o <= `data_write_unfinish;
+                sram_we_n   <= 0;
+                sram_ctl_busy_o  <= `sram_busy;
+
+                current_state <= IDLE;
+                tristate      <= W_ENABLE;
             end
-        end
-        /////// 读阶段，把已经从SRAM读出的数据（在门口等着），写入到read data buffer中
-        /////// 该周期等待数据从SRAM的家里走到控制器门口
-        READ:
-        begin
-            // if(data_r_i == `data_read_enable)
-            // begin
-            data_from_SRAM    <= sram_data;
-            data_r_finish_o   <= `data_read_finish;
-            sram_ctl_busy_o    <= `sram_busy;
-
-            current_state     <= IDLE;
-            // end   // 以下只针对【取指的SRAM控制器】
-            // else  // 如果准备写入数据到buffer的时候，发现CPU读不允许了
-            // begin // 就等待读允许，再切换状态
-            // current_state <= READ;
-            // end
-        end
-        /////// 写阶段，把已经准备在 write data buffer中的数据
-        /////// 准备写入到SRAM中（下拉WE，启动写入）
-        /////// 该周期等待数据进入它在SRAM的家里
-        WRITE:
-        begin
-            data_w_finish_o <= `data_write_unfinish;
-            sram_we_n   <= 0;
-            sram_ctl_busy_o  <= `sram_busy;
-
-            current_state <= IDLE;
-            tristate      <= W_ENABLE;
-        end
-    endcase
-
+        endcase
+    end
 end
 
 assign sram_data =
