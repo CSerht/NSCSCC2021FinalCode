@@ -6,5 +6,6 @@
         "*.hrccproj": true,
         "*.sln": true,
         "*.suo": true
-    }
+    },
+    "git.ignoreLimitWarning": true
 }

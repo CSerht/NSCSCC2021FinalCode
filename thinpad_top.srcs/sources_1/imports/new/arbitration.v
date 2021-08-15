@@ -127,10 +127,10 @@ module arbitration(
 assign destination =
        (data_addr_i[31:24] == 8'hBF && (data_w_i || data_r_i)) ?
        `d_serial_memory : // 串口
-       (data_addr_i[31:22] == 10'b1000_0000_01 && (data_w_i || data_r_i)) ?
-       `d_ext_data_memory : // ext_dataRAM
-       (data_addr_i[31:22] == 10'b1000_0000_00 && (data_w_i || data_r_i)) ?
-       `d_base_data_memory : // base_instRAM
+       (data_addr_i[31:22] >= 10'b1000_0000_01 && data_addr_i[31:22] < 10'b1000_0000_10 && (data_w_i || data_r_i)) ?
+       `d_ext_data_memory : // ext_dataRAM  [0x804_*,0x808_*)
+       (data_addr_i[31:22] >= 10'b1000_0000_00 && data_addr_i[31:22] < 10'b1000_0000_01 && (data_w_i || data_r_i)) ?
+       `d_base_data_memory : // base_instRAM [0x800_*,0x804_*)
        `d_other_memory; // 正常取指
 
 // 根据CPU给出的mode处理sel，先集中处理再分流
