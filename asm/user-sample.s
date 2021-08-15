@@ -15,16 +15,18 @@ __start:
 
     # 假设要计算的数，存储在了 地址0x8040_0000
     lui $t7,0x8040  # 第一个要计算的数的地址
-    lui $t3,0x8048  # 总数 512K t3 = 0x8048_0000
-    lui $t4,0x8050 # 存储计算结果
+    lui $t3,0x8048  # 总数 512K t3 = 0x8048_0000，加到这个数之后，就停下来了
+    lui $t4,0x8050 # 存储计算结果 0x8050_0000 -- SRAM 0x4_0000
+
+    # addu $t3,$t3,2 # 展开1次
 
 out_loop:
     lw $t0,0($t7)     # t0 = number
     ori $t2,$zero,0x0 # t2 = 0,save result
 
 # #####
-    # 内循环
-    ori $t6,$zero,28  # t6 = 28 循环8次，循环展开3次
+    # 内循环1
+    ori $t6,$zero,32  # t6 = xx 循环8次，循环展开3次
     ori $t5,$zero,0   # t5 = 0
 loop:
     # 1
@@ -52,10 +54,52 @@ loop:
     bne  $t6,$t5,loop
     nop 
 
-# #####
+    # write to SRAM
     sw    $t2,0($t4) # save result
     addiu $t4,$t4,4    # t4 += 4
+# #####
 
+# #####
+    addiu $t7,$t7,4 # t7 += 4
+
+    lw $t0,0($t7)     # t0 = number
+    ori $t2,$zero,0x0 # t2 = 0,save result
+
+    # 内循环2
+    ori $t6,$zero,32  # t6 = xx 循环8次，循环展开3次
+    ori $t5,$zero,0   # t5 = 0
+loop2:
+    # 1
+    ori  $t1,$t0,0x0     # t1 = t0
+    andi $t1,$t1,0x1    # t1 &= 0x1
+    addu $t2,$t2,$t1    # t2 += t1
+    srl  $t0,$t0,0x1    # t0 >>= 0x1
+    # 2
+    ori  $t1,$t0,0x0     # t1 = t0
+    andi $t1,$t1,0x1    # t1 &= 0x1
+    addu $t2,$t2,$t1    # t2 += t1
+    srl  $t0,$t0,0x1    # t0 >>= 0x1
+    # 3
+    ori  $t1,$t0,0x0     # t1 = t0
+    andi $t1,$t1,0x1    # t1 &= 0x1
+    addu $t2,$t2,$t1    # t2 += t1
+    srl  $t0,$t0,0x1    # t0 >>= 0x1
+    # 4
+    ori  $t1,$t0,0x0     # t1 = t0
+    andi $t1,$t1,0x1    # t1 &= 0x1
+    addu $t2,$t2,$t1    # t2 += t1
+    srl  $t0,$t0,0x1    # t0 >>= 0x1
+
+    addiu $t5,$t5,0x4    # t5 += 4
+    bne  $t6,$t5,loop2
+    nop 
+
+    # write to SRAM
+    sw    $t2,0($t4) # save result
+    addiu $t4,$t4,4    # t4 += 4
+# #####
+
+# #####
     addiu $t7,$t7,4 # t7 += 4
     bne   $t7,$t3,out_loop
     nop

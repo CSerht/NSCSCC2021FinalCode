@@ -123,15 +123,26 @@ module arbitration(
 
 
 // 根据地址的值(且必须是 读/写 指令)进行仲裁
+// 10'b1000_0000_01 代表范围 [0x804_*,0x808_*)
+// 10'b1000_0000_00 代表范围 [0x800_*,0x804_*)
 (*mark_debug = "true"*)wire [1:0] destination;
 assign destination =
        (data_addr_i[31:24] == 8'hBF && (data_w_i || data_r_i)) ?
        `d_serial_memory : // 串口
-       (data_addr_i[31:22] >= 10'b1000_0000_01 && data_addr_i[31:22] < 10'b1000_0000_10 && (data_w_i || data_r_i)) ?
+       (data_addr_i[31:22] == 10'b1000_0000_01 && (data_w_i || data_r_i)) ?
        `d_ext_data_memory : // ext_dataRAM  [0x804_*,0x808_*)
-       (data_addr_i[31:22] >= 10'b1000_0000_00 && data_addr_i[31:22] < 10'b1000_0000_01 && (data_w_i || data_r_i)) ?
+       (data_addr_i[31:22] == 10'b1000_0000_00 && (data_w_i || data_r_i)) ?
        `d_base_data_memory : // base_instRAM [0x800_*,0x804_*)
        `d_other_memory; // 正常取指
+
+// assign destination =
+//        (data_addr_i[31:24] == 8'hBF && (data_w_i || data_r_i)) ?
+//        `d_serial_memory : // 串口
+//        ((data_addr_i[31:24] == 8'h80) && (data_addr_i[23:22] >= 2'b01) && (data_addr_i[23:22] < 2'b10) && (data_w_i || data_r_i)) ?
+//        `d_ext_data_memory : // ext_dataRAM  [0x804_*,0x808_*) && data_addr_i[31:22] < 10'b1000_0000_10
+//        ((data_addr_i[31:24] == 8'h80) && (data_addr_i[23:22] >= 2'b00) && (data_addr_i[23:22] < 2'b01) && (data_w_i || data_r_i)) ?
+//        `d_base_data_memory : // base_instRAM [0x800_*,0x804_*) && data_addr_i[31:22] < 10'b1000_0000_01
+//        `d_other_memory; // 正常取指
 
 // 根据CPU给出的mode处理sel，先集中处理再分流
 reg [3:0] sel;
