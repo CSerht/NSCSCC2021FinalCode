@@ -25,7 +25,7 @@ out_loop:
     ori $t2,$zero,0x0 # t2 = 0,save result
 
 # #####
-    # 内循环1
+    # 内循环
     ori $t6,$zero,32  # t6 = xx 循环8次，循环展开3次
     ori $t5,$zero,0   # t5 = 0
 loop:
@@ -57,47 +57,8 @@ loop:
     # write to SRAM
     sw    $t2,0($t4) # save result
     addiu $t4,$t4,4    # t4 += 4
-# #####
 
-# #####
-    addiu $t7,$t7,4 # t7 += 4
 
-    lw $t0,0($t7)     # t0 = number
-    ori $t2,$zero,0x0 # t2 = 0,save result
-
-    # 内循环2
-    ori $t6,$zero,32  # t6 = xx 循环8次，循环展开3次
-    ori $t5,$zero,0   # t5 = 0
-loop2:
-    # 1
-    ori  $t1,$t0,0x0     # t1 = t0
-    andi $t1,$t1,0x1    # t1 &= 0x1
-    addu $t2,$t2,$t1    # t2 += t1
-    srl  $t0,$t0,0x1    # t0 >>= 0x1
-    # 2
-    ori  $t1,$t0,0x0     # t1 = t0
-    andi $t1,$t1,0x1    # t1 &= 0x1
-    addu $t2,$t2,$t1    # t2 += t1
-    srl  $t0,$t0,0x1    # t0 >>= 0x1
-    # 3
-    ori  $t1,$t0,0x0     # t1 = t0
-    andi $t1,$t1,0x1    # t1 &= 0x1
-    addu $t2,$t2,$t1    # t2 += t1
-    srl  $t0,$t0,0x1    # t0 >>= 0x1
-    # 4
-    ori  $t1,$t0,0x0     # t1 = t0
-    andi $t1,$t1,0x1    # t1 &= 0x1
-    addu $t2,$t2,$t1    # t2 += t1
-    srl  $t0,$t0,0x1    # t0 >>= 0x1
-
-    addiu $t5,$t5,0x4    # t5 += 4
-    bne  $t6,$t5,loop2
-    nop 
-
-    # write to SRAM
-    sw    $t2,0($t4) # save result
-    addiu $t4,$t4,4    # t4 += 4
-# #####
 
 # #####
     addiu $t7,$t7,4 # t7 += 4
