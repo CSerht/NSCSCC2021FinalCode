@@ -33,10 +33,11 @@ module sw_stall(
            output reg clear_o
        );
 
-// 为1，说明EX stage的sw的不是写串口，且ID，EX均为store指令
+// 为1，说明EX stage的sw的不是写串口，不写加速器，且ID，EX均为store指令
 // 需要向中间插入nop
 wire stall_sw = if_id_w_i && id_ex_w_i &&
-     (id_ex_data_addr_i[31:24] != 8'hBF);
+     (id_ex_data_addr_i[31:24] != 8'hBF) &&
+     (id_ex_data_addr_i[31:24] != 8'hFF);
 
 always@(*)
 begin

@@ -22,7 +22,7 @@
 `include "../define.v"
 module loaddata_stall(
            //    input wire clk,
-        //    input wire rst_n,
+           //    input wire rst_n,
 
            input wire ex_mem_data_r_i,
            input wire data_r_finish_i,
@@ -37,9 +37,11 @@ module loaddata_stall(
 
 
 
-// 如果是load指令，且不读串口，则需要暂停，直到read_finish_enable
-wire load_stall = (ex_mem_data_r_i == `data_r_enable) &&
-     (data_addr_i[31:24] != 8'hBF);
+// 如果是load指令，且不读串口，不读加速器，则需要暂停，直到read_finish_enable
+wire load_stall =
+     (ex_mem_data_r_i == `data_r_enable) &&
+     (data_addr_i[31:24] != 8'hBF)       &&
+     (data_addr_i[31:24] != 8'hFF);
 
 always@(*)
 begin

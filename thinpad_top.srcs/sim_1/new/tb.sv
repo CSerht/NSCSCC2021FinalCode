@@ -14,7 +14,7 @@ wire[7:0]  dpy0;       //数码管低位信号，包括小数点，输出1点亮
 wire[7:0]  dpy1;       //数码管高位信号，包括小数点，输出1点亮
 
 wire txd;  //直连串口发送端
-wire rxd;  //直连串口接收端
+reg rxd;  //直连串口接收端
 
 wire[31:0] base_ram_data; //BaseRAM数据，低8位与CPLD串口控制器共享
 wire[19:0] base_ram_addr; //BaseRAM地址
@@ -40,11 +40,11 @@ wire flash_we_n;         //Flash写使能信号，低有效
 wire flash_byte_n;       //Flash 8bit模式选择，低有效。在使用flash的16位模式时请设为1
 
 //Windows需要注意路径分隔符的转义，例如"D:\\foo\\bar.bin"
-parameter BASE_RAM_INIT_FILE = "/tmp/main.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
-parameter EXT_RAM_INIT_FILE = "/tmp/eram.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
-parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
+parameter BASE_RAM_INIT_FILE = "..\\..\\..\\..\\ramfile\\inst_base.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+parameter EXT_RAM_INIT_FILE = "..\\..\\..\\..\\ramfile\\data_ext.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
+// parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
 
-assign rxd = 1'b1; //idle state
+// assign rxd = 1'b1; //idle state
 
 initial begin 
     //在这里可以自定义测试输入序列，例如：
@@ -53,12 +53,12 @@ initial begin
     reset_btn = 1;
     #100;
     reset_btn = 0;
-    for (integer i = 0; i < 20; i = i+1) begin
-        #100; //等待100ns
-        clock_btn = 1; //按下手工时钟按钮
-        #100; //等待100ns
-        clock_btn = 0; //松开手工时钟按钮
-    end
+    // for (integer i = 0; i < 20; i = i+1) begin
+    //     #100; //等待100ns
+    //     clock_btn = 1; //按下手工时钟按钮
+    //     #100; //等待100ns
+    //     clock_btn = 0; //松开手工时钟按钮
+    // end
 end
 
 // 待测试用户设计
@@ -135,28 +135,28 @@ sram_model ext2(/*autoinst*/
             .WE_n(ext_ram_we_n),
             .LB_n(ext_ram_be_n[2]),
             .UB_n(ext_ram_be_n[3]));
-// Flash 仿真模型
-x28fxxxp30 #(.FILENAME_MEM(FLASH_INIT_FILE)) flash(
-    .A(flash_a[1+:22]), 
-    .DQ(flash_d), 
-    .W_N(flash_we_n),    // Write Enable 
-    .G_N(flash_oe_n),    // Output Enable
-    .E_N(flash_ce_n),    // Chip Enable
-    .L_N(1'b0),    // Latch Enable
-    .K(1'b0),      // Clock
-    .WP_N(flash_vpen),   // Write Protect
-    .RP_N(flash_rp_n),   // Reset/Power-Down
-    .VDD('d3300), 
-    .VDDQ('d3300), 
-    .VPP('d1800), 
-    .Info(1'b1));
+// // Flash 仿真模型
+// x28fxxxp30 #(.FILENAME_MEM(FLASH_INIT_FILE)) flash(
+//     .A(flash_a[1+:22]), 
+//     .DQ(flash_d), 
+//     .W_N(flash_we_n),    // Write Enable 
+//     .G_N(flash_oe_n),    // Output Enable
+//     .E_N(flash_ce_n),    // Chip Enable
+//     .L_N(1'b0),    // Latch Enable
+//     .K(1'b0),      // Clock
+//     .WP_N(flash_vpen),   // Write Protect
+//     .RP_N(flash_rp_n),   // Reset/Power-Down
+//     .VDD('d3300), 
+//     .VDDQ('d3300), 
+//     .VPP('d1800), 
+//     .Info(1'b1));
 
-initial begin 
-    wait(flash_byte_n == 1'b0);
-    $display("8-bit Flash interface is not supported in simulation!");
-    $display("Please tie flash_byte_n to high");
-    $stop;
-end
+// initial begin 
+//     wait(flash_byte_n == 1'b0);
+//     $display("8-bit Flash interface is not supported in simulation!");
+//     $display("Please tie flash_byte_n to high");
+//     $stop;
+// end
 
 // 从文件加载 BaseRAM
 initial begin 
@@ -201,4 +201,185 @@ initial begin
         ext2.mem_array1[i] = tmp_array[i][0+:8];
     end
 end
+
+
+// 频率提高，等待时间就不好搞了……
+localparam clock_time = 15.38; // 时钟周期
+
+initial 
+begin
+    rxd = 1'b1; #48000  // idle
+
+    rxd = 1'b0; #20     // start
+
+    // data 0x47  8'b0100_01111 'G'
+    rxd = 1'b1; #20     // bit 0
+    rxd = 1'b1; #20
+    rxd = 1'b1; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b1; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1;         // idle
+
+    # 1000
+    // 0x8000_3000
+    // 0x00 0000_0000
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1; #300     // idle
+
+    // 0x30
+    // 0011_0000
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20
+    rxd = 1'b1; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1; #300     // idle
+
+    // 0x00
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1; #300     // idle
+
+    // 0x80
+    // 1000_0000
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b1; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1;         // idle
+
+
+/////////////////////////////////////
+    #30000
+    rxd = 1'b0; #20     // start
+
+    // data 0x47  8'b0100_01111 'G'
+    rxd = 1'b1; #20     // bit 0
+    rxd = 1'b1; #20
+    rxd = 1'b1; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b1; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1;         // idle
+
+    # 1000
+    // 0x8000_300c
+    // 0x0c 0000_1100
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b1; #20
+    rxd = 1'b1; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1; #300     // idle
+
+    // 0x30
+    // 0011_0000
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20
+    rxd = 1'b1; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1; #300     // idle
+
+    // 0x00
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1; #300     // idle
+
+    // 0x80
+    // 1000_0000
+    rxd = 1'b0; #20     // start
+
+    rxd = 1'b0; #20     // bit 0
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b0; #20
+    rxd = 1'b1; #20
+
+    rxd = 1'b1; #20     // stop
+    rxd = 1'b1;         // idle
+end
+
 endmodule

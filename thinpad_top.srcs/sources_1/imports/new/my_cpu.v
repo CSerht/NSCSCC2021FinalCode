@@ -693,8 +693,8 @@ data_hazard_lwsw  u_data_hazard_lwsw (
 // output for data mem ctl //
 /***************************/
 wire [31:0] data_result_mem;
-assign data_result_mem =
-       (mem_reg_o_exmem == 0)? alu_result_o_exmem : data_i;
+// assign data_result_mem =
+//        (mem_reg_o_exmem == 0)? alu_result_o_exmem : data_i;
 
 // data for memory using bypass
 wire [31:0] bypass_mem_data_mem_wb;
@@ -1080,18 +1080,67 @@ fast_start_transition u_fast_start_transition (
                       );
 
 
+/////////////////////////////
+///////  mem_speed.v  ///////
+/////////////////////////////
+
+// input
+wire [31:0] spe_addr_i;
+wire [31:0] spe_data_i;
+wire [1:0] spe_mode_i;
+wire spe_data_w_i;
+wire spe_data_r_i;
+
+assign spe_addr_i   = alu_result_o_exmem;
+assign spe_data_i   = data_o;
+assign spe_mode_i   = mode_o_exmem;
+assign spe_data_w_i = data_w_o_exmem;
+assign spe_data_r_i = data_r_o_exmem;
+
+
+// output
+wire spe_stall_pipe_o;
+wire spe_or_mem_o;
+wire [31:0] spe_data_o;
+
+wire [31:0] data_from_mem = (spe_or_mem_o == 1)? spe_data_o : data_i;
+
+assign data_result_mem =
+       (mem_reg_o_exmem == 0)? alu_result_o_exmem : data_from_mem;
+
+mem_speed  u_mem_speed (
+               .clk                     ( clk                ),
+               .rst_n                   ( rst_n              ),
+
+               .spe_addr_i              ( spe_addr_i         ),
+               .spe_data_i              ( spe_data_i         ),
+               .spe_mode_i              ( spe_mode_i         ),
+               .spe_data_w_i            ( spe_data_w_i       ),
+               .spe_data_r_i            ( spe_data_r_i       ),
+
+               .spe_stall_pipe_o        ( spe_stall_pipe_o   ),
+               .spe_or_mem_o            ( spe_or_mem_o       ),
+               .spe_data_o              ( spe_data_o         )
+           );
+
+
 // 流水暂停，列真值表
 assign pc_w_i    = pc_w_o && pc_w_o_mem &&
        pc_w_o_load && pc_w_o_pcstall &&
-       pc_w_o_swstall && stall_entire_cpu_o;
+       pc_w_o_swstall && stall_entire_cpu_o &&
+       spe_stall_pipe_o;
 assign if_id_w_i = if_id_w_o && if_id_w_o_mem && if_id_w_o_load
-       && if_id_w_o_swstall && stall_entire_cpu_o;
+       && if_id_w_o_swstall && stall_entire_cpu_o &&
+       spe_stall_pipe_o;
 
 
+assign id_ex_reg_w_i = id_ex_w_o_load &&
+       stall_entire_cpu_o && spe_stall_pipe_o;
+assign ex_mem_reg_w_i = ex_mem_w_o_load &&
+       stall_entire_cpu_o && spe_stall_pipe_o;
+assign mem_wb_reg_w_i = mem_wb_w_o_load &&
+       stall_entire_cpu_o && spe_stall_pipe_o;
 
-assign id_ex_reg_w_i = id_ex_w_o_load && stall_entire_cpu_o;
-assign ex_mem_reg_w_i = ex_mem_w_o_load && stall_entire_cpu_o;
-assign mem_wb_reg_w_i = mem_wb_w_o_load && stall_entire_cpu_o;
 
 // 除了pc_stall导致PC不允许写的情况
 wire pc_w_i_exclude_pcstall = pc_w_o && pc_w_o_mem && pc_w_o_load;
