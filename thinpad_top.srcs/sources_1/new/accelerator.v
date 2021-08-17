@@ -30,26 +30,27 @@ module accelerator(
 
 // 获取result的逻辑，就是加速器逻辑
 // 尽可能【并行处理数据】
-assign spe_result_o = spe_data_i + spe_data_i;
+// assign spe_result_o = spe_data_i + spe_data_i;
+wire [5:0] temp [31:0];
 
-// genvar i;
-// generate
-//     for(i = 0; i < 16; i = i + 1)
-//     begin
-//         assign temp[i]  = spe_data_i[i+i]  + spe_data_i[i+i+1];
-//     end
-// endgenerate
 
-// generate
-//     for(i = 0; i < 8; i = i + 1)
-//     begin
-//         assign temp[i+16] = temp[2*i]  + temp[2*i + 1];
-//     end
-// endgenerate
+genvar i;
+generate
+    for(i = 0; i < 16; i = i + 1)
+    begin
+        assign temp[i]  = spe_data_i[i+i]  + spe_data_i[i+i+1];
+    end
+endgenerate
+
+generate
+    for(i = 0; i < 8; i = i + 1)
+    begin
+        assign temp[i+16] = temp[2*i]  + temp[2*i + 1];
+    end
+endgenerate
 
 
 // max 32
-// wire [5:0] temp [31:0];
 
 // group 1, number = 16
 // assign temp[0]  = spe_data_i[0]  + spe_data_i[1];
@@ -81,20 +82,20 @@ assign spe_result_o = spe_data_i + spe_data_i;
 // assign temp[23] = temp[14] + temp[15];
 
 
-// // group 3, number = 4
-// assign temp[24] = temp[16] + temp[17];
-// assign temp[25] = temp[18] + temp[19];
-// assign temp[26] = temp[20] + temp[21];
-// assign temp[27] = temp[22] + temp[23];
+// group 3, number = 4
+assign temp[24] = temp[16] + temp[17];
+assign temp[25] = temp[18] + temp[19];
+assign temp[26] = temp[20] + temp[21];
+assign temp[27] = temp[22] + temp[23];
 
-// // group 4, number = 2
-// assign temp[28] = temp[24] + temp[25];
-// assign temp[29] = temp[26] + temp[27];
+// group 4, number = 2
+assign temp[28] = temp[24] + temp[25];
+assign temp[29] = temp[26] + temp[27];
 
-// // group 5, number = 1
-// assign temp[30] = temp[28] + temp[29];
+// group 5, number = 1
+assign temp[30] = temp[28] + temp[29];
 
-// // final
-// assign spe_result_o = {26'b0, temp[30]};
+// final
+assign spe_result_o = {26'b0, temp[30]};
 
 endmodule
