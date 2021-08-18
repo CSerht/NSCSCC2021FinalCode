@@ -24,14 +24,15 @@ __start:
 # for(i=0; i<3000; i++) {
     li $t2,0    # i = 0
     li $t3,2999 # i [0,3000)  [0,2999]
-    li $t4,0    # sum = 0
+    
 loop1:
-
+    li $t4,0    # sum = 0
 
     # for(j=0; j<10; j++) {
     li $t5,0   # j = 0
     li $t6,9  # j [0,10)  [0,9]
     li $t7,0   # ave = 0
+
 loop2:
     # get a[i][j][k]
     # addr =  0x80400000+i*80+j*8+k
@@ -112,7 +113,6 @@ too2: # array = addr(a[i][j]) = t9
     bne $t5,$t6,loop2
     addiu $t5,$t5,1 # t5 += 1
     # }
-
 
 
     # b[i] addr = 0x8060_0000 + i * 4
