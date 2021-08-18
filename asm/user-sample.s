@@ -89,16 +89,22 @@ too2: # array = addr(a[i][j]) = t9
     nop 
 
     # 计算ave $t7，a[i][j][0] MAX; a[i][j][7] MIN
-    lb $s6,2($t9)  
-    addu $t7,$7,$6
-    lb $s6,3($t9)  
-    addu $t7,$7,$6
-    lb $s6,4($t9)  
-    addu $t7,$7,$6
-    lb $s6,5($t9)  
-    addu $t7,$7,$6 # ave = a[i][j][2,3,4,5]
+    
+    # sw $t9,0($t9) # 测试
+
+    li $t7,0
+    lb $s0,2($t9) 
+    addu $t7,$t7,$s0
+    lb $s1,3($t9)  
+    addu $t7,$t7,$s1
+    lb $s2,4($t9)  
+    addu $t7,$t7,$s2
+    lb $s3,5($t9)  
+    addu $t7,$t7,$s3 # ave = a[i][j][2,3,4,5]
 
     srl $t7,$t7,2 # get ave final
+
+    # sw $t7,0($t9) # 测试
 
     # ###########
     addu $t4,$t4,$t7    # sum += ave
@@ -106,6 +112,8 @@ too2: # array = addr(a[i][j]) = t9
     bne $t5,$t6,loop2
     addiu $t5,$t5,1 # t5 += 1
     # }
+
+
 
     # b[i] addr = 0x8060_0000 + i * 4
     # b[i] = sum
@@ -119,51 +127,56 @@ too2: # array = addr(a[i][j]) = t9
 # }
 
  
-# //排序后array[0]里是最大数
-# //该宏会修改t0-t7寄存器
-# bubble_sort_int(array, n) 
-    ori   $s6, $zero, 0           # t6 =  i           
-    ori   $s7, $zero, 2999         # t7 =  n-1         
-# for(i=0; i <n-1; i++)                   
-too4: 
-    ori   $s5, $zero, 0       # t5 =  j      
-    addiu $s0, $zero, -1          #  -1               
-    xor   $s0, $s6, $s0            #  -i               
-    addiu $s0, $s0, 1          #  -i+1 = -i        
-    addu  $s4, $s7, $s0            # t4 =  n-1-i       
-# for(j=0; j <n-1-i; j++)                 
-too5: 
-    ori   $s0, $zero,  2                    
-    sllv   $s0, $s5, $s0            #       4*j         
-    addu  $s3, $t1, $s0         #      *a[j]        
-    lw    $s1, 0($s3)             # t1 =  a[j]        
-    lw    $s2, 4($s3)             # t2 =  a[j+1]   
+ # #########################################
+ # 单独对int的排序没问题
+ # #########################################
+    # //排序后array[0]里是最大数
+    # //该宏会修改t0-t7寄存器
+    # bubble_sort_int(array, n) 
+        ori   $s6, $zero, 0           # t6 =  i           
+        ori   $s7, $zero, 2999         # t7 =  n-1         
+    # for(i=0; i <n-1; i++)                   
+    too4: 
+        ori   $s5, $zero, 0       # t5 =  j      
+        addiu $s0, $zero, -1          #  -1               
+        xor   $s0, $s6, $s0            #  -i               
+        addiu $s0, $s0, 1          #  -i+1 = -i        
+        addu  $s4, $s7, $s0            # t4 =  n-1-i       
+    # for(j=0; j <n-1-i; j++)                 
+    too5: # $t1 b addr
+        ori   $s0, $zero,  2                    
+        sllv   $s0, $s5, $s0            #       4*j         
+        addu  $s3, $t1, $s0         #      *a[j]        
+        lw    $s1, 0($s3)             # t1 =  a[j]        
+        lw    $s2, 4($s3)             # t2 =  a[j+1]   
 
-    # ###################
-    # swap_if_lt(t1, t2)          # if (t1 < t2) swap 
+        # ###################
+        # swap_if_lt(t1, t2)          # if (t1 < t2) swap 
 
-    # //swap a and b if a<b
-    # //该宏会修改$7寄存器
-    # swap_if_lt(a,b) 
-    sltu $7, $s1,$s2   # if a < b, $7 = 1，无符号比较
-    
-    beq  $7, $zero, too6
-    nop                  
-    xor  $s2, $s2,$s1     
-    xor  $s1, $s1,$s2     
-    xor  $s2, $s2,$s1     
-    too6: 
+        # //swap a and b if a<b
+        # //该宏会修改$7寄存器
+        # swap_if_lt(a,b) 
+        sltu $7, $s1,$s2   # if a < b, $7 = 1，无符号比较
+        
+        beq  $7, $zero, too6
+        nop                  
+        xor  $s2, $s2,$s1     
+        xor  $s1, $s1,$s2     
+        xor  $s2, $s2,$s1     
+        too6: 
 
-    # ###################
+        # ###################
 
-    sw    $s1, 0($s3)             # a[j]   = t1       
-    sw    $s2, 4($s3)             # a[j+1] = t2       
-    addiu $s5, $s5, 1                           
-    bne   $s5, $s4, too5                         
-    nop                                       
-    addiu $s6, $s6, 1                           
-    bne   $s6, $s7, too4                         
-    nop                                       
+        sw    $s1, 0($s3)             # a[j]   = t1       
+        sw    $s2, 4($s3)             # a[j+1] = t2       
+        addiu $s5, $s5, 1                           
+        bne   $s5, $s4, too5                         
+        nop                                       
+        addiu $s6, $s6, 1                           
+        bne   $s6, $s7, too4                         
+        nop                                       
+# #########################################
+
 
 # #########################################
 # 固定结尾，不要动
