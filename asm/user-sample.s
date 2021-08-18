@@ -14,11 +14,11 @@
 __start:
 .text
     lui $t0,0x8040 # 数组char a起始地址  0x8040_0000 
-    lui $2,80      # i * 10 * 8
-    lui $3,8       # j * 8
+    li $2,80      # i * 10 * 8
+    li $3,8       # j * 8
 
     lui $t1,0x8060 # 数组int  b起始地址  0x8060_0000
-    lui $4,4       # i * 4
+    li $4,4       # i * 4
 
 
 # for(i=0; i<3000; i++) {
@@ -29,9 +29,9 @@ loop1:
 
 
     # for(j=0; j<10; j++) {
-    lui $t5,0   # j = 0
-    lui $t6,9  # j [0,10)  [0,9]
-    lui $t7,0   # ave = 0
+    li $t5,0   # j = 0
+    li $t6,9  # j [0,10)  [0,9]
+    li $t7,0   # ave = 0
 loop2:
     # get a[i][j][k]
     # addr =  0x80400000+i*80+j*8+k
@@ -134,7 +134,7 @@ too4:
 # for(j=0; j <n-1-i; j++)                 
 too5: 
     ori   $s0, $zero,  2                    
-    sll   $s0, $s5, $s0            #       4*j         
+    sllv   $s0, $s5, $s0            #       4*j         
     addu  $s3, $t1, $s0         #      *a[j]        
     lw    $s1, 0($s3)             # t1 =  a[j]        
     lw    $s2, 4($s3)             # t2 =  a[j+1]   
