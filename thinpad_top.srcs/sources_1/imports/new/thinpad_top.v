@@ -58,7 +58,7 @@ module thinpad_top(
 
 
 // 串口频率参数
-localparam UART_T_R_FREQUENCY = 60000000;
+localparam UART_T_R_FREQUENCY = 62000000;
 
 
 // PLL分频示例
