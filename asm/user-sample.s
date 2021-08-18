@@ -44,7 +44,7 @@ loop2:
     # ###########
     # get ave
 
-# //排序后array[0]里是最大数,n = 8
+# //排序后array[0]里是最大数,n = 8  
 # //该宏会修改s0-s7寄存器
 # bubble_sort_char(array, n) 
     ori   $s6, $zero, 0           # t6 =  i         
