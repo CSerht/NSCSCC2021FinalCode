@@ -73,6 +73,12 @@ begin
         `sllv_op: // 还得有rs……注意移位最大32位
             alu_result_o <= op2 << op1[4:0];
 
+        ////////////////////////////////
+        `sltu_op:
+            alu_result_o <= (op1 < op2)? 1 : 0;
+        ////////////////////////////////
+
+
         default:
             alu_result_o <= 0;
     endcase

@@ -49,6 +49,10 @@ begin
                     op_o <= `sllv_op;
                 `addu_func:
                     op_o <= `add_op;
+                ////////////////////////////////
+                `sltu_func:
+                    op_o <= `sltu_op;
+                ////////////////////////////////
 
                 default:
                     op_o <= `other_op;
